@@ -1,0 +1,163 @@
+
+<div class="container">
+  <div fxFlex="40" style="margin:15px auto;" id="quote" fxFlex.sm="100">
+    <h1 class="text-center">1cr Life Cover at Rs.490/month* </h1>
+    <p class="text-center">Protection against all forms of death, disease, disability</p>
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
+        <form [formGroup]="firstFormGroup" fxLayout="column" (ngSubmit)="checkFirstForm()">
+          <input type="hidden" formControlName="customerFormatDOB" readonly>
+          <p class="gap-no">Choose Gender</p>
+          <p class="">
+            <mat-button-toggle-group name="fontStyle" formControlName="customerGender" aria-label="Font Style" [value]="genderValue">
+              <mat-button-toggle value="M" aria-checked="checked">
+                <mat-icon class="mat-icon-face">sentiment_satisfied_alt</mat-icon>Male
+              </mat-button-toggle>
+              <mat-button-toggle value="F">
+                <mat-icon class="mat-icon-face">face</mat-icon>Female
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </p>
+          <p class="gap-no">Your Date of Birth</p>
+          <p fxFlex="100" fxLayout="row">
+            <i class="material-icons">
+              date_range
+            </i>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" placeholder="Choose date" [max]="maxDOB" formControlName="customerDOB" date=true (focus)="picker.open()" (dateChange)="calculateAge($event)" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="firstFormGroup.controls['customerDOB'].errors?.required">
+                Customer date of birth is required!
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field [hidden]="true">
+              <input matInput type="number" placeholder="Age" formControlName="custAge" readonly>
+            </mat-form-field>
+          </p>
+          <p class="gap-no">Mobile Number</p>
+          <p fxFlex="100" fxLayout="row">
+            <i class="material-icons">
+              phone
+            </i>
+            <mat-form-field fxFLex="10" style="width:20% !important;">
+              <div fxFLex="10">
+                <mat-select placeholder="Country Code" fxFLex="30" formControlName="custCuntryCode">
+                  <mat-option value="91" selected>+91</mat-option>
+                </mat-select>
+              </div>
+            </mat-form-field>
+            <mat-form-field>
+              <div fxFLex="30" fxFLex="30">
+                <input matInput type="text" placeholder="Should be 10 digits" formControlName="custMob" maxlength="10" (focus)="focusState = true" (focusout)="focusState = false" autocomplete="off" #custMob >
+              </div>
+              <mat-error *ngIf="firstFormGroup.controls['custMob'].errors?.required">
+                Customer mobile no is required!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['custMob'].errors?.pattern">
+                Please enter valid 10 digit mobile no!
+              </mat-error>
+              <mat-hint align="end" *ngIf="focusState">{{custMob.value.length}}/10</mat-hint>
+            </mat-form-field>
+          </p>
+          <div style="margin:auto;">
+            <!--<button type="submit" mat-button class="contact100-form-btn" matStepperNext>Continue <mat-icon class="forward">
+                arrow_forward</mat-icon></button>-->
+            <button mat-button class="contact100-form-btn" type="submit">Continue <mat-icon class="forward">
+              arrow_forward</mat-icon></button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+        <form [formGroup]="secondFormGroup">
+          <mat-vertical-stepper [linear]="isLinear" #vstepper>
+
+            <mat-step [stepControl]="customerFormStep2">
+              <form [formGroup]="customerFormStep2">
+                <ng-template matStepLabel>Do You Smoke or Chew Tobacco?</ng-template>
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="customerSmoker">
+                  <mat-button-toggle value="Y" (click)="submitSmokerStatus(vstepper)">Yes</mat-button-toggle>
+                  <mat-button-toggle value="N" (click)="submitSmokerStatus(vstepper)">No</mat-button-toggle>
+                </mat-button-toggle-group>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="customerFormStep3">
+              <form [formGroup]="customerFormStep3" (ngSubmit)="checkStep3Form(vstepper)">
+                <ng-template matStepLabel>Please Select Your Annual Income</ng-template>
+                <mat-form-field>
+                  <mat-select placeholder="Annual Income" formControlName="customerIncome">
+                    <mat-option *ngFor="let incomeItem of annualIncomeList" [value]="incomeItem.id">
+                      {{incomeItem.text}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="customerFormStep3.controls['customerIncome'].errors?.required">
+                    Please select your annual income !
+                  </mat-error>
+                </mat-form-field>
+                <div style="margin:auto; text-align: center;">
+                  <button type="submit" mat-button>Next <mat-icon style="color: blueviolet !important;"
+                    class="forward">arrow_forward</mat-icon></button>
+                </div>
+              </form>
+            </mat-step>
+
+            <mat-step>
+              <form [formGroup]="customerFormStep4">
+                <ng-template matStepLabel>Please Choose your occupation type</ng-template>
+                <mat-button-toggle-group name="fontStyle" formControlName="customerEmpStatus" aria-label="Font Style" style="margin-top: 15px;">
+                  <mat-button-toggle value="salaried" (click)="submitEmpStatus(vstepper)">Salaried</mat-button-toggle>
+                  <mat-button-toggle value="self-employed" (click)="submitEmpStatus(vstepper)">Self Employed</mat-button-toggle>
+                </mat-button-toggle-group>
+              </form>
+            </mat-step>
+
+            <mat-step>
+                <form [formGroup]="customerFormStep5">
+                    <ng-template matStepLabel>Enter policy term and sum assured</ng-template>
+                    <p fxFlex="100" fxLayout="row">                      
+                      <mat-form-field fxFLex="30">
+                        <div fxFLex="30" fxFLex="30">
+                          <input matInput placeholder="Term age (Ex. 10 to 50)" formControlName="custTerm" maxlength="2" max="50" min="10" autocomplete="off" type="number">
+                        </div>
+                        <mat-error *ngIf="customerFormStep5.controls['custTerm'].errors?.required">
+                          Enter policy term age !
+                        </mat-error>
+                        <mat-error *ngIf="customerFormStep5.controls['custTerm'].errors?.pattern">
+                          Enter valid term !
+                        </mat-error>
+                        <mat-error *ngIf="customerFormStep5.controls['custTerm'].errors?.max || customerFormStep5.controls['custTerm'].errors?.min">
+                            Value should be withine 10-50
+                        </mat-error>
+                      </mat-form-field>                      
+                    </p>
+                    <p fxFlex="100" fxLayout="row">
+                      <mat-form-field>
+                        <div fxFLex="30" fxFLex="30">
+                          <input matInput placeholder="Sum Assured 25L to 100Cr" formControlName="custSumAssured" maxlength="10" autocomplete="off" type="number" min="2500000" max="1000000000">
+                        </div>
+                        <mat-error *ngIf="customerFormStep5.controls['custSumAssured'].errors?.required">
+                          Enter sum assured !
+                        </mat-error>
+                        <mat-error *ngIf="customerFormStep5.controls['custSumAssured'].errors?.pattern">
+                          Enter valid sum assured !
+                        </mat-error>
+                        <mat-hint align="start">Choose in multiple of 1 lakh!</mat-hint>
+                      </mat-form-field>
+                    </p>
+                </form>
+              </mat-step>
+
+          </mat-vertical-stepper>
+          <div style="margin:auto;text-align: center;">
+            <button mat-button matStepperPrevious>
+              <mat-icon class="back">keyboard_backspace</mat-icon>Back
+            </button>
+            <button mat-button class="contact100-form-btn" (click)="submitQuoteForm(stepper)">Continue<mat-icon class="forward">
+                arrow_forward</mat-icon></button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>

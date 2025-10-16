@@ -1,0 +1,2272 @@
+<div>
+  <!-- <div fxLayout="row wrap"> -->
+    <!-- <div fxLayout="row" fxLayoutAlign="space-between center" class="wrap-contact101 head-wrap container" style="background-color: #f5f5f5;" fxFlex="100"> -->
+      <!-- <div fxFlex="30" fxLayout="row">
+        <a routerLink="/" fxLayout="row" fxLayoutAlign="space-around center" style="text-decoration: none;">
+          <img class="logo" *ngIf="host_name == 'uatweb.synergy-insurance.com'" src="assets/SynergyLogoFull.png" width="135px" alt="Synergy-logo">
+          <img class="logo"*ngIf="host_name == 'uatweb.justpolicy.in'" src="assets//broker/justPolicy.jpeg" width="135px" alt="justPolicy-logo">
+          <img class="logo" *ngIf="host_name == 'uatweb.finarray.in'" src="assets//broker/finArray.png" width="110px" alt="finArray-logo">
+          <span fxLayoutAlign="right" class="title mx-3" style="color:black"> Term Insurnace </span>
+        </a>
+
+      </div> -->
+      <!-- <div fxFlex="50" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px">
+        <button  class="btn btn-outline-primary" color="primary">Partner Login</button>
+        <button  class="btn btn-outline-primary" color="primary">Partner Registeration</button>
+      </div> -->
+
+
+      <!-- <div fxFlex="70" fxLayout="row" class="text-right"
+        style="align-items: center !important; place-content:flex-end;">
+              <mat-icon aria-hidden="false" class="phone" aria-label="Example phone icon" style="font-size:27px;">phone</mat-icon>
+              <i class="material-icons" style="align-items: center; padding-right:10px;"> share </i>
+              <i class="material-icons" style="align-items: center; padding-right:10px;"> chat </i>
+        </div> -->
+
+
+
+
+      <!-- <div fxLayoutAlign="center" class="new-head" style="width: 100%;">
+      <div class="container wrap-contact101 no-padding mt-10 header newpad" style="background: #fff;" fxLayout="row"
+        fxLayout.xs="row" fxLayout.sm="column" fxFlexFill>
+        <div fxFlex="10" style="margin-right:10px" fxLayout="column" fxHide.xs fxHide.sm class="sec3"
+          fxLayoutAlign="flex-basis">
+          <span class="text-size5" style="padding-top:19px;">Modify Details</span>
+        </div>
+        <div fxLayout="column" fxFlex="19" fxFlex.xs="30" fxFlex.sm="30" fxLayoutAlign="flex-start"
+          style="align-items:baseline; margin-right: 10px;">
+          <mat-form-field>
+            <mat-label>Total Payout</mat-label>
+            <input matInput autocomplete="off" type="text" min="2500000" max="1000000000" [value]="selSumAssured"
+              #sumAssured (change)="recalculateQuote(sumAssured.value, coverUpto.value)">
+          </mat-form-field>
+        </div>
+
+        
+          <div fxFlex="22" style="margin-right:10px" fxLayout="column" class="sec3" fxFlex.xs="30" fxFlex.sm="30" fxFlex.md="70" fxLayoutAlign="flex-basis">
+            <mat-form-field>
+              <mat-label>Total Payout</mat-label>
+              <mat-select [(value)]="selSumAssured">
+                <mat-option *ngFor="let pOut of payouts" [value]="pOut.value">
+                  {{pOut.value}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+       
+
+        <div fxLayout="column" fxFlex="19" fxFlex.xs="30" fxFlex.sm="30" fxLayoutAlign="flex-start"
+          style="align-items:baseline; margin-right: 10px;">
+          <mat-form-field>
+            <mat-label>Cover Upto</mat-label>
+            <mat-select [(value)]="selTermAge" #coverUpto
+              (selectionChange)="recalculateQuote(sumAssured.value, coverUpto.value)">
+              <mat-option *ngFor="let tAge of termRange" [value]="tAge">
+                {{tAge>85?'Whole Life':tAge}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        
+          <div fxLayout="column" fxFlex="15" fxFlex.xs="30" fxFlex.sm="30" fxLayoutAlign="flex-start" style="align-items:baseline; margin-right: 10px;">
+            <mat-form-field>
+              <mat-label>Pay Type</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let pay of pays" [value]="pay.value">
+                  {{pay.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+       
+
+        <div fxFlex.xs="100" fxFlex.sm="50" class="only-top" fxFlexLayout="row" fxFlex.md="27" style="width:100%;">
+          <div fxFlexLayout="column" class="mob-addons" style="margin-left:2px;float: left;">
+            <ul class="selectbtn">
+              <li>
+                <button class="btn btn-sm btn-primary" (click)="recalculateQuote(sumAssured.value, coverUpto.value)">
+                  <mat-icon class="no-icon add-arrow pull-right"> edit </mat-icon>
+                  Re Calculate
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div fxFlexLayout="column" class="mob-addons" fxHide.xs fxHide.sm style="margin-left:2px;float: left;">
+            <ul class="selectbtn">
+              <li>
+                <button class="btn btn-sm btn-primary" (click)="redirectTo('/')">
+                  <mat-icon class="no-icon add-arrow pull-right"> edit </mat-icon>
+                  Edit Quote
+                </button>
+              </li>
+            </ul>
+          </div>
+          
+                       <div fxFlexLayout="column" class="mob-addons" fxShow.xs fxShow.sm Style="margin-left:2px; float: left;">
+                           <ul class="selectbtn">
+                               <li>
+                                   <button mat-raised-button (click)="openDialog(moo)" class="white">
+                                       Add Covers & More
+                                       <mat-icon class="no-icon add-arrow pull-right" aria-hidden="false" aria-label="add material-icons"> add_circle_outline </mat-icon>
+                                   </button>
+                               </li>
+                           </ul>
+                       </div>
+                  
+        </div>
+      </div>
+    </div> -->
+    <!-- </div> -->
+  <!-- </div> -->
+
+  <div class="container newpad" fxLayout.xs="column" fxHide fxShow.xs fxShow.sm fxLayout.sm="row">
+    <div fxFlex="70" fxFlex.xs="100" fxFlex.sm="50" class="only-top place">
+      <div fxFlexLayout="column" class="mob-addons">
+        <!--
+               <ul class="selectbtn">
+                   <li>
+                       <button mat-raised-button (click)="openDialog(moo)" class="white">Add Covers <mat-icon
+                           class="no-icon add-arrow pull-right" aria-hidden="false" aria-label="add material-icons">
+                           add_circle_outline </mat-icon>
+                       </button>
+                   </li>
+               </ul>
+           -->
+      </div>
+      <div class="addonss">
+        <ng-template #moo>
+          <h2 matDialogTitle fxHide.xs>Addons and Accessories</h2>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-form-field>
+                <input matInput placeholder="Age">
+              </mat-form-field>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Payout
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{panelOpenState ? '' : ''}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <ul class="addons">
+                <li>
+                  <mat-checkbox> Cover for Whole Life </mat-checkbox>
+                </li>
+                <li>
+                  <mat-checkbox>Pay till 60 Years</mat-checkbox>
+                </li>
+              </ul>
+              <ng-container *ngIf="show1">
+                <ul class="addons">
+                  <li>
+                    <mat-checkbox>NCB Protector</mat-checkbox>
+                  </li>
+                  <li>
+                    <mat-checkbox>Key & Lock Replacement</mat-checkbox>
+                  </li>
+                  <li>
+                    <mat-checkbox>Consumables</mat-checkbox>
+                  </li>
+                  <li>
+                    <mat-checkbox>Daily Allowance</mat-checkbox>
+                  </li>
+                  <li>
+                    <mat-checkbox>Invoice Price</mat-checkbox>
+                  </li>
+                  <li>
+                    <mat-checkbox>Tyre Protector</mat-checkbox>
+                  </li>
+                  <li>
+                    <mat-checkbox>RIM Damage Cover</mat-checkbox>
+                  </li>
+                  <li>
+                    <mat-checkbox>Loss of Personal Belongings</mat-checkbox>
+                  </li>
+                  <div *ngIf="theCheckbox3">
+                    <p>
+                      <span class="float-left text-size2">Min 10,000</span>
+                      <span class="float-right text-size2">Max 1,20,000</span>
+                    </p>
+                  </div>
+                </ul>
+              </ng-container>
+              <div class="example-button-row ">
+                <button mat-raised-button color="primary" style=width:35% (click)="toggle1()" id="bt" mat-flat-button
+                  routerLink=".">
+                  <mat-icon style="font-size: 16px; padding-top:8px;">
+                    {{!show1 ? 'add_circle_outline' : 'remove_circle_outline'}}
+                  </mat-icon>
+                  {{popupshow}}
+                </button>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-form-field>
+                <input matInput placeholder="Age">
+              </mat-form-field>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Accidental Protection
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{panelOpenState ? '' : ''}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <ul class="addons">
+                <li>
+                  <mat-checkbox> Death due to accident </mat-checkbox>
+                </li>
+                <li>
+                  <mat-checkbox> Disability due to accident </mat-checkbox>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-form-field>
+                <input matInput placeholder="Age">
+              </mat-form-field>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Health Protection
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{panelOpenState ? '' : ''}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <ul class="addons">
+                <li>
+                  <mat-checkbox> Enhanced Critical Illness </mat-checkbox>
+                </li>
+                <li>
+                  <mat-checkbox> Terminal illness </mat-checkbox>
+                </li>
+                <li>
+                  <mat-checkbox> Heart and cancer cover </mat-checkbox>
+                </li>
+                <li>
+                  <mat-checkbox> Critical illness </mat-checkbox>
+                </li>
+                <li>
+                  <mat-checkbox> Cash for hospitalization </mat-checkbox>
+                </li>
+                <li>
+                  <mat-checkbox> Cancer cover </mat-checkbox>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-form-field>
+                <input matInput placeholder="Age">
+              </mat-form-field>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Waiver of Premium
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{panelOpenState ? '' : ''}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <ul class="addons">
+                <li>
+                  <mat-checkbox> On Critical Illness or Accidental Disability </mat-checkbox>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <div class="example-button-row nprow" style="text-align:center; margin-top: 25px;">
+            <button class="price mat-raised-button mat-button-base mat-warn" color="warn" mat-raised-button=""
+              ng-reflect-color="warn">
+              <span class="mat-button-wrapper">
+                Apply & Save
+                <mat-icon style="color: #fff; padding-left:5px;">save</mat-icon>
+              </span>
+              <div class="mat-button-ripple mat-ripple"></div>
+              <div class="mat-button-focus-overlay"></div>
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div class="container " fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px">
+    <!-- <div fxLayout="row wrap">
+    <mat-progress-bar mode="determinate" #progressLoader [value]="progressBarValue" *ngIf="!loaderComplete">
+    </mat-progress-bar>
+    <div fxLayoutAlign="center" fxHide.xs fxHide.sm style="flex-basis:100%;">
+      <div class=" wrap-contact101 no-padding mt-10 header newpad only" fxLayout="row" fxLayout.xs="column"
+        fxLayout.sm="column" fxFlexFill fxFlex="" fxFlex.sm="100">
+        <div fxFlex="15" fxFlex.xs="40" fxFlex.sm="40" fxLayout="row">
+          <div fxLayout="column" class="border" fxFlex.xs="100" fxFlex.sm="100" fxLayoutAlign="flex-start"
+            style="align-items:baseline;">
+            <h4 matBadge="{{premiumItemArr.length}}" matBadgeOverlap="false" matBadgeColor="warn">Total
+              Item(s)</h4>
+          </div>
+        </div>
+        <div fxFlex="30" fxLayout="column" class="sec3 border" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="flex-basis"
+          style="margin-right:26px;">
+          <h4 class="example-button">Sum Assured <i class="material-icons"
+              matTooltip="Maximum amount which &#13; can be claimed for." 
+              [matTooltipPosition]="'after'" aria-label="Button that shows a green tooltip">
+              help_outline
+            </i>
+          </h4>
+        </div>
+        <div fxFlex="12" fxLayout="column" class="sec3 border" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="flex-basis"
+          style="margin-right:45px;">
+          <h4 class="example-button">Cover Upto <i class="material-icons"
+              matTooltip="Maximum age upto which &#13; policy will be valid for."
+               [matTooltipPosition]="'after'"
+              aria-label="Button that shows a green tooltip">
+              help_outline
+            </i>
+          </h4>
+        </div>
+        <div fxFlex="40" fxLayout="column" class="sec3 border" fxFlex.xs="50" fxFlex.sm="50" fxLayout.sm="column"
+          style="margin-right:40px;">
+          <h4 class="float-left" class="example-button">Claim Setteled <i class="material-icons"
+              matTooltip="Average % of different companies &#13; claim settlement ratio."
+               [matTooltipPosition]="'after'"
+              aria-label="Button that shows a green tooltip">
+              help_outline
+            </i>
+          </h4>
+        </div>
+        <div fxFlex="30" fxLayout="column" class="sec3 border" fxFlex.xs="50" fxFlex.sm="50" fxLayout.sm="column"
+          style="margin-right: 28px">
+          <h4 class="example-button">Plan Type <i class="material-icons"
+              matTooltip="Name of different plans from &#13; different companies."
+               [matTooltipPosition]="'after'"
+              aria-label="Button that shows a green tooltip">
+              help_outline
+            </i>
+          </h4>
+        </div>
+        <ng-template #moo3>
+          <mat-dialog-actions>
+            <div class="example-container" fxFlex="100">
+              <mat-radio-group aria-label="Select an option" style="padding-left:0 !important;">
+                <mat-radio-button value="1">For Best Deal</mat-radio-button>
+                <mat-radio-button value="2">Choose Your Own Claim Settled</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <p style="font-size: 14px; font-weight:bold">Or Set your Min and Max Value of Claim Settled</p>
+            <div style="width:100%">
+              <p class="area">
+                <span class="float-left text-size2">Min 10,000</span>
+                <span class="float-right text-size2 max-width">Max 1,20,000</span>
+              </p>
+            </div>
+          </mat-dialog-actions>
+          <div class="text-center" style="margin:auto;">
+            <button mat-raised-button color="warn">Save Changes</button>
+            <button mat-button (click)="onNoClick()">No Thanks</button>
+          </div>
+        </ng-template>
+        <div fxFlex="20" fxLayout="column" style="text-align: center;
+               padding-left: 15px;" class="sec3 border" fxFlex.xs="50" fxFlex.sm="50" fxLayout.sm="column"
+          fxLayoutAlign="flex-end">
+          <h4 style="text-align: center;">Total Premium</h4>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <nav class="navbar bg-body-tertiary filter-navbar" >
+      <div class="container-fluid">
+        
+        <button class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          Customize <i class="bi bi-sliders"></i>
+        </button>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Filter Plans</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <form [formGroup]="filterFormGroup">
+            <div class="mb-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Sum Assured</mat-label>
+                <input matInput type="number" placeholder="Enter sum assured" (click)="showChips = !showChips"
+                  (input)="onManualInput()" (change)="loadTermPlans()" formControlName="coverAmount" #coverAmount />
+                <mat-icon style="cursor: pointer;" matSuffix
+                  (click)="showChips = !showChips">keyboard_arrow_down</mat-icon>
+
+                <mat-error *ngIf="filterFormGroup.controls['coverAmount'].errors?.required " style="font-size: 12px;">
+                  Sum Assured is required
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['coverAmount'].errors?.minCover " style="font-size: 12px;">
+                  Minimum Cover amount is 25 Lakh
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['coverAmount'].errors?.maxCover " style="font-size: 12px;">
+                  Maximum Cover amount is 35 Cr
+                </mat-error>
+                <mat-chip-list *ngIf="showChips" class="chip-list">
+                  <mat-chip *ngFor="let option of sumAssuredOptions" selectable="false"
+                    (click)="selectSumAssured(option)" color="primary" style="cursor: pointer;">
+                    {{ option.label }}
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-form-field>
+            </div>
+            <div class="mb-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Cover Upto Age</mat-label>
+                <input matInput type="number" placeholder="Enter Cover Upto" (click)="showCoverChips = !showCoverChips"
+                  (input)="onManualCoverInput()" (change)="calculatePayFor()" formControlName="maturityAge"
+                  #maturityAge />
+                <mat-icon style="cursor: pointer;" matSuffix
+                  (click)="showCoverChips = !showCoverChips">keyboard_arrow_down</mat-icon>
+                <mat-error *ngIf="filterFormGroup.controls['maturityAge'].errors?.required " style="font-size: 12px;">
+                  Maturity Age is recquired
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['maturityAge'].errors?.maturityAgeValid  "
+                  style="font-size: 12px;">
+                  Available cover age for profile is between {{this.quoteJson.custAge + 5}} to 100 years
+                </mat-error>
+                <mat-error *ngIf=" filterFormGroup.controls['maturityAge'].errors?.maturityAgeZero  "
+                  style="font-size: 12px;">
+                  Available cover age for profile is between {{this.quoteJson.custAge + 5}} to 100 years
+                </mat-error>
+                <mat-chip-list *ngIf="showCoverChips" class="chip-list">
+                  <mat-chip *ngFor="let option of coverUptoOptions" selectable="false" (click)="selectCoverUpto(option)"
+                    color="primary" style="cursor: pointer;">
+                    {{ option.label }}
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-form-field>
+
+            </div>
+            <div class="mb-12">
+              <mat-form-field appearance="outline">
+                <mat-label>Pay For (years)</mat-label>
+                <input matInput maxlength="2" (change)="loadTermPlans()" type="number"
+                  formControlName="premiumPaymentTerm" #premiumPaymentTerm>
+                <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].errors?.required "
+                  style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].errors?.checkPolicyZero"
+                  style="font-size: 12px;">
+                  Premium payment term cannot be 0.
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].errors?.checkPolicy"
+                  style="font-size: 12px;">
+                  Premium payment term should be in the 5 to {{maxPayForYears}} year range.
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].errors?.checkPolicyError"
+                  style="font-size: 12px;">
+                  Premium payment should be 1 in case of single premium Investment
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="mb-12">
+              <mat-form-field appearance="outline" style="font-size: 14px;">
+                <mat-label>Payment Frequency</mat-label>
+                <mat-select matNativeControl required (selectionChange)="loadTermPlans()"
+                  formControlName="paymentFrequency" #paymentFrequency>
+                  <mat-option value="Monthly">Monthly</mat-option>
+                  <mat-option value="Quarterly">Quaterly</mat-option>
+                  <mat-option value="halfYearly">Half Yearly</mat-option>
+                  <mat-option value="Yearly">Yearly</mat-option>
+                  <mat-option value="Single" [disabled]="singleOptionDisabled">Single Premium</mat-option>
+                </mat-select>
+                <mat-error *ngIf="filterFormGroup.controls['paymentFrequency'].errors?.required "
+                  style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+                <!-- <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].value == 1 && filterFormGroup.controls['paymentFrequency'].value == 'Single' " style="font-size: 12px;">
+                This Field is required
+              </mat-error> -->
+              </mat-form-field>
+
+            </div>
+            <div >
+              <mat-form-field appearance="outline">
+                <mat-label>Payment Mode</mat-label>
+                <mat-select matNativeControl required (selectionChange)="loadTermPlans()" formControlName="payoutType"
+                  #payoutType>
+                  <mat-option value="ALL">All</mat-option>
+                  <mat-option value="LUMPSUM">Lumpsum</mat-option>
+                  <mat-option value="LUMPSUM_PLUS_LEVEL_INCOME">Lumpsum + Level Income</mat-option>
+                  <mat-option value="LUMPSUM_PLUS_INCREASING">Lumpsum + Increasing</mat-option>
+                </mat-select>
+                <mat-error *ngIf="filterFormGroup.controls['payoutType'].errors?.required " style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- <div style="margin-top: 5px;" fxLayout="row" fxLayoutAlign="end center">
+              <div class="btn btn-sm btn-danger" (click)="resetFilter()">Reset</div>
+            </div> -->
+          </form>
+          </div>
+        </div>
+      </div>
+    </nav>  
+    <div fxFlex="22" class="filter-large" >
+      <div class="wrap-contact101" style="background-color: white;">
+        <h6 class="my-3">Customize your Policy</h6>
+        <div class="filter-container">
+          <form [formGroup]="filterFormGroup">
+            <div class="mb-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Sum Assured</mat-label>
+                <input matInput type="number" placeholder="Enter sum assured" (click)="showChips = !showChips"
+                  (input)="onManualInput()" (change)="loadTermPlans()" formControlName="coverAmount" #coverAmount />
+                <mat-icon style="cursor: pointer;" matSuffix
+                  (click)="showChips = !showChips">keyboard_arrow_down</mat-icon>
+
+                <mat-error *ngIf="filterFormGroup.controls['coverAmount'].errors?.required " style="font-size: 12px;">
+                  Sum Assured is required
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['coverAmount'].errors?.minCover " style="font-size: 12px;">
+                  Minimum Cover amount is 25 Lakh
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['coverAmount'].errors?.maxCover " style="font-size: 12px;">
+                  Maximum Cover amount is 35 Cr
+                </mat-error>
+                <mat-chip-list *ngIf="showChips" class="chip-list">
+                  <mat-chip *ngFor="let option of sumAssuredOptions" selectable="false"
+                    (click)="selectSumAssured(option)" color="primary" style="cursor: pointer;">
+                    {{ option.label }}
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-form-field>
+            </div>
+            <div class="mb-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Cover Upto Age</mat-label>
+                <input matInput type="number" placeholder="Enter Cover Upto" (click)="showCoverChips = !showCoverChips"
+                  (input)="onManualCoverInput()" (change)="calculatePayFor()" formControlName="maturityAge"
+                  #maturityAge />
+                <mat-icon style="cursor: pointer;" matSuffix
+                  (click)="showCoverChips = !showCoverChips">keyboard_arrow_down</mat-icon>
+                <mat-error *ngIf="filterFormGroup.controls['maturityAge'].errors?.required " style="font-size: 12px;">
+                  Maturity Age is recquired
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['maturityAge'].errors?.maturityAgeValid  "
+                  style="font-size: 12px;">
+                  Available cover age for profile is between {{this.quoteJson.custAge + 5}} to 100 years
+                </mat-error>
+                <mat-error *ngIf=" filterFormGroup.controls['maturityAge'].errors?.maturityAgeZero  "
+                  style="font-size: 12px;">
+                  Available cover age for profile is between {{this.quoteJson.custAge + 5}} to 100 years
+                </mat-error>
+                <mat-chip-list *ngIf="showCoverChips" class="chip-list">
+                  <mat-chip *ngFor="let option of coverUptoOptions" selectable="false" (click)="selectCoverUpto(option)"
+                    color="primary" style="cursor: pointer;">
+                    {{ option.label }}
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-form-field>
+
+            </div>
+            <div class="mb-12">
+              <mat-form-field appearance="outline">
+                <mat-label>Pay For (years)</mat-label>
+                <input matInput maxlength="2" (change)="loadTermPlans()" type="number"
+                  formControlName="premiumPaymentTerm" #premiumPaymentTerm>
+                <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].errors?.required "
+                  style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].errors?.checkPolicyZero"
+                  style="font-size: 12px;">
+                  Premium payment term cannot be 0.
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].errors?.checkPolicy"
+                  style="font-size: 12px;">
+                  Premium payment term should be in the 5 to {{maxPayForYears}} year range.
+                </mat-error>
+                <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].errors?.checkPolicyError"
+                  style="font-size: 12px;">
+                  Premium payment should be 1 in case of single premium Investment
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="mb-12">
+              <mat-form-field appearance="outline" style="font-size: 14px;">
+                <mat-label>Payment Frequency</mat-label>
+                <mat-select matNativeControl required (selectionChange)="loadTermPlans()"
+                  formControlName="paymentFrequency" #paymentFrequency>
+                  <mat-option value="Monthly">Monthly</mat-option>
+                  <mat-option value="Quarterly">Quaterly</mat-option>
+                  <mat-option value="halfYearly">Half Yearly</mat-option>
+                  <mat-option value="Yearly">Yearly</mat-option>
+                  <mat-option value="Single" [disabled]="singleOptionDisabled">Single Premium</mat-option>
+                </mat-select>
+                <mat-error *ngIf="filterFormGroup.controls['paymentFrequency'].errors?.required "
+                  style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+                <!-- <mat-error *ngIf="filterFormGroup.controls['premiumPaymentTerm'].value == 1 && filterFormGroup.controls['paymentFrequency'].value == 'Single' " style="font-size: 12px;">
+                This Field is required
+              </mat-error> -->
+              </mat-form-field>
+
+            </div>
+            <div >
+              <mat-form-field appearance="outline">
+                <mat-label>Payment Mode</mat-label>
+                <mat-select matNativeControl required (selectionChange)="loadTermPlans()" formControlName="payoutType"
+                  #payoutType>
+                  <!-- <mat-option value="ALL">All</mat-option> -->
+                  <mat-option value="LUMPSUM">Lumpsum</mat-option>
+                  <mat-option value="LUMPSUM_PLUS_LEVEL_INCOME">Lumpsum + Level Income</mat-option>
+                  <mat-option value="LUMPSUM_PLUS_INCREASING">Lumpsum + Increasing</mat-option>
+                </mat-select>
+                <mat-error *ngIf="filterFormGroup.controls['payoutType'].errors?.required " style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- <div style="margin-top: 5px;" fxLayout="row" fxLayoutAlign="end center">
+              <div class="btn btn-sm btn-danger" (click)="resetFilter()">Reset</div>
+            </div> -->
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <div fxFlex="75" >
+      <div class="d-flex align-items-center justify-content-between" *ngIf="!isLoadingQuotes">
+        <h4 >{{uniqueProvidersCount}} Term Plans Found</h4>
+        <button class="btn btn-sm d-flex btn-primary" (click)="openShareDialog();$event.stopPropagation();">Share <mat-icon style="color:white;font-size: 20px;">share</mat-icon></button>
+      </div>
+      <ng-template #shareDialogTemplate >
+        <div mat-dialog-title  fxLayout="row" fxLayoutAlign="space-between center">
+           <h6 class="m-0">Share This Plan</h6>
+          <button mat-button mat-dialog-close><mat-icon style="color:white">close</mat-icon></button>
+      </div>
+ 
+  <mat-dialog-content class="share-dialog">
+    <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+      <div fxFlex="80">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>URL</mat-label>
+          <input matInput type="text" [(ngModel)]="quoteUrl" disabled />
+        </mat-form-field>
+      </div>
+      <div fxFlex="15" fxLayout="column" style="margin: 0.25em 0;">
+        <button mat-raised-button color="primary" (click)="copyUrl()">Copy <mat-icon
+            style="color:white;font-size: 20px;">file_copy</mat-icon></button>
+          <div *ngIf="copied" style="color: green; font-size: 13px; margin-top: 5px;">
+ URL Copied!
+</div>
+          </div>
+      
+      <div fxFlex="80">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enter Email Address</mat-label>
+          <input matInput type="email" type="email" name="email" [(ngModel)]="refEmailAddress" #emailCtrl="ngModel" [ngModelOptions]="{standalone: true}"
+            required email />
+          <mat-error *ngIf="emailCtrl.invalid && emailCtrl.touched">
+            <span *ngIf="emailCtrl.errors?.required">Email is required.</span>
+            <span *ngIf="emailCtrl.errors?.email">Please enter a valid email address.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="15" style="margin: 0.25em 0;">
+        <button mat-raised-button color="primary" (click)="sendQuoteViaEmail()"  [disabled]="emailCtrl.invalid">Send <mat-icon
+            style="color:white;font-size: 20px;">send</mat-icon></button>
+      </div>
+      <div fxFlex="80">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enter Mobile Number</mat-label>
+          <input matInput type="number" type="tel" name="contactNumber" maxlength="10" minlength="10"
+            pattern="^[0-9]{10}$" [(ngModel)]="contact_no" #contactCtrl="ngModel" [ngModelOptions]="{standalone: true}" required />
+          <mat-error *ngIf="contactCtrl.invalid && contactCtrl.touched">
+            <span *ngIf="contactCtrl.errors?.required">Mobile number is required.</span>
+            <span *ngIf="contactCtrl.errors?.pattern">
+              Please enter a valid 10-digit number.
+            </span>
+            <span *ngIf="contactCtrl.errors?.minlength || contactCtrl.errors?.maxlength">
+              Must be exactly 10 digits.
+            </span>
+          </mat-error>
+  
+        </mat-form-field>
+      </div>
+      <div fxFlex="15" style="margin: 0.25em 0;">
+        <button mat-raised-button color="primary" (click)="sendQuoteViaMobile()"  [disabled]="contactCtrl.invalid">Send <mat-icon
+            style="color:white;font-size: 20px;">send</mat-icon></button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</ng-template>
+      <div *ngIf="isLoadingQuotes " class="premium-loader-container">
+    <div *ngFor="let i of [1]" class="premium-loader-box">
+    <div class="skeleton-logo"></div>
+    <div class="row d-flex justify-content-between gap-2">
+      <div class="col-2 skeleton-line "></div>
+    <div class="col-2 skeleton-line"></div>
+    <div class="col-2 skeleton-line"></div>
+    <div class="col-2 skeleton-line"></div>
+    </div>
+    
+  </div>
+</div>
+      <div class="wrap" fxLayout="row wrap" fxLayoutAlign="end" class="my-1"
+        *ngFor="let premiumItem of premiumItemArr; let item_index = index"
+        [ngStyle]="{'margin-top':premiumItem.premium_show == 1 || showGroup == premiumItem.plan_name ? '1px' : '0px'}">
+
+        <div style="flex-basis:100%;" *ngIf="premiumItem.premium_show == 1">
+          <div class="quote-container"  fxLayoutAlign="center" style="flex-basis:100%;" *ngIf="premiumItem.provider_id > 0" >
+            <div class=" quote-container-inner no-padding mt-10 header newpad" 
+              fxLayout="row wrap" fxLayout.xs="row wrap" fxLayout.sm="row wrap" fxFlex.sm="100" fxLayoutAlign="space-between center">
+              <!-- <div fxFlex="5" fxFlex.xs="5" fxFlex.sm="5" fxLayout="row">
+               <mat-checkbox class="example-margin" [value]="premiumItem.provider_id" (change)="chooseForShare($event)"></mat-checkbox>
+               </div> -->
+              <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxLayout="row" fxLayoutAlign="space-between center" style="background: linear-gradient(270deg, #e7eefe, rgba(231, 238, 254, 0) 101.19%);padding:10px 20px">
+                <div fxLayout="row" fxLayoutGap="10px" fxFlex="70" fxFlex.md="40"
+                  fxLayoutAlign="start center" style="align-items:baseline;">
+                  <img class="logo2" src="assets/listing/company_logo/{{premiumItem.company_logo}}"
+                    alt="{{premiumItem.company_name}}" width="110px">
+                    <div fxLayout="column" fxLayoutAlign="space-between start">
+                      <small class="quote-help-text ">Plan Name</small>
+                  <span class="quote-values inc_days">{{premiumItem.plan_name}}</span>
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="space-between start" *ngIf="premiumItem.plan_variant">
+                      <small class="quote-help-text ">Plan Variant</small>
+                    <span class="quote-values inc_days">{{premiumItem.plan_variant}}</span>
+                    </div>
+                 
+
+
+                  <!-- BUTTON DIV -->
+                </div>
+                <div fxFlex="30" fxLayout="column" class="sec3 only-desk-p" fxFlex.xs="50" fxFlex.sm="50"
+                  fxLayout.sm="column">
+                  <div class="example-button-row nprow">
+                    <p fxHide.xs fxHide.sm><b>Include {{premiumItem.gst}}% GST</b></p>
+                    <div *ngIf="premiumItem.provider_id==30;then directCall; else indirectCall"></div>
+                    <ng-template #directCall>
+
+                      <button  *ngIf="premiumItem?.net_premium && premiumItem.net_premium>0"
+                         class="btn btn-outline-primary quote-price"
+                       (click)="showToast()"
+                        [disabled]="buyNowItemBtn && buyNowLoaderIndex === item_index">
+                        {{ premiumItem.net_premium | currency:'Rs. ':'code':'1.0' }} 
+                        <mat-progress-bar mode="indeterminate" color="warn"
+                          *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index">
+                        </mat-progress-bar>
+                      </button>
+                    </ng-template>
+                    <ng-template #indirectCall>
+
+                      <button id="liveToastBtn" type="button"
+                        *ngIf="premiumItem?.net_premium && premiumItem.net_premium>0 && premiumItem.provider_id != 40 && premiumItem.provider_id != 32"
+                         class="btn btn-outline-primary quote-price"
+                        (click)="showToast()"
+                        [disabled]="buyNowItemBtn && buyNowLoaderIndex === item_index">
+                        {{ premiumItem.net_premium | currency:'Rs. ':'code':'1.0-0' }}  
+                        <mat-progress-bar mode="indeterminate" 
+                          *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index">
+                        </mat-progress-bar>
+                      </button>
+<!-- (click)="selectPremiumItem(premiumItem, item_index, ipruProposalDialog);" -->
+                      <button 
+                        *ngIf="premiumItem?.net_premium && premiumItem.net_premium>0 && premiumItem.provider_id === 40"
+                         class="price"  (click)="selectPremiumItem(premiumItem, item_index, pnbDialog);"
+                        [disabled]="buyNowItemBtn && buyNowLoaderIndex === item_index">
+                        {{ premiumItem.net_premium | currency:'Rs. ':'code':'1.0-0' }} 
+                        <mat-progress-bar mode="indeterminate" color="warn"
+                          *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index">
+                        </mat-progress-bar>
+                      </button>
+
+                      <!-- Aegon -->
+                      <!-- <button mat-raised-button
+                        *ngIf="premiumItem?.net_premium && premiumItem.net_premium>0 && premiumItem.provider_id === 32"
+                        color="warn" class="price" (click)="selectPremiumItem(premiumItem, item_index, aegonDialog);"
+                        [disabled]="buyNowItemBtn && buyNowLoaderIndex === item_index">
+                        {{ premiumItem.net_premium | currency:'Rs.':'code':'1.0-0' }} 
+                        <mat-progress-bar mode="indeterminate" color="warn"
+                          *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index"></mat-progress-bar>
+                      </button> -->
+
+                      <!-- <button mat-raised-button *ngIf="premiumItem.net_premium<=0" color="warn" class="price"
+                        (click)="selectPremiumItem(premiumItem, item_index, ipruProposalDialog);"
+                        [disabled]="buyNowItemBtn && buyNowLoaderIndex === item_index">
+                        {{ 'Buy Now' }}
+                        <mat-progress-bar mode="indeterminate" color="warn"
+                          *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index">
+                        </mat-progress-bar>
+                      </button> -->
+                    </ng-template>
+                  </div>
+                  <p fxHide.xs fxHide.sm *ngIf="premiumItem.provider_id==31 && premiumItem.monthly_premium!=''">
+                    {{premiumItem.monthly_premium | currency:'Rs. ':'code':'1.0-0'}} monthly
+                    <a (click)="openMaxDialogChangePremium(premiumDialog, item_index)">Change</a>
+                  </p>
+
+                  <p fxHide.xs fxHide.sm *ngIf="premiumItem.provider_id==40">
+                    <a (click)="openMaxDialogChangePremium(premiumDialogPnb, item_index)">Other Plans</a>
+                  </p>
+
+                  <p fxHide.xs fxHide.sm *ngIf="premiumItem.provider_id==41">
+                    <a (click)="openMaxDialogChangePremium(premiumDialogTata, item_index)">Other Plans</a>
+                  </p>
+
+                  <p fxHide.xs fxHide.sm *ngIf="premiumItem.provider_id==32">
+                    Mode {{this.aegonAddonsFormGroup.value.payment_mode}}
+                    <a (click)="openMaxDialogChangePremium(premiumDialogAegon, item_index)">
+                      Change <!-- Payment Frequency Mode -->
+                    </a>
+                  </p>
+
+
+
+                </div>
+                  
+              </div>
+              <div fxFlex="100" fxFlex.xs="100" fxFlex.sm="100" fxLayout="row wrap" fxLayoutAlign="space-between center" style="padding:10px 20px">
+                <div fxFlex="15" fxLayout="column"   class="sec3 my-3"  fxFlex.xs="50"  fxFlex.sm="30" fxFlex.md="30"
+                fxLayoutAlign="flex-basis">
+                <small class="quote-help-text ">Sum Assured</small>
+                <span class="quote-values inc_days">
+                  {{premiumItem.sum_assured | currency:'INR':'symbol-narrow':'1.0'}}
+                </span>
+                <!-- <p class="inc_days" *ngIf="premiumItem.provider_id!=32"><b>Issuance Time 14 days</b></p> -->
+              </div>
+              <div fxFlex="20" fxLayout="column"   class="sec3 my-3"  fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30"
+                fxLayoutAlign="flex-basis">
+                <small class="quote-help-text ">Payment/Policy Term</small>
+                <span class="quote-values inc_days">{{quotePayment}} Yrs/{{maxPayForYears}} Years</span>
+              </div>
+              <div fxFlex="15" fxLayout="column"  class="sec3 my-3"  fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30"
+                fxLayoutAlign="flex-basis">
+                <small class="quote-help-text ">Cover Upto</small>
+                <span class="quote-values inc_days">{{quoteCover}} Yrs</span>
+              </div>
+              <div fxFlex="15" fxFlex.sm="30" fxFlex.md="30"  fxFlex.xs="50" fxLayout="column" class="sec3 my-3  Claim Settled" 
+                fxLayout.sm="column" fxLayoutAlign="flex-basis">
+                <!-- <p fxHide fxShow.xs fxShow.sm>Claim Settled <a fxHide fxShow.xs fxShow.sm
+                    style="color: blueviolet; padding-left:5px; text-transform: uppercase;"></a></p> -->
+                <small class="quote-help-text ">Claim Settled </small>
+                <span class="quote-values">{{premiumItem.claim_settled | number:'1.0-2'}}%</span>
+              </div>
+              <div fxFlex="15" fxLayout="column" class="sec3 my-3"  fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30" fxLayout.sm="column">
+                <span class="quote-help-text" fxShow.xs fxShow.sm>Plan Type</span>
+                <span *ngIf="premiumItem.db_type" class="quote-values" style="text-align: left;">
+                  {{premiumItem.db_type}}
+                </span>
+
+              </div>
+              <div fxFlex="20" class="my-3">
+                <p class="inc_days" fxHide.xs fxHide.sm>
+                  <a (click)="showPdfFromUrl(premiumItem.premium_pdf)"
+                    *ngIf="premiumItem?.premium_pdf && premiumItem?.premium_pdf!=''"
+                    style="padding-left:0px !important">{{
+                    'View Brochure' | titlecase }}</a>
+                </p>
+              </div>
+              </div>
+              
+              <div  class="show-more-container" fxLayoutAlign="center center" style="padding:10px 20px" *ngIf="premiumItem.premium_group==1 && premiumItem.item_group_count>0 && premiumItem.premium_show!=0">
+                <!-- <a (click)="showPdfFromUrl(premiumItem.premium_pdf)" *ngIf="premiumItem?.premium_pdf && premiumItem?.premium_pdf!=''">Brochure</a> -->
+                <div class="show-more-btn" fxHide.sm fxHide.xs 
+                  *ngIf="premiumItem.premium_group==1 && premiumItem.item_group_count>0 && premiumItem.premium_show!=0"
+                  (click)="toggleGroup(premiumItem.plan_name)">
+                  {{ premiumItem.item_group_count  }}
+                  {{ showGroup==premiumItem.plan_name?'Less Plans':'More Plans' }}
+                  <i class="material-icons plus-ad">
+                    {{ showGroup==premiumItem.plan_name?'remove':'add'}}
+                  </i>
+                </div>
+                <a fxHide fxShow.sm fxShow.xs class="text-size6"
+                  *ngIf="premiumItem.premium_group==1 && premiumItem.item_group_count>0"
+                  (click)="toggleGroup(premiumItem.provider_id)">
+                  {{ premiumItem.item_group_count  }} {{ showGroup==premiumItem.provider_id?'Less':'More'}}
+                  <i class="material-icons plus-ad">
+                    {{ showGroup==premiumItem.provider_id?'remove':'add'}}
+                  </i>
+                </a>
+              </div>
+
+            </div>
+          </div>
+          <!-- <div fxLayoutAlign="center" style="flex-basis:100%;">
+            <mat-progress-spinner *ngIf="!spinnerComplete && showGroup == premiumItem.provider_id"
+              style="text-align:center !important;" [color]="spinnerColor" [mode]="spinnerMode" strokeWidth="4"
+              diameter="30">
+            </mat-progress-spinner>
+          </div> -->
+        </div>
+
+        <!-- DEFAULT HIDE PREMIUM ITEMS -->
+         <div 
+  class="expand-wrapper" 
+  [class.open]="showGroup == premiumItem.plan_name"
+  style="flex-basis:95%;">
+        <div class="expand-inner" *ngIf="premiumItem.premium_show == 0 && showGroup == premiumItem.plan_name">
+          <div fxLayoutAlign="center" class="quote-container" style="flex-basis:100%;" *ngIf="premiumItem.showGroup != ''">
+            <div class=" quote-container-inner no-padding mt-10 header newpad" style="background: #fff!important;"
+              fxLayout="row wrap"  fxFlexFill fxFlex="" fxFlex.sm="100">
+              <div fxFlex="100"   fxFlex.xs="100" fxFlex.sm="100" fxLayout="row" fxLayoutAlign="space-between start" style="background: linear-gradient(270deg, #e7eefe, rgba(231, 238, 254, 0) 101.19%);padding: 10px 20px;">
+                <div fxLayout="row" fxFlex="70" fxLayoutGap="10px" fxFlex.xs="50" fxFlex.sm="100" fxLayoutAlign="start center">
+                  <img class="logo2" style="width:110px" src="assets/listing/company_logo/{{premiumItem.company_logo}}"
+                    alt="{{premiumItem.company_name}}">
+                    <div fxLayout="column" fxLayoutAlign="space-between start">
+                      <small class="quote-help-text ">Plan Name</small>
+                  <span class="quote-values inc_days">{{premiumItem.plan_name}}</span>
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="space-between start" *ngIf="premiumItem.plan_variant">
+                      <small class="quote-help-text ">Plan Variant</small>
+                    <span class="quote-values inc_days">{{premiumItem.plan_variant}}</span>
+                    </div>
+                  <!-- <a class="text-size6" *ngIf="premiumItem.premium_group==1">
+                    {{ premiumItem.item_group_count }} More Plans
+                    <i class="material-icons plus-ad">add</i>
+                  </a> -->
+                  
+                </div>
+                <div fxFlex="30" fxLayout="column" class="sec3 only-desk-p" fxFlex.xs="50" fxFlex.sm="50"
+                  fxLayout.sm="column">
+                  <div class="example-button-row nprow">
+                    <p fxHide.xs fxHide.sm><b>Include {{premiumItem.gst}}% GST</b></p>
+                    <div *ngIf="premiumItem.provider_id==30;then directCall; else indirectCall"></div>
+                    <ng-template #directCall>
+                      <!--
+                                   <button mat-raised-button color="warn" class="price" (click)="openDialogConfirm(premiumItem,item_index, paymentConfirmDialog);" [disabled]="buyNowItemBtn && buyNowLoaderIndex === item_index">
+                                   {{ premiumItem.net_premium | currency:'Rs. ':'code':'1.0' }}
+                                   <mat-progress-bar mode="indeterminate" color="warn" *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index"></mat-progress-bar>
+                                   </button>
+                               -->
+                      <!-- old logic -->
+                      <button mat-raised-button color="warn" class="price"
+                        (click)="selectPremiumItem(premiumItem,item_index, ipruProposalDialog)"
+                        [disabled]="buyNowItemBtn && buyNowLoaderIndex === item_index">
+                        {{ premiumItem.net_premium | currency:'Rs. ':'code':'1.0' }} 
+                        <mat-progress-bar mode="indeterminate" 
+                          *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index">
+                        </mat-progress-bar>
+                      </button>
+                    </ng-template>
+                    <ng-template #indirectCall>
+                      <!--
+                                   <button mat-raised-button color="warn" class="price" (click)="openDialogConfirm(premiumItem,item_index, paymentConfirmDialog);">
+                                   {{ premiumItem.provider_id!=33? (premiumItem.net_premium | currency:'Rs. ':'code':'1.0-0') : 'Buy Now' }}
+                                   </button>
+                               -->
+                      <!-- old logic -->
+                      <button id="liveToastBtn" type="button"  class="btn btn-outline-primary  quote-price"
+                        (click)="showToast()"
+                        [disabled]="buyNowItemBtn && buyNowLoaderIndex === item_index">
+                        {{ premiumItem.net_premium | currency:'Rs. ':'code':'1.0-0' }} 
+                        <mat-progress-bar mode="indeterminate" 
+                          *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index">
+                        </mat-progress-bar>
+                      </button>
+                      <!-- (click)="selectPremiumItem(premiumItem, item_index, ipruProposalDialog);" -->
+                    </ng-template>
+                  </div>
+                  <!-- <p fxHide.xs fxHide.sm *ngIf="premiumItem.provider_id!=31"> -->
+                  <!--{{premiumItem.monthly_premium | currency:'Rs. ':'code':'1.0-0'}}  monthly
+                           <a (click)="openMaxDialogChangePremium(premiumDialog, item_index)">Change</a>-->
+                  <!-- </p> -->
+                  <!-- <p fxHide.xs fxHide.sm> -->
+                  <!--<a (click)="openMaxDialogChangePremium(premiumDialog, item_index)">Change</a>-->
+                  <!-- <a *ngIf="premiumItem?.icic_addons==0"
+                    (click)="openDialogChangePremium(icicipremiumOptionDialog)">Other
+                    Plans</a>
+                  <a *ngIf="premiumItem?.eddl_addons==0"
+                    (click)="openDialogChangePremium(eddelpremiumOptionDialog)">Other
+                    Plans</a>
+                </p> -->
+                </div>
+              </div>
+              <div fxFlex="100"   fxFlex.xs="100" fxFlex.sm="100" fxLayout="row wrap" fxLayoutAlign="space-between start" style="padding: 10px 20px;">
+                <div fxFlex="20" fxLayout="column"  class="sec3 " fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30"
+                fxLayoutAlign="flex-basis">
+                <small class="quote-help-text">Sum Assured</small>
+                <span class="quote-values inc_days">
+                  {{premiumItem.sum_assured | currency:'INR':'symbol-narrow':'1.0'}}
+                </span>
+                </div>
+                <div fxFlex="20" fxLayout="column"  class="sec3 " fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30"
+                  fxLayoutAlign="flex-basis">
+                  <small class="quote-help-text ">Payment/Policy Term</small>
+                  <span class="quote-values inc_days">{{quotePayment}} Yrs/{{maxPayForYears}} Years</span>
+                </div>
+                <div fxFlex="20" fxLayout="column" fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30" class="sec3 " 
+                  fxLayoutAlign="flex-basis">
+                  <small class="quote-help-text">Cover Upto</small>
+                  <span class="quote-values inc_days">{{quoteCover}} Yrs</span>
+                </div>
+                <div fxFlex="20" fxLayout="column" class="sec3  Claim Settled" fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30" fxLayout.sm="column">
+                  <!-- <p fxHide fxShow.xs fxShow.sm>Claim Settled <a fxHide fxShow.xs fxShow.sm
+                      style="color: blueviolet; padding-left:5px; text-transform: uppercase;"></a></p> -->
+                  <small class="quote-help-text">Claim Settled</small>
+                  <span class="quote-values">{{premiumItem.claim_settled | number:'1.0-2'}}%</span>
+                </div>
+                <div fxFlex="20" fxLayout="column" class="sec3 " fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30" fxLayout.sm="column">
+                  <small class="quote-help-text">Plan Type</small>
+                  <span *ngIf="premiumItem.db_type" class="quote-values">
+                    {{premiumItem.db_type}}
+                  </span>
+                  <ng-container *ngIf="show">
+                  </ng-container>
+                </div>
+              </div>
+             
+
+            </div>
+          </div>
+        </div>
+</div>
+        <!-- POPUP OPTIONS -->
+        <div style="flex-basis:100%;" *ngIf="premiumItem.premium_show == 1">
+          <div class="wrap-contact101 no-padding mt-10 header newpad" fxFlexLayout="row" fxHide fxShow.xs fxShow.sm
+            fxFlex="100">
+            <div fxFlex="100" style="text-align: right;">
+              <a class="pb dialog_link" (click)="openMaxDialogChangePremium(premiumDialog, item_index)"
+                *ngIf="premiumItem.provider_id!=31 && premiumItem.monthly_premium>0"> Premium:
+                {{premiumItem.monthly_premium | currency:'Rs.':'code':'1.0-0'}}/pm | Change
+              </a>
+              <a class="pb dialog_link" (click)="openMaxDialogChangePremium(premiumDialog, item_index)"
+                *ngIf="premiumItem.provider_id==31 && premiumItem.icic_addons!=0 && premiumItem.monthly_premium>0">
+                Premium: {{premiumItem.monthly_premium | currency:'Rs.':'code':'1.0-0'}}/pm | Change
+              </a>
+              <a class="pb dialog_link" (click)="openMaxDialogChangePremium(premiumDialog, item_index)"
+                *ngIf="premiumItem.provider_id==31 && premiumItem.icic_addons==0 && premiumItem.monthly_premium>0">
+                Premium: {{premiumItem.monthly_premium | currency:'Rs.':'code':'1.0-0'}}/pm Change |
+              </a>
+              <a class="pb dialog_link" (click)="openDialogChangePremium(icicipremiumOptionDialog)"
+                *ngIf="premiumItem.provider_id==31 && premiumItem.icic_addons==0"> View More
+              </a>
+              <a class="pb dialog_link" (click)="openDialogChangePremium(eddelpremiumOptionDialog)"
+                *ngIf="premiumItem.provider_id==34 && premiumItem.eddl_addons==0"> View More
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex-basis:100%;" *ngIf="premiumItem.premium_show == 0 && showGroup == premiumItem.provider_id">
+          <div class="wrap-contact101 no-padding mt-10 header newpad" fxFlexLayout="row" fxHide fxShow.xs fxShow.sm
+            fxFlex="100">
+            <div fxFlex="100" style="text-align: right;">
+              <a class="pb dialog_link" (click)="openMaxDialogChangePremium(premiumDialog, item_index)"
+                *ngIf="premiumItem.provider_id==30"> Premium: {{premiumItem.monthly_premium |
+                currency:'Rs.':'code':'1.0-0'}}/pm | Change
+              </a>
+              <a class="pb dialog_link" (click)="openDialogChangePremium(eddelpremiumOptionDialog)"
+                *ngIf="premiumItem.provider_id==31 && premiumItem.icic_addons==0"> Premium:
+                {{premiumItem.monthly_premium | currency:'Rs.':'code':'1.0-0'}}/yr | View More
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="scroll_to" #listingPanel></div>
+
+    <div fxLayout.sm="column" fxLayout.xs="column" style="text-align: right; line-height:21px;">
+      <ng-template #icicipremiumOptionDialog>
+        <div mat-dialog-content [formGroup]="iciciPremiumTypeForm">
+          <h2 matDialogTitle>Different Premium Payment Plans</h2>
+          <mat-radio-group aria-label="Select an option" fxLayout.xs="column" fxLayout.sm="column" fxLayout.lg="column"
+            fxLayout.md="column" formControlName="iciciPPT">
+            <mat-radio-button *ngFor="let iciciPremItem of iciciPremiumOptions; let i = index" [value]="i"
+              [disabled]="iciciShowPlanItem==iciciPremItem.type">
+              {{ iciciPremItem.label }}
+            </mat-radio-button>
+            <mat-error *ngIf="iciciPremiumTypeForm.controls['iciciPPT'].errors?.required">
+              Please choose an option!
+            </mat-error>
+          </mat-radio-group>
+        </div>
+        <div mat-dialog-actions>
+          <button mat-raised-button (click)="icicipremPlanChange($event)" color="warn">Submit</button>
+          <button mat-raised-button (click)="closeDialog()" color="warn">No Thanks</button>
+        </div>
+      </ng-template>
+    </div>
+
+    <div fxLayout.sm="column" fxLayout.xs="column" style="text-align: right; line-height:21px;">
+      <ng-template #eddelpremiumOptionDialog>
+        <div mat-dialog-content [formGroup]="eddelPremiumTypeForm">
+          <h2 matDialogTitle>Different Premium Plans</h2>
+          <mat-radio-group aria-label="Select an option" fxLayout.xs="column" fxLayout.sm="column" fxLayout.lg="column"
+            fxLayout.md="column" fxLayout.lg="column" formControlName="eddelPPT">
+            <mat-radio-button *ngFor="let eddelPremItem of eddelPremiumOptions; let i = index" [value]="i"
+              [disabled]="iciciShowPlanItem==eddelPremItem.item_value">
+              {{ eddelPremItem.label }}
+            </mat-radio-button>
+            <mat-error *ngIf="eddelPremiumTypeForm.controls['eddelPPT'].errors?.required">
+              Please choose an option!
+            </mat-error>
+          </mat-radio-group>
+        </div>
+        <div mat-dialog-actions>
+          <button mat-raised-button (click)="eddelpremPlanChange($event)" color="warn">Submit</button>
+          <button mat-raised-button (click)="closeDialog()" color="warn">No Thanks</button>
+        </div>
+      </ng-template>
+    </div>
+
+    <ng-template #paymentConfirmDialog>
+      <h1 mat-dialog-title>Payment Confirmation</h1>
+      <div mat-dialog-content>
+        <p>Do you really want to purchase this policy?</p>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-raised-button class="contact100-form-btn" color="warn" matDialogClose="Y">Yes</button>
+        <button mat-raised-button class="contact100-form-btn" color="warn" matDialogClose="N">No Thanks</button>
+      </div>
+    </ng-template>
+
+    <!-- MAX PREMIUM OPTION CHANGE POPUP -->
+    <ng-template #premiumDialog>
+      <div mat-dialog-content>
+        <h2 matDialogTitle>Payment Frequency Mode</h2>
+        <form [formGroup]="maxFormGroup" fxLayout="column" (ngSubmit)="checkGenPremiumFreqForm()">
+          <input formControlName="maxPremiumItem" type="hidden">
+          <mat-radio-group aria-label="Select an option" fxLayout.xs="column" fxLayout.sm="column" fxLayout.lg="column"
+            fxLayout.md="column" formControlName="maxPremiumMode">
+            <mat-radio-button *ngFor="let pfeq of premFrequency" [value]="pfeq.type" name="premFreq">
+              {{pfeq.label}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="maxFormGroup.controls['maxPremiumMode'].errors?.required">
+            Please choose any option
+          </mat-error>
+          <div fxFlex="100" fxLayout="row">
+            <div fxFlex="50">
+              <button mat-raised-button class="contact100-form-btn" type="submit">Submit</button>
+            </div>
+            <div fxFlex="50">
+              <button mat-raised-button (click)="closeDialog()" class="contact100-form-btn" color="warn">No
+                Thanks</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <!-- ICICI QUOTE FORM DETAILS -->
+    <ng-template #ipruProposalDialog>
+      <div mat-dialog-content id="quote" class="proposal_containt_dialog">
+        <mat-horizontal-stepper linear #stepper>
+          <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
+            <form [formGroup]="firstFormGroup" fxLayout="column" (ngSubmit)="checkFirstForm(stepper)">
+              <p class="gap-no">Full Name</p>
+              <p fxFlex="100" fxLayout="row">
+                <mat-form-field>
+                  <div fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your full name" formControlName="custName"
+                      maxlength="75" autocomplete="new-password" class="text-uppercase" #custName>
+                  </div>
+                  <mat-error *ngIf="firstFormGroup.controls['custName'].errors?.required">
+                    Customer name is required!
+                  </mat-error>
+                  <mat-error *ngIf="firstFormGroup.controls['custName'].errors?.pattern">
+                    Please enter valid name!
+                  </mat-error>
+                  <mat-error *ngIf="firstFormGroup.controls['custName'].errors?.minlength">
+                    Name should be 3 chars long!
+                  </mat-error>
+                  <mat-hint align="end">Should be at least 3 chars long</mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Email Id</p>
+              <p fxFlex="100" fxLayout="row">
+                <mat-form-field>
+                  <div fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your email" formControlName="custEmail"
+                      maxlength="75" autocomplete="new-password" #custEmail>
+                  </div>
+                  <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.required">
+                    Customer email is required!
+                  </mat-error>
+                  <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                    Please enter valid email!
+                  </mat-error>
+                  <mat-hint align="end">Ex: demo@demo.com</mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Mobile Number</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column">
+                <mat-form-field fxFLex="10">
+                  <div fxFLex="10">
+                    <input matInput type="number" placeholder="County Code" formControlName="custCuntryCode"
+                      autocomplete="new-password" (input)="checkLength($event.target.value, 2, 'custCuntryCode')"
+                      #custCuntryCode>
+                  </div>
+                  <mat-error *ngIf="firstFormGroup.controls['custCuntryCode'].errors?.required">
+                    Country code is required!
+                  </mat-error>
+                  <mat-error *ngIf="firstFormGroup.controls['custCuntryCode'].errors?.pattern">
+                    Invalid code
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="number" maxlength="10" placeholder="Should be 10 digits"
+                      formControlName="custMob" (focus)="focusState = true" (focusout)="focusState = false"
+                      autocomplete="new-password" (input)="checkLength($event.target.value, 10, 'custMob')" #custMob>
+                  </div>
+                  <mat-error *ngIf="firstFormGroup.controls['custMob'].errors?.required">
+                    Customer mobile no is required!
+                  </mat-error>
+                  <mat-error *ngIf="firstFormGroup.controls['custMob'].errors?.pattern">
+                    Please enter valid 10 digit mobile no!
+                  </mat-error>
+                  <mat-hint align="end" *ngIf="focusState">{{custMob.value.length}}/10</mat-hint>
+                </mat-form-field>
+              </p>
+              <div fxFlex="100" fxLayout="row">
+                <div fxFlex="50">
+                  <button mat-button class="contact100-form-btn" type="submit">
+                    Continue
+                    <mat-icon class="forward">
+                      arrow_forward
+                    </mat-icon>
+                  </button>
+                </div>
+                <div fxFlex="50">
+                  <!-- <a class="" mat-button (click)="closeDialog()" color="warn">No Thanks</a> -->
+                  <button mat-button class="contact100-form-btn" color="warn" (click)="closeDialog()">No
+                    Thanks </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+            <form [formGroup]="secondFormGroup" fxLayout="column" (ngSubmit)="submitIciciProposalForm(stepper)">
+              <p class="gap-no">Address & City</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your address" formControlName="custAddress"
+                      autocomplete="new-password" class="text-uppercase" #custAddress>
+                  </div>
+                  <mat-error *ngIf="secondFormGroup.controls['custAddress'].errors?.required">
+                    Address is required!
+                  </mat-error>
+                  <mat-error *ngIf="secondFormGroup.controls['custAddress'].errors?.minlength">
+                    Address should be 6 chars long!
+                  </mat-error>
+                  <mat-hint align="end">Should be at least 6 chars long</mat-hint>
+                </mat-form-field>
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your city" formControlName="custCity"
+                      autocomplete="new-password" class="text-uppercase" #custCity>
+                  </div>
+                  <mat-error *ngIf="secondFormGroup.controls['custCity'].errors?.required">
+                    City is required!
+                  </mat-error>
+                  <mat-error *ngIf="secondFormGroup.controls['custCity'].errors?.pattern">
+                    Enter valid city name!
+                  </mat-error>
+                  <mat-hint align="end">Ex: Mumbai</mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Country & State</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your country" formControlName="custCountry"
+                      autocomplete="off" class="text-uppercase" readonly #custAddress>
+                  </div>
+                  <mat-hint align="end">Your country Ex: India</mat-hint>
+                </mat-form-field>
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input type="text" placeholder="Select State" aria-label="Select State" matInput
+                      formControlName="custStateCode" [formControl]="iciciStateCtrl" [matAutocomplete]="auto"
+                      name="custState" autocomplete="new-custState">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayIciciStateFn">
+                      <mat-option (onSelectionChange)="updateForm($event, iciciStateItem.item_value, 'custStateCode')"
+                        *ngFor="let iciciStateItem of filteredStates | async" [value]="iciciStateItem">
+                        {{iciciStateItem.label}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <mat-hint align="end">Ex: Maharastra</mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Pincode Details</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="number" placeholder="Enter your pincode" formControlName="custPinCode"
+                      autocomplete="off" class="text-uppercase" #custPinCode>
+                  </div>
+                  <mat-hint align="end">Your pincode Ex: 400601</mat-hint>
+                </mat-form-field>
+              </p>
+              <div fxFlex="100" fxLayout="row" style="margin-top:47px;">
+                <div fxFlex="10" style="padding: 0 10px 25px;">
+                  <button mat-button matStepperPrevious style="padding: 0;">
+                    <mat-icon class="back">keyboard_backspace</mat-icon>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" type="submit" [disabled]="proposalFormSubmitBtn">
+                    Proceed
+                    <mat-progress-bar mode="indeterminate" color="warn" *ngIf="proposalFormSubmitBtn">
+                    </mat-progress-bar>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" color="warn" (click)="closeDialog()">No
+                    Thanks </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </div>
+    </ng-template>
+    <!-- MAX LIFE QUOTE FORM DETAILS -->
+
+    <!-- PNB -->
+    <ng-template #premiumDialogPnb>
+      <div mat-dialog-content>
+        <h2 matDialogTitle>Product Information And Addons</h2>
+        <form [formGroup]="pnbAddonsFormGroup" fxLayout="column" (ngSubmit)="onPNBAddonsFormSubmit()">
+
+          <mat-form-field appearance="fill">
+            <mat-label>Cover Upto</mat-label>
+            <mat-select formControlName="cover_upto">
+              <!-- [(value)]="selTermAge" -->
+              <mat-option value="100">Upto Age 100</mat-option>
+              <!--100-@li_entry_age-->
+              <mat-option value="80">Upto Age 80</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Premium Payment Term</mat-label>
+            <mat-select formControlName="premium_payment_term">
+              <mat-option value="5">5</mat-option>
+              <mat-option value="6">6</mat-option>
+              <mat-option value="7">7</mat-option>
+              <mat-option value="8">8</mat-option>
+              <mat-option value="9">9</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="12">12</mat-option>
+              <mat-option value="15">15</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Payment Mode</mat-label>
+            <mat-select formControlName="payment_mode">
+              <mat-option value="annual">Annual</mat-option>
+              <mat-option value="semi-annual">Semi-Annual</mat-option>
+              <mat-option value="quarterly">Quarterly</mat-option>
+              <mat-option value="monthly">Monthly</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <h6 style="margin: 0 auto;"> Riders Information </h6>
+          <div formArrayName="riders">
+            <div *ngFor="let option of riders.controls; let riderIndex=index">
+              <div [formGroupName]="riderIndex">
+                <div>
+                  <mat-checkbox class="example-margin" formControlName="status"
+                    (change)="onPNBAddonsAdd($event.checked, option, riderIndex)">{{ option.value.label
+                    }}</mat-checkbox>
+                </div>
+                <div *ngIf="option.value.status">
+                  <mat-form-field appearance="fill">
+                    <mat-label>{{ option.value.label }}</mat-label>
+                    <input matInput autocomplete="off" type="number" min="25000" max="1000000000"
+                      formControlName="amount">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+          <!-- <mat-error *ngIf="selected.hasError('required')">You must make a selection</mat-error>
+            <mat-error *ngIf="selected.hasError('pattern') && !selected.hasError('required')">
+               Your selection is invalid
+            </mat-error> -->
+
+          <mat-error *ngIf="pnbAddonsFormGroup.controls['riders'].errors?.required">
+            Please choose any option
+          </mat-error>
+
+          <hr>
+
+          <div fxFlex="100" fxLayout="row" style="margin: 10px 0px;">
+            <div fxFlex="50">
+              <button mat-raised-button class="contact100-form-btn" type="submit">Submit</button>
+            </div>
+            <div fxFlex="50">
+              <button mat-raised-button (click)="closeDialog()" class="contact100-form-btn" color="warn">No
+                Thanks</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <!-- PNB -->
+    <ng-template #pnbDialog>
+      <div mat-dialog-content id="quote" class="proposal_containt_dialog">
+        <mat-horizontal-stepper linear #pnbStepper>
+
+          <mat-step [stepControl]="pnbProposalFormGroupFirst" errorMessage="Name is required.">
+            <form [formGroup]="pnbProposalFormGroupFirst" fxLayout="column"
+              (ngSubmit)="checkPnbProposalFormGroupFirst()">
+              <p class="gap-no">Full Name</p>
+              <p fxFlex="100" fxLayout="row">
+                <mat-form-field>
+                  <div fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your full name" formControlName="custName"
+                      maxlength="75" autocomplete="new-password" class="text-uppercase" #custName>
+                  </div>
+                  <mat-error *ngIf="pnbProposalFormGroupFirst.controls['custName'].errors?.required">
+                    Customer name is required!
+                  </mat-error>
+                  <mat-error *ngIf="pnbProposalFormGroupFirst.controls['custName'].errors?.pattern">
+                    Please enter valid name!
+                  </mat-error>
+                  <mat-error *ngIf="pnbProposalFormGroupFirst.controls['custName'].errors?.minlength">
+                    Name should be 3 chars long!
+                  </mat-error>
+                  <mat-hint align="end">
+                    Should be at least 3 chars long
+                  </mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Email Id</p>
+              <p fxFlex="100" fxLayout="row">
+                <mat-form-field>
+                  <div fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your email" formControlName="custEmail"
+                      maxlength="75" autocomplete="new-password" #custEmail>
+                  </div>
+                  <mat-error *ngIf="pnbProposalFormGroupFirst.controls['custEmail'].errors?.required">
+                    Customer email is required!
+                  </mat-error>
+                  <mat-error *ngIf="pnbProposalFormGroupFirst.controls['custEmail'].errors?.pattern">
+                    Please enter valid email!
+                  </mat-error>
+                  <mat-hint align="end">
+                    Ex: demo@demo.com
+                  </mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Mobile Number</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column">
+                <mat-form-field fxFLex="10">
+                  <div fxFLex="10">
+                    <input matInput type="number" placeholder="County Code" formControlName="custCuntryCode"
+                      autocomplete="new-password" (input)="checkLength($event.target.value, 2, 'custCuntryCode')"
+                      #custCuntryCode>
+                  </div>
+                  <mat-error *ngIf="pnbProposalFormGroupFirst.controls['custCuntryCode'].errors?.required">
+                    Country code is required!
+                  </mat-error>
+                  <mat-error *ngIf="pnbProposalFormGroupFirst.controls['custCuntryCode'].errors?.pattern">
+                    Invalid code
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="number" maxlength="10" placeholder="Should be 10 digits"
+                      formControlName="custMob" (focus)="focusState = true" (focusout)="focusState = false"
+                      autocomplete="new-password" (input)="checkLength($event.target.value, 10, 'custMob')" #custMob>
+                  </div>
+                  <mat-error *ngIf="pnbProposalFormGroupFirst.controls['custMob'].errors?.required">
+                    Customer mobile no is required!
+                  </mat-error>
+                  <mat-error *ngIf="pnbProposalFormGroupFirst.controls['custMob'].errors?.pattern">
+                    Please enter valid 10 digit mobile no!
+                  </mat-error>
+                  <mat-hint align="end" *ngIf="focusState">
+                    {{custMob.value.length}}/10
+                  </mat-hint>
+                </mat-form-field>
+              </p>
+              <div fxFlex="100" fxLayout="row">
+                <div fxFlex="50">
+                  <button mat-button class="contact100-form-btn" type="submit">
+                    Continue <mat-icon class="forward">arrow_forward</mat-icon>
+                  </button>
+                </div>
+                <div fxFlex="50">
+                  <!-- <a class="" mat-button (click)="closeDialog()" color="warn">No Thanks</a> -->
+                  <button mat-button class="contact100-form-btn" color="warn" (click)="closeDialog()">No
+                    Thanks </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="pnbProposalFormGroupSecond" errorMessage="Address is required.">
+            <form [formGroup]="pnbProposalFormGroupSecond" fxLayout="column"
+              (ngSubmit)="checkPnbProposalFormGroupSecond()">
+              <p class="gap-no">Address & City</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your address" formControlName="custAddress"
+                      autocomplete="new-password" class="text-uppercase" #custAddress>
+                  </div>
+                  <mat-error *ngIf="pnbProposalFormGroupSecond.controls['custAddress'].errors?.required">
+                    Address is required!
+                  </mat-error>
+                  <mat-error *ngIf="pnbProposalFormGroupSecond.controls['custAddress'].errors?.minlength">
+                    Address should be 6 chars long!
+                  </mat-error>
+                  <mat-hint align="end">Should be at least 6 chars long</mat-hint>
+                </mat-form-field>
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your city" formControlName="custCity"
+                      autocomplete="new-password" class="text-uppercase" #custCity>
+                  </div>
+                  <mat-error *ngIf="pnbProposalFormGroupSecond.controls['custCity'].errors?.required">
+                    City is required!
+                  </mat-error>
+                  <mat-error *ngIf="pnbProposalFormGroupSecond.controls['custCity'].errors?.pattern">
+                    Enter valid city name!
+                  </mat-error>
+                  <mat-hint align="end">Ex: Mumbai</mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Country & State</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your country" formControlName="custCountry"
+                      autocomplete="off" class="text-uppercase" readonly #custAddress>
+                  </div>
+                  <mat-hint align="end">Your country Ex: India</mat-hint>
+                </mat-form-field>
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input type="text" placeholder="Select State" aria-label="Select State" matInput
+                      formControlName="custStateCode" [formControl]="iciciStateCtrl" [matAutocomplete]="auto"
+                      name="custState" autocomplete="new-custState">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayIciciStateFn">
+                      <mat-option (onSelectionChange)="updatePnbForm($event, stateItem.item_value, 'custStateCode')"
+                        *ngFor="let stateItem of filteredStates | async" [value]="stateItem">
+                        {{stateItem.label}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <mat-hint align="end">Ex: Maharastra</mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Pincode Details</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="number" placeholder="Enter your pincode" formControlName="custPinCode"
+                      autocomplete="off" class="text-uppercase" #custPinCode>
+                  </div>
+                  <mat-hint align="end">Your pincode Ex: 400601</mat-hint>
+                </mat-form-field>
+              </p>
+              <div fxFlex="100" fxLayout="row" style="margin-top:47px;">
+                <div fxFlex="10" style="padding: 0 10px 25px;">
+                  <button mat-button matStepperPrevious style="padding: 0;">
+                    <mat-icon class="back">keyboard_backspace</mat-icon>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" type="submit" [disabled]="proposalFormSubmitBtn">
+                    Proceed
+                    <mat-progress-bar mode="indeterminate" color="warn" *ngIf="proposalFormSubmitBtn">
+                    </mat-progress-bar>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" color="warn" (click)="closeDialog()">No
+                    Thanks </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="pnbProposalFormGroupThird" errorMessage="Address is required.">
+            <form [formGroup]="pnbProposalFormGroupThird" fxLayout="column"
+              (ngSubmit)="checkPnbProposalFormGroupThird()">
+              <p class="gap-no">Address & City</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="number" placeholder="Enter your annual income" formControlName="annualIncome"
+                      autocomplete="off">
+                  </div>
+                  <mat-error *ngIf="pnbProposalFormGroupThird.controls['annualIncome'].errors?.required">
+                    Annual income is required!
+                  </mat-error>
+                  <mat-hint align="end">500000</mat-hint>
+                </mat-form-field>
+              </p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <mat-label> Educational Qualification </mat-label>
+                    <mat-select formControlName="educationalQualification">
+                      <mat-option value="1"> Post Grad & Above </mat-option>
+                      <mat-option value="2"> Graduate </mat-option>
+                      <mat-option value="3"> Diploma </mat-option>
+                      <mat-option value="4"> 12th pass </mat-option>
+                      <mat-option value="5"> 10th pass </mat-option>
+                      <mat-option value="6"> Below 10th Pass </mat-option>
+                      <mat-option value="7"> Illiterate </mat-option>
+                    </mat-select>
+                  </div>
+                  <mat-error *ngIf="pnbProposalFormGroupThird.controls['educationalQualification'].errors?.required">
+                    Educational Qualification is required!
+                  </mat-error>
+                  <mat-hint align="end">Ex: Graduate</mat-hint>
+                </mat-form-field>
+              </p>
+
+              <!--
+                     <p class="gap-no">Occupation</p>
+                     <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                        <mat-form-field>
+                           <div fxFLex="30" fxFLex="30">
+                              <mat-form-field>
+                                 <mat-label> Occupation </mat-label>
+                                 <mat-select formControlName="occupation">
+                                    <mat-option value="1"> Business </mat-option>
+                                    <mat-option value="2"> Not Categorized </mat-option>
+                                    <mat-option value="3"> Housewife </mat-option>
+                                    <mat-option value="4"> Professional </mat-option>
+                                    <mat-option value="6"> Self Employed </mat-option>
+                                    <mat-option value="7"> Student </mat-option>
+                                    <mat-option value="8"> Service in Government Sector </mat-option>
+                                    <mat-option value="10"> Service in Private Sector </mat-option>
+                                    <mat-option value="11"> Service in Public Sector </mat-option>
+                                    <mat-option value="12"> Retired </mat-option>
+                                 </mat-select>
+                              </mat-form-field>
+                           </div>
+                           <mat-error *ngIf="pnbProposalFormGroupThird.controls['occupation'].errors?.required">
+                              Educational Qualification is required!
+                           </mat-error>
+                           <mat-hint align="end">Ex: Professional</mat-hint>
+                        </mat-form-field>
+                     </p>
+            -->
+
+              <div fxFlex="100" fxLayout="row" style="margin-top:47px;">
+                <div fxFlex="10" style="padding: 0 10px 25px;">
+                  <button mat-button matStepperPrevious style="padding: 0;">
+                    <mat-icon class="back">keyboard_backspace</mat-icon>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" type="submit" [disabled]="proposalFormSubmitBtn">
+                    Proceed
+                    <mat-progress-bar mode="indeterminate" color="warn" *ngIf="proposalFormSubmitBtn">
+                    </mat-progress-bar>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" color="warn" (click)="closeDialog()">No
+                    Thanks </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+
+        </mat-horizontal-stepper>
+      </div>
+    </ng-template>
+
+    <!-- Aegon -->
+    <ng-template #aegonDialog>
+      <div mat-dialog-content id="quote" class="proposal_containt_dialog">
+        <mat-horizontal-stepper linear #aegonStepper>
+
+          <mat-step [stepControl]="aegonProposalFormGroupFirst" errorMessage="Name is required.">
+            <form [formGroup]="aegonProposalFormGroupFirst" fxLayout="column"
+              (ngSubmit)="checkAegonProposalFormGroupFirst()">
+              <p class="gap-no">Full Name</p>
+              <p fxFlex="100" fxLayout="row">
+                <mat-form-field>
+                  <div fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your full name" formControlName="custName"
+                      maxlength="75" autocomplete="new-password" class="text-uppercase" #custName>
+                  </div>
+                  <mat-error *ngIf="aegonProposalFormGroupFirst.controls['custName'].errors?.required">
+                    Customer name is required!
+                  </mat-error>
+                  <mat-error *ngIf="aegonProposalFormGroupFirst.controls['custName'].errors?.pattern">
+                    Please enter valid name!
+                  </mat-error>
+                  <mat-error *ngIf="aegonProposalFormGroupFirst.controls['custName'].errors?.minlength">
+                    Name should be 3 chars long!
+                  </mat-error>
+                  <mat-hint align="end">
+                    Should be at least 3 chars long
+                  </mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Email Id</p>
+              <p fxFlex="100" fxLayout="row">
+                <mat-form-field>
+                  <div fxFLex="30">
+                    <input matInput type="text" placeholder="Enter your email" formControlName="custEmail"
+                      maxlength="75" autocomplete="new-password" #custEmail>
+                  </div>
+                  <mat-error *ngIf="aegonProposalFormGroupFirst.controls['custEmail'].errors?.required">
+                    Customer email is required!
+                  </mat-error>
+                  <mat-error *ngIf="aegonProposalFormGroupFirst.controls['custEmail'].errors?.pattern">
+                    Please enter valid email!
+                  </mat-error>
+                  <mat-hint align="end">
+                    Ex: demo@demo.com
+                  </mat-hint>
+                </mat-form-field>
+              </p>
+              <p class="gap-no">Mobile Number</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column">
+                <mat-form-field fxFLex="10">
+                  <div fxFLex="10">
+                    <input matInput type="number" placeholder="County Code" formControlName="custCuntryCode"
+                      autocomplete="new-password" (input)="checkLength($event.target.value, 2, 'custCuntryCode')"
+                      #custCuntryCode>
+                  </div>
+                  <mat-error *ngIf="aegonProposalFormGroupFirst.controls['custCuntryCode'].errors?.required">
+                    Country code is required!
+                  </mat-error>
+                  <mat-error *ngIf="aegonProposalFormGroupFirst.controls['custCuntryCode'].errors?.pattern">
+                    Invalid code
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="number" maxlength="10" placeholder="Should be 10 digits"
+                      formControlName="custMob" (focus)="focusState = true" (focusout)="focusState = false"
+                      autocomplete="new-password" (input)="checkLength($event.target.value, 10, 'custMob')" #custMob>
+                  </div>
+                  <mat-error *ngIf="aegonProposalFormGroupFirst.controls['custMob'].errors?.required">
+                    Customer mobile no is required!
+                  </mat-error>
+                  <mat-error *ngIf="aegonProposalFormGroupFirst.controls['custMob'].errors?.pattern">
+                    Please enter valid 10 digit mobile no!
+                  </mat-error>
+                  <mat-hint align="end" *ngIf="focusState">
+                    {{custMob.value.length}}/10
+                  </mat-hint>
+                </mat-form-field>
+              </p>
+              <div fxFlex="100" fxLayout="row">
+                <div fxFlex="50">
+                  <button mat-button class="contact100-form-btn" type="submit">
+                    Continue <mat-icon class="forward">arrow_forward</mat-icon>
+                  </button>
+                </div>
+                <div fxFlex="50">
+                  <!-- <a class="" mat-button (click)="closeDialog()" color="warn">No Thanks</a> -->
+                  <button mat-button class="contact100-form-btn" color="warn" (click)="closeDialog()">No
+                    Thanks </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="aegonProposalFormGroupSecond" errorMessage="Address is required.">
+            <form [formGroup]="aegonProposalFormGroupSecond" fxLayout="column"
+              (ngSubmit)="checkAegonProposalFormGroupThird()">
+              <!-- checkAegonProposalFormGroupSecond() -->
+              <!-- <p class="gap-no">Address & City</p>
+            <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+              <mat-form-field>
+                <div fxFLex="30" fxFLex="30">
+                  <input matInput type="text" placeholder="Enter your address" formControlName="custAddress"
+                    autocomplete="new-password" class="text-uppercase" #custAddress>
+                </div>
+                <mat-error *ngIf="aegonProposalFormGroupSecond.controls['custAddress'].errors?.required">
+                  Address is required!
+                </mat-error>
+                <mat-error *ngIf="aegonProposalFormGroupSecond.controls['custAddress'].errors?.minlength">
+                  Address should be 6 chars long!
+                </mat-error>
+                <mat-hint align="end">Should be at least 6 chars long</mat-hint>
+              </mat-form-field>
+              <mat-form-field>
+                <div fxFLex="30" fxFLex="30">
+                  <input matInput type="text" placeholder="Enter your city" formControlName="custCity"
+                    autocomplete="new-password" class="text-uppercase" #custCity>
+                </div>
+                <mat-error *ngIf="aegonProposalFormGroupSecond.controls['custCity'].errors?.required">
+                  City is required!
+                </mat-error>
+                <mat-error *ngIf="aegonProposalFormGroupSecond.controls['custCity'].errors?.pattern">
+                  Enter valid city name!
+                </mat-error>
+                <mat-hint align="end">Ex: Mumbai</mat-hint>
+              </mat-form-field>
+            </p>
+            <p class="gap-no">Country & State</p>
+            <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+              <mat-form-field>
+                <div fxFLex="30" fxFLex="30">
+                  <input matInput type="text" placeholder="Enter your country" formControlName="custCountry"
+                    autocomplete="off" class="text-uppercase" readonly #custAddress>
+                </div>
+                <mat-hint align="end">Your country Ex: India</mat-hint>
+              </mat-form-field>
+              <mat-form-field>
+                <div fxFLex="30" fxFLex="30">
+                  <input type="text" placeholder="Select State" aria-label="Select State" matInput
+                    formControlName="custStateCode" [formControl]="iciciStateCtrl" [matAutocomplete]="auto"
+                    name="custState" autocomplete="new-custState">
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayIciciStateFn">
+                    <mat-option (onSelectionChange)="updateAegonForm($event, stateItem.item_value, 'custStateCode')"
+                      *ngFor="let stateItem of filteredStates | async" [value]="stateItem">
+                      {{stateItem.label}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+                <mat-hint align="end">Ex: Maharastra</mat-hint>
+              </mat-form-field>
+            </p> -->
+              <p class="gap-no">Pin code Details</p>
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <input matInput type="number" placeholder="Enter your pincode" formControlName="custPinCode"
+                      autocomplete="off" class="text-uppercase" #custPinCode (input)="checkLengthPinCode()">
+                  </div>
+                  <mat-hint align="end">Your pincode Ex: 400601</mat-hint>
+                </mat-form-field>
+              </p>
+
+              <!-- <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+              <mat-form-field>
+                <div fxFLex="30" fxFLex="30">
+                  <mat-label> Educational Qualification </mat-label>
+                  <mat-select formControlName="educationalQualification">
+                    <mat-option value="Postgraduate"> Post Grad & Above </mat-option>
+                    <mat-option value="Graduate"> Graduate </mat-option>
+                    <mat-option value="Diploma_holder"> Diploma </mat-option>
+                    <mat-option value="Twelfth_or_hsc_pass"> 12th pass </mat-option>
+                    <mat-option value="Below_twelfth"> 10th pass </mat-option>
+                    <mat-option value="Professionaldegree"> Professional Degree </mat-option>
+                  </mat-select>
+                </div>
+                <mat-error *ngIf="aegonProposalFormGroupThird.controls['educationalQualification'].errors?.required">
+                  Educational Qualification is required!
+                </mat-error>
+                <mat-hint align="end">Ex: Graduate</mat-hint>
+              </mat-form-field>
+            </p>
+
+            <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+              <mat-form-field>
+
+                <div fxFLex="30" fxFLex="30">
+                  <mat-label> Occupation </mat-label>
+                  <mat-select formControlName="occupation">
+                    <mat-option value="Salaried"> Salaried </mat-option>
+                    <mat-option value="Business"> Business </mat-option>
+                    <mat-option value="Armedforces"> Armedforces </mat-option>
+                    <mat-option value="Agriculturist"> Agriculturist </mat-option>
+                    <mat-option value="Police"> Police </mat-option>
+                    <mat-option value="Student"> Student </mat-option>
+                  </mat-select>
+                </div>
+                <mat-error *ngIf="aegonProposalFormGroupThird.controls['occupation'].errors?.required">
+                  Occupation Qualification is required!
+                </mat-error>
+                <mat-hint align="end">Ex: Professional</mat-hint>
+              </mat-form-field>
+            </p> -->
+
+              <div fxFlex="100" fxLayout="row" style="margin-top:47px;">
+                <div fxFlex="10" style="padding: 0 10px 25px;">
+                  <button mat-button matStepperPrevious style="padding: 0;">
+                    <mat-icon class="back">keyboard_backspace</mat-icon>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" type="submit" [disabled]="proposalFormSubmitBtn">
+                    Proceed
+                    <mat-progress-bar mode="indeterminate" color="warn" *ngIf="proposalFormSubmitBtn">
+                    </mat-progress-bar>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" color="warn" (click)="closeDialog()">No
+                    Thanks </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="aegonProposalFormGroupThird" errorMessage="Address is required.">
+            <form [formGroup]="aegonProposalFormGroupThird" fxLayout="column"
+              (ngSubmit)="checkAegonProposalFormGroupThird()">
+              <p class="gap-no">Occupation & Educational</p>
+
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <mat-label>Annual Income</mat-label>
+                    <input matInput type="number" placeholder="Enter your annual income" formControlName="annualIncome"
+                      autocomplete="off">
+                  </div>
+                  <mat-error *ngIf="aegonProposalFormGroupThird.controls['annualIncome'].errors?.required">
+                    Annual income is required!
+                  </mat-error>
+                  <mat-hint align="end">500000</mat-hint>
+                </mat-form-field>
+              </p>
+
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+                  <div fxFLex="30" fxFLex="30">
+                    <!-- <mat-form-field> -->
+                    <mat-label> Educational Qualification </mat-label>
+                    <mat-select formControlName="educationalQualification">
+                      <mat-option value="Postgraduate"> Post Grad & Above </mat-option>
+                      <mat-option value="Graduate"> Graduate </mat-option>
+                      <mat-option value="Diploma_holder"> Diploma </mat-option>
+                      <mat-option value="Twelfth_or_hsc_pass"> 12th pass </mat-option>
+                      <mat-option value="Below_twelfth"> 10th pass </mat-option>
+                      <mat-option value="Professionaldegree"> Professional Degree </mat-option>
+                    </mat-select>
+                    <!-- </mat-form-field> -->
+                  </div>
+                  <mat-error *ngIf="aegonProposalFormGroupThird.controls['educationalQualification'].errors?.required">
+                    Educational Qualification is required!
+                  </mat-error>
+                  <mat-hint align="end">Ex: Graduate</mat-hint>
+                </mat-form-field>
+              </p>
+
+              <p fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
+                <mat-form-field>
+
+                  <div fxFLex="30" fxFLex="30">
+                    <mat-label> Occupation </mat-label>
+                    <mat-select formControlName="occupation">
+                      <mat-option value="Salaried"> Salaried </mat-option>
+                      <mat-option value="Business"> Business </mat-option>
+                      <!-- <mat-option value="Professional"> Professional </mat-option> -->
+                      <mat-option value="Armedforces"> Armedforces </mat-option>
+                      <!-- <mat-option value="Housewife"> Housewife </mat-option> -->
+                      <mat-option value="Agriculturist"> Agriculturist </mat-option>
+                      <!-- <mat-option value="Driver"> Driver </mat-option> -->
+                      <mat-option value="Police"> Police </mat-option>
+                      <mat-option value="Student"> Student </mat-option>
+                      <!-- <mat-option value="Labour"> Labour </mat-option> -->
+                    </mat-select>
+                  </div>
+                  <mat-error *ngIf="aegonProposalFormGroupThird.controls['occupation'].errors?.required">
+                    Occupation Qualification is required!
+                  </mat-error>
+                  <mat-hint align="end">Ex: Professional</mat-hint>
+                </mat-form-field>
+              </p>
+
+              <div fxFlex="100" fxLayout="row" style="margin-top:47px;">
+                <div fxFlex="10" style="padding: 0 10px 25px;">
+                  <button mat-button matStepperPrevious style="padding: 0;">
+                    <mat-icon class="back">keyboard_backspace</mat-icon>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" type="submit" [disabled]="proposalFormSubmitBtn">
+                    Proceed
+                    <mat-progress-bar mode="indeterminate" color="warn" *ngIf="proposalFormSubmitBtn">
+                    </mat-progress-bar>
+                  </button>
+                </div>
+                <div fxFlex="45">
+                  <button mat-button class="contact100-form-btn" color="warn" (click)="closeDialog()">
+                    No Thanks
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+
+        </mat-horizontal-stepper>
+      </div>
+    </ng-template>
+
+    <!-- Aegon -->
+    <ng-template #premiumDialogAegon>
+      <div mat-dialog-content>
+        <!-- <h2 matDialogTitle>Product Information And Addons</h2> -->
+        <h2 matDialogTitle>Payment Frequency Mode</h2>
+        <form [formGroup]="aegonAddonsFormGroup" fxLayout="column" (ngSubmit)="onAegonAddonsFormSubmit()">
+
+          <!--
+          <mat-form-field appearance="fill">
+            <mat-label>Payment Options</mat-label>
+            <mat-select formControlName="payment_type">
+              <mat-option value="WHOLE_LIFE">Whole Life</mat-option>
+              <mat-option value="AGE">Age</mat-option>
+              <mat-option value="YEAR">Year</mat-option>
+              <mat-option value="SINGLE">Single</mat-option>
+            </mat-select>
+          </mat-form-field>
+        -->
+
+          <!--
+          <mat-form-field appearance="fill">
+            <mat-label>Payment Mode</mat-label>
+            <mat-select formControlName="payment_mode">
+              <mat-option value="annual">Annual</mat-option>
+              <mat-option value="semi-annual">Half-Annual</mat-option>
+              <mat-option value="quarterly">Quarterly</mat-option>
+              <mat-option value="monthly">Monthly</mat-option>
+              <mat-option value="single">Single</mat-option>
+            </mat-select>
+          </mat-form-field>
+        -->
+
+          <mat-radio-group aria-label="Select an option" fxLayout.xs="column" fxLayout.sm="column" fxLayout.lg="column"
+            fxLayout.md="column" formControlName="payment_mode">
+            <mat-radio-button value="annual">Annual</mat-radio-button>
+            <mat-radio-button value="semi-annual">Half-Annual</mat-radio-button>
+            <!-- <mat-radio-button value="quarterly">Quarterly</mat-radio-button> -->
+            <mat-radio-button value="monthly">Monthly</mat-radio-button>
+            <!-- <mat-radio-button value="single">Single</mat-radio-button> -->
+          </mat-radio-group>
+
+          <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+          <!-- <mat-error *ngIf="selected.hasError('required')">You must make a selection</mat-error>
+          <mat-error *ngIf="selected.hasError('pattern') && !selected.hasError('required')">
+             Your selection is invalid
+          </mat-error> -->
+
+          <!-- <mat-error *ngIf="aegonAddonsFormGroup.controls['riders'].errors?.required">
+          Please choose any option
+        </mat-error> -->
+
+          <div fxFlex="100" fxLayout="row" style="margin: 10px 0px;">
+            <div fxFlex="50">
+              <button mat-raised-button class="contact100-form-btn" type="submit" (click)="closeDialog()">
+                Submit
+              </button>
+            </div>
+            <div fxFlex="50">
+              <button mat-raised-button (click)="closeDialog()" class="contact100-form-btn" color="warn">
+                No Thanks
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <!-- TATA -->
+    <ng-template #premiumDialogTata>
+      <div mat-dialog-content>
+        <h2 matDialogTitle>Product Information And Addons</h2>
+        <form [formGroup]="tataAiaAddonsFormGroup" fxLayout="column" (ngSubmit)="onTataAddonsFormSubmit()">
+
+          <mat-form-field appearance="fill">
+            <mat-label>Planes</mat-label>
+            <mat-select formControlName="premium_plane">
+              <mat-option value="life">Life</mat-option>
+              <mat-option value="life_plus">Life Plus</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Payment Options</mat-label>
+            <mat-select formControlName="payment_type">
+              <mat-option value="rp">Regular Pay</mat-option>
+              <mat-option value="lp">Limited Pay</mat-option>
+              <mat-option value="sp">Single Pay</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Payment Mode</mat-label>
+            <mat-select formControlName="payment_mode">
+              <mat-option value="annual">Annual</mat-option>
+              <mat-option value="semi-annual">Semi-Annual</mat-option>
+              <mat-option value="quarterly">Quarterly</mat-option>
+              <mat-option value="monthly">Monthly</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+          <!-- <mat-error *ngIf="selected.hasError('required')">You must make a selection</mat-error>
+          <mat-error *ngIf="selected.hasError('pattern') && !selected.hasError('required')">
+             Your selection is invalid
+          </mat-error> -->
+
+          <!-- <mat-error *ngIf="tataAiaAddonsFormGroup.controls['riders'].errors?.required">
+          Please choose any option
+        </mat-error> -->
+
+          <div fxFlex="100" fxLayout="row" style="margin: 10px 0px;">
+            <div fxFlex="50">
+              <button mat-raised-button class="contact100-form-btn" type="submit">Submit</button>
+            </div>
+            <div fxFlex="50">
+              <button mat-raised-button (click)="closeDialog()" class="contact100-form-btn" color="warn">No
+                Thanks</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <form #maxNyForm="ngForm" [action]="maxNyQuoteFormAction" (ngSubmit)="quoteFormSubmit(maxNyForm, $event)"
+      method="post" [target]="formTarget">
+      <input type="hidden" name="productName" value="{{maxNyproductName}}">
+      <input type="hidden" name="productType" value="{{maxNyproductType}}">
+      <input type="hidden" name="FirstName" value="{{maxNyFirstName}}">
+      <input type="hidden" name="LastName" value="{{maxNyLastName}}">
+      <input type="hidden" name="MiddleName" value="{{maxNyMiddleName}}">
+      <input type="hidden" name="Dob" value="{{maxNyDob}}">
+      <input type="hidden" name="Gender" value="{{maxNyGender}}">
+      <input type="hidden" name="Mobile" value="{{maxNyMobile}}">
+      <input type="hidden" name="IsSmoker" value="{{maxNyIsSmoker}}">
+      <input type="hidden" name="EmailID" value="{{maxNyEmailID}}">
+      <input type="hidden" name="Term" value="{{maxNyTerm}}">
+      <input type="hidden" name="PPT" value="{{maxNyPPT}}">
+      <input type="hidden" name="SumAssured" value="{{maxNySumAssured}}">
+      <input type="hidden" name="Premium" value="{{maxNyPremium}}">
+      <input type="hidden" name="MODE" value="{{maxNyMODE}}">
+      <input type="hidden" name="UtmCode" value="{{maxNyUtmCode}}">
+      <input type="hidden" name="City" value="{{maxNyCity}}">
+      <input type="hidden" name="AnnualIncomeRange" value="{{maxNyAnnualIncomeRange}}">
+      <input type="hidden" name="productCode" value="{{maxNyproductCode}}">
+      <input type="hidden" name="variantCode" value="{{maxNyvariantCode}}">
+      <input type="hidden" name="AnnualIncome" value="{{maxNyAnnualIncome}}">
+      <input type="hidden" name="isNri" value="{{maxNyisNri}}">
+      <input type="hidden" name="CountryCode" value="{{maxNyCountryCode}}">
+      <input type="hidden" name="rider1_id" value="{{maxNyrider1_id}}">
+      <input type="hidden" name="rider1_sumAssured" value="{{maxNyrider1_sumAssured}}">
+      <input type="hidden" name="rider1_pt" value="{{maxNyrider1_pt}}">
+      <input type="hidden" name="rider2_id" value="{{maxNyrider2_id}}">
+      <input type="hidden" name="rider2_sumAssured" value="{{maxNyrider2_sumAssured}}">
+      <input type="hidden" name="rider2_pt" value="{{maxNyrider2_pt}}">
+      <input type="hidden" name="rider3_id" value="{{maxNyrider3_id}}">
+      <input type="hidden" name="rider3_sumAssured" value="{{maxNyrider3_sumAssured}}">
+      <input type="hidden" name="rider3_pt" value="{{maxNyrider3_pt}}">
+      <button #maxNySubmitBtn class="invisible" type="submit">submit</button>
+    </form>
+    <!-- EDELWEISS TOKIO QUOTE FORM DETAILS -->
+    <form #edelWiessTokioForm="ngForm" [action]="edLQuoteFormAction" (ngSubmit)="quoteFormSubmit(maxNyForm, $event)"
+      method="post" [target]="formTarget">
+      <input type="hidden" name="hdnZindagiPlusdata" value="{{edLhdnZindagiPlusdata}}">
+      <input type="hidden" name="hdneId" value="{{edLhdneId}}">
+      <input type="hidden" name="hdnpno" value="{{edLhdnpno}}">
+      <input type="hidden" name="src" value="{{edLsrc}}">
+      <input type="hidden" name="hdntabindex" value="{{edLhdntabindexL}}">
+      <button #edLSubmitBtn class="invisible" type="submit">submit</button>
+    </form>
+
+    <!-- OFFLIBE GIBL QUOTE FORM DETAILS -->
+
+    <!--
+       <form #giblOfflineForm="ngForm" [action]="offlinePaymentFormAction" (ngSubmit)="quoteFormSubmit(maxNyForm, $event)" method="post" [target]="formTarget">
+      <input type="hidden" name="offlineAmount" value="{{offlineAmount}}">
+      <input type="hidden" name="offlineQuoteid" value="{{offlineQuoteid}}">
+      <input type="hidden" name="offlineProvider" value="{{offlineProvider}}">
+      <input type="hidden" name="offlinePlanname" value="{{offlinePlanname}}">
+      <input type="hidden" name="offlineOrderid" value="{{offlineOrderid}}">
+      <button #offlineSubmitBtn class="invisible" type="submit">submit</button>
+      </form>
+   -->
+
+    <form #offlinePaymentForm="ngForm" (ngSubmit)="quoteFormSubmit(offlinePaymentForm, $event)" method="post"
+      [action]="offlinePaymentUrl" style="display:none;" [target]="formTarget">
+      <input type="hidden" name="tid" id="tid" value="{{offlinePaymentFormObj?.transaction_id}}" readonly />
+      <input type="hidden" name="merchant_id" value="198676" />
+      <input type="hidden" name="order_id" value="{{offlinePaymentFormObj?.order_id}}" />
+      <input type="hidden" name="amount" value="{{offlinePaymentFormObj?.amount}}" />
+      <input type="hidden" name="currency" value="INR" />
+      <input type="hidden" name="redirect_url" value="{{offlinePaymentFormObj?.redirect_url}}" />
+      <input type="hidden" name="cancel_url" value="{{offlinePaymentFormObj?.cancel_url}}" />
+      <input type="hidden" name="language" value="EN" />
+      <input type="hidden" name="billing_name" value="{{offlinePaymentFormObj?.billing_name}}" />
+      <input type="hidden" name="billing_address" value="{{offlinePaymentFormObj?.billing_address}}" />
+      <input type="hidden" name="billing_city" value="{{offlinePaymentFormObj?.billing_city}}" />
+      <input type="hidden" name="billing_state" value="{{offlinePaymentFormObj?.billing_state}}" />
+      <input type="hidden" name="billing_zip" value="{{offlinePaymentFormObj?.billing_zip}}" />
+      <input type="hidden" name="billing_country" value="India" />
+      <input type="hidden" name="billing_tel" value="{{offlinePaymentFormObj?.billing_tel}}" />
+      <input type="hidden" name="billing_email" value="{{offlinePaymentFormObj?.billing_email}}" />
+      <input type="hidden" name="delivery_name" value="{{offlinePaymentFormObj?.delivery_name}}" />
+      <input type="hidden" name="delivery_address" value="{{offlinePaymentFormObj?.delivery_address}}" />
+      <input type="hidden" name="delivery_city" value="{{offlinePaymentFormObj?.delivery_city}}" />
+      <input type="hidden" name="delivery_state" value="{{offlinePaymentFormObj?.delivery_state}}" />
+      <input type="hidden" name="delivery_zip" value="{{offlinePaymentFormObj?.delivery_zip}}" />
+      <input type="hidden" name="delivery_country" value="India" />
+      <input type="hidden" name="delivery_tel" value="{{offlinePaymentFormObj?.delivery_tel}}" />
+      <input type="hidden" name="merchant_param1" value="{{offlinePaymentFormObj?.merchant_param1}}" />
+      <input type="hidden" name="merchant_param2" value="" />
+      <input type="hidden" name="merchant_param3" value="" />
+      <input type="hidden" name="merchant_param4" value="" />
+      <input type="hidden" name="merchant_param5" value="" />
+      <input class="payOption" type="radio" name="payment_option" value="OPTCRDC">
+      <input class="payOption" type="radio" name="payment_option" value="OPTDBCRD">
+      <input class="payOption" type="radio" name="payment_option" value="OPTNBK">
+      <input class="payOption" type="radio" name="payment_option" value="OPTCASHC">
+      <input class="payOption" type="radio" name="payment_option" value="OPTMOBP">
+      <input class="payOption" type="radio" name="payment_option" value="OPTEMI">
+      <input class="payOption" type="radio" name="payment_option" value="OPTWLT">
+      <input readonly="readonly" type="text" id="emi_plan_id" name="emi_plan_id" value="" />
+      <input readonly="readonly" type="text" id="emi_tenure_id" name="emi_tenure_id" value="" />
+      <select name="emi_banks" id="emi_banks"></select>
+      <input type="text" id="card_type" name="card_type" value="" readonly="readonly" />
+      <select name="card_name" id="card_name" [hidden]="true">
+        <option value="">Select Card Name</option>
+      </select>
+      <input type="hidden" id="data_accept" name="data_accept" readonly="readonly" />
+      <input type="hidden" id="card_number" name="card_number" value="" />
+      <input type="hidden" name="expiry_month" value="" />
+      <input type="hidden" name="expiry_year" value="" />
+      <input type="hidden" name="cvv_number" value="" />
+      <input type="hidden" name="issuing_bank" value="" />
+      <input type="hidden" name="mobile_number" value="" />
+      <input type="hidden" name="mm_id" value="" />
+      <input type="hidden" name="otp" value="" />
+      <select name="promo_code" id="promo_code">
+        <option value=""></option>
+      </select>
+      <button #offLineSubmitBtn class="invisible" type="submit">pay</button>
+    </form>
+  </div>
+
+  <div class="toast-container position-fixed  p-3  top-0 end-0">
+    <div id="liveToast" class="toast  align-items-center text-bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+        Thank you for your interest! Our team will get in touch with you shortly to assist with the next steps.
+        </div>
+        <button type="button" class="btn-close me-2 mt-2" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      
+    </div>
+  </div>
+   

@@ -1,0 +1,3 @@
+BUILD COMMAND:
+
+ng build --prod --output-hashing=all --base-href /life-insurance/term-insurance/

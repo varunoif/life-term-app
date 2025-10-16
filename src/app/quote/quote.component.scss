@@ -1,0 +1,106 @@
+
+mat-form-field{width:100% !important;}
+p{
+    margin: 5px 0;
+    font-size: 14px;
+}
+#quote .material-icons{
+    position: relative;
+    top:12px;
+    margin-right: 9px;
+    color: #0ed09b;
+}
+.contact100-form-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    height:40px;
+    background-color: #ff3300;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    border: 0;
+    margin: auto;
+    transition: all 0.4s;
+    font-family: "Avenir-Book" !important;
+    border-radius: 2px;
+}
+.age .material-icons{
+    position: relative !important;
+    margin-left: 164px;
+    margin-top: -36px;
+    float: left;
+    top: 0 !important;
+    font-size: 18px;
+}
+@media(max-width:599px){
+    .mat-step-label{font-size: 14px !important;}
+    #quote{
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    h1{font-size: 14px;}
+}
+@media (max-width:991px){
+    #quote .material-icons {
+        position: relative;
+        top: 8px !important;
+        margin-right: 9px;
+        color: #0ed09b;
+        display: none !important;
+    }
+}
+.back{
+    position:relative !important;
+    top: 4px !important;
+    color: #5298d8!important;
+    font-size: 14px!important; 
+    margin-right: 0 !important;
+}
+.forward{
+    position:relative !important;
+    top: 4px !important;
+    color: #fff!important;
+    font-size: 14px!important; 
+    margin-right: 0 !important;
+}
+.mat-step-label-selected {
+    font-size: 18px !important;
+}
+.text-uppercase{
+    text-transform: uppercase;
+}
+.wrap-contact101{
+  padding: 10px 20px!important; 
+  background: #fff;  
+}
+table {
+  width: 100%;
+}
+table th {
+  font-weight: bold;
+  font-size: small;
+}
+table td {
+  font-size: small;
+}
+.mat-cell, .mat-footer-cell {
+    font-size: 10px;
+}
+.suffix-field-txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 12px;
+    height:40px;
+    background-color: #EFEFEF;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.4s;
+   /*  color: #000000;
+    line-height: 1.2;
+    border: 0;
+    margin: auto;    
+    font-family: "Avenir-Book" !important;*/
+}

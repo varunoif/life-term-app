@@ -1,0 +1,172 @@
+<div style="background-color:#eeeeee;min-height: 100vh">
+    <div class="container partner-login-page" fxLayout="column" fxLayoutAlign="center center">
+        <img src="../../assets/logo.png" style="height: 220%;width: 50%;margin-top: 10px;">
+        <div class="login-container">
+            
+            <h1 style="font-weight: 800;text-align: center;">Become A POSP</h1>
+            <h1 style="font-size:20px;text-align: center;margin: 10px 0px;">Sign Up</h1>
+            <form [formGroup]="registrationFormGroup">
+                <div fxLayout="row wrap">
+                    <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap='5'>
+                        <i class="material-icons" style="color:#00008b;font-size:25px;margin-right: 5px">
+                            how_to_reg
+                        </i>
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="Full Name" autocomplete="none"
+                                formControlName="fullName" #fullName>
+                            <mat-error *ngIf="registrationFormGroup.controls['fullName'].errors?.required">
+                                Username is required!
+                            </mat-error>
+                            <!-- <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.required">
+                Customer email is required!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                Please enter valid email!
+              </mat-error> -->
+                            <!-- <mat-hint align="end">Ex: demo@demo.com</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap='5'>
+                        <i class="material-icons" style="color:#00008b;font-size:25px;margin-right: 5px">
+                            badge
+                        </i>
+                        <mat-form-field>
+
+                            <input matInput type="text" placeholder="User Name" autocomplete="none"
+                                formControlName="userName" #userName>
+                            <mat-error *ngIf="registrationFormGroup.controls['userName'].errors?.required">
+                                Username is required!
+                            </mat-error>
+                            <!-- <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.required">
+                Customer email is required!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                Please enter valid email!
+              </mat-error> -->
+                            <!-- <mat-hint align="end">Ex: demo@demo.com</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap='5'>
+                        <i class="material-icons" style="color:#00008b;font-size:25px;margin-right: 5px">
+                            email
+                        </i>
+                        <mat-form-field>
+
+                            <input matInput type="email" placeholder="Email Id" autocomplete="none"
+                                formControlName="email" #email>
+                            <mat-error *ngIf="registrationFormGroup.controls['email'].errors?.required">
+                                Email is required!
+                            </mat-error>
+                            <mat-error *ngIf="registrationFormGroup.controls['email'].errors?.pattern">
+                                Please enter valid email
+                            </mat-error>
+                            <!-- <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.required">
+                Customer email is required!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                Please enter valid email!
+              </mat-error> -->
+                            <!-- <mat-hint align="end">Ex: demo@demo.com</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center">
+                        <i class="material-icons" style="color:#00008b;font-size:25px;margin-right: 5px">
+                            visibility_off
+                        </i>
+                        <mat-form-field>
+
+                            <input matInput type="text" placeholder="Password" autocomplete="none"
+                                formControlName="password" #password>
+
+                            <mat-error *ngIf="registrationFormGroup.controls['password'].errors?.required">
+                                Password is required!
+                            </mat-error>
+                            <!-- <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                Please enter valid email!
+              </mat-error>  -->
+                            <!-- <mat-hint align="end">Ex: demo@demo.com</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                    
+                    <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center">
+                        <i class="material-icons" style="color:#00008b;font-size:25px;margin-right: 5px">
+                            visibility_off
+                        </i>
+                        <mat-form-field>
+
+                            <input matInput type="text" placeholder="Confirm Password" autocomplete="none"
+                                formControlName="passwordConfirm" #passwordConfirm>
+
+                            <mat-error *ngIf="registrationFormGroup.controls['passwordConfirm'].errors?.required">
+                                Password is required!
+                            </mat-error>
+                            <!-- <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                Please enter valid email!
+              </mat-error>  -->
+                            <!-- <mat-hint align="end">Ex: demo@demo.com</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="70" fxLayout="row" fxLayoutAlign="center center">
+                        <i class="material-icons" style="color:#00008b;font-size:25px;margin-right: 5px">
+                            phone
+                        </i>
+                        <mat-form-field>
+
+                            <input matInput type="number" placeholder="Mobile Number" autocomplete="none"
+                                formControlName="mobileNo" #mobileNo>
+
+                            <mat-error *ngIf="registrationFormGroup.controls['mobileNo'].errors?.required">
+                                Password is required!
+                            </mat-error>
+                            <!-- <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                Please enter valid email!
+              </mat-error>  -->
+                            <!-- <mat-hint align="end">Ex: demo@demo.com</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="30" fxLayout="row" fxLayoutAlign="center center" style="margin:20px 0px">
+                        <button class="btn btn-primary">Get OTP</button>
+                    </div>
+                    
+                    <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center">
+                         <i class="material-icons" style="color:#00008b">location_on</i>
+                <mat-form-field >
+                  <input matInput type="number" maxlength="6" placeholder="Enter your pincode"
+                    formControlName="custPincode" 
+                    autocomplete="nope" (input)="checkLength($event.target.value, 6, 'custPincode')" #custPincode>
+                  <!-- <span matPrefix class="suffix-field-txt" *ngIf="firstFormGroup.controls['custCuntryCode'].value!=''">{{
+                      '+'+firstFormGroup.controls['custCuntryCode'].value }}</span> -->
+                  <mat-error *ngIf="registrationFormGroup.controls['custPincode'].errors?.required">
+                    Pincode  is required!
+                  </mat-error>
+                  <mat-error *ngIf="registrationFormGroup.controls['custPincode'].errors?.pattern">
+                    Please enter valid Pincode
+                  </mat-error>
+                  <mat-hint align="end">Ex: 560057</mat-hint>
+                </mat-form-field>
+                    </div>
+                    <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center">
+                         <i class="material-icons" style="color:#00008b">safety_divider</i>
+                <mat-form-field >
+                  <input matInput type="number"  placeholder="Reference code"
+                    formControlName="referenceCode" 
+                    autocomplete="nope"  #referenceCode>
+                  <!-- <span matPrefix class="suffix-field-txt" *ngIf="firstFormGroup.controls['custCuntryCode'].value!=''">{{
+                      '+'+firstFormGroup.controls['custCuntryCode'].value }}</span> -->
+                  <!-- <mat-error *ngIf="registrationFormGroup.controls['custPincode'].errors?.required">
+                    Pincode  is required!
+                  </mat-error>
+                  <mat-error *ngIf="registrationFormGroup.controls['custPincode'].errors?.pattern">
+                    Please enter valid Pincode
+                  </mat-error> -->
+                
+                </mat-form-field>
+                    </div>
+                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="my-3">
+                        <button class="btn btn-primary">Start Earning</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

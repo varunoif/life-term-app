@@ -1,0 +1,17 @@
+.partner-login-page{
+  
+  min-height: 80vh; /* full page height */
+  //background-color: #f5f5f5; /* optional */
+
+}
+.login-container{
+        font-family: "Avenir-Book" !important;
+        background-color: #fff;
+        box-shadow: 0px -1px 14px 0px #797676;
+        max-width: 600px;
+        padding: 10px 24px;
+        margin-top: 15px;
+        .mat-form-field{
+            width: 100% !important;
+        }
+}

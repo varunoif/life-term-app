@@ -1,0 +1,531 @@
+<div fxflex="80" *ngIf="showPageContent">
+  <div fxFlex="40" fxLayout.xs="column" style="margin:15px auto;" id="quote" fxFlex.sm="100">
+
+    <h1 class="text-center">Term Life Insurance</h1>
+    <p class="text-center">Protection against all forms of death, disease, disability</p>
+
+    <div fxLayoutAlign="center" style="flex-basis:100%;">
+      <mat-progress-spinner style="text-align:center !important;" *ngIf="redirectSpinnerShow" [color]="spinnerColor"
+        [mode]="spinnerMode" strokeWidth="4" diameter="30">
+      </mat-progress-spinner>
+    </div>
+    <div class="d-flex justify-content-end">
+      <span style="color: #354052e0;font-size: 14px;">{{progressValue}}% Complete </span>
+    </div>
+    <mat-progress-bar mode="determinate" [value]="progressValue" style="height: 8px;
+    border-radius: 4px"></mat-progress-bar>
+    <mat-horizontal-stepper linear #stepper *ngIf="!redirectSpinnerShow">
+
+      <mat-step [stepControl]="firstFormGroup" errorMessage="Gender is required.">
+        <div *ngIf="globalTerm">
+          <p class="gap-no">Choose Policy Type</p>
+          <p>
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1" (click)="redirectTo(termBaseUrl)">Term Life</mat-radio-button>
+              <mat-radio-button value="2">Life Insurance</mat-radio-button>
+            </mat-radio-group>
+          </p>
+        </div>
+
+        <form [formGroup]="firstFormGroup" fxLayout="column" (ngSubmit)="checkFirstForm(stepper)" autocomplete="off">
+          <!-- <input style="display:none" type="text" name="fake_format_dob"/>
+            <input style="display:none" type="text" name="fake_age"/>
+            <input style="display:none" type="text" name="fake_dob"/>
+            <input style="display:none" type="text" name="fake_country_code"/>
+            <input style="display:none" type="text" name="fake_mob"/>
+            <input style="display:none" type="text" name="fake_name"/>
+            <input style="display:none" type="text" name="fake_email"/>
+          -->
+
+          <input type="hidden" formControlName="customerFormatDOB">
+          <input type="hidden" formControlName="custAge">
+          <input type="hidden" formControlName="custCuntryCode" [value]="defaultCountryCode">
+
+          <!--<p class="gap-no">Choose Policy Type</p>
+          	<p>
+	            <mat-button-toggle-group name="policy_type" formControlName="termType" aria-label="Policy Type" fxFlex="100">
+	              <mat-button-toggle value="T" aria-checked="checked" fxFlex="50">
+	                Term Insurance
+	              </mat-button-toggle>
+	              <mat-button-toggle value="L" fxFlex="50" (click)="redirectTo('https://www.gibl.in/life-insurance');">
+	                Life Insurance
+	              </mat-button-toggle>
+	            </mat-button-toggle-group>
+          	</p>
+            <mat-error *ngIf="firstFormGroup.controls['termType'].errors?.required">
+              Please choose policy type!
+            </mat-error>-->
+
+          <p class="gap-no">Choose Gender</p>
+          <p>
+            <mat-button-toggle-group name="fontStyle" formControlName="customerGender" aria-label="Font Style"
+              fxFlex="52">
+              <mat-button-toggle value="M" aria-checked="checked" fxFlex="50">
+                <mat-icon class="mat-icon-face">tag_faces</mat-icon>Male
+              </mat-button-toggle>
+              <mat-button-toggle value="F" fxFlex="50">
+                <mat-icon class="mat-icon-face">face</mat-icon>Female
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </p>
+          <mat-error *ngIf="firstFormGroup.controls['customerGender'].errors?.required">
+            Please choose your gender!
+          </mat-error>
+
+          <p class="gap-no">Your Date of Birth & Mobile No </p>
+          <p fxFlex="100" fxLayout="row" fxLayout.xs="column">
+            <i class="material-icons" style="color:#00008b">
+              date_range
+            </i>
+            <mat-form-field fxFlex="40" fxFlex.sm="100" fxFlex.xs="100">
+              <input matInput type="text" formControlName="customerDOB" [textMask]="{mask: dobMask,guide:false}"
+                placeholder="DD/MM/YYYY" autocomplete="new-dob" (change)="checkDOB($event.target.value)"
+                id="new_dob_{{randomNo}}" #customerDOB>
+              <span matSuffix class="suffix-field-txt">{{
+                firstFormGroup.controls['custAge'].value>0?firstFormGroup.controls['custAge'].value:'Age' }}</span>
+              <mat-error *ngIf="firstFormGroup.controls['customerDOB'].errors?.required">
+                Customer date of birth is required!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['customerDOB'].errors?.pattern">
+                Please enter valid date
+              </mat-error>
+              <mat-error
+                *ngIf="firstFormGroup.controls['customerDOB'].errors?.agerestrict && !firstFormGroup.controls['customerDOB'].errors?.required && !firstFormGroup.controls['customerDOB'].errors?.pattern">
+                Age must be between 18-65 Years
+              </mat-error>
+              <mat-hint align="end">Minimum age 18 years</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="60" fxFlex.sm="100" fxFlex.xs="100">
+              <input matInput type="number" maxlength="10" placeholder="Enter your mobile no" formControlName="custMob"
+                (focus)="focusState = true" (focusout)="focusState = false" autocomplete="nope"
+                (input)="checkLength($event.target.value, 10, 'custMob')" #custMob>
+              <span matPrefix class="suffix-field-txt" *ngIf="firstFormGroup.controls['custCuntryCode'].value!=''">{{
+                '+'+firstFormGroup.controls['custCuntryCode'].value }}</span>
+              <mat-error *ngIf="firstFormGroup.controls['custMob'].errors?.required">
+                Customer mobile no is required!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['custMob'].errors?.pattern">
+                Please enter valid 10 digit mobile no starting with 6, 7, 8, or 9.
+              </mat-error>
+              <mat-hint align="end">Ex: 9847555550</mat-hint>
+            </mat-form-field>
+          </p>
+          <!-- NAME EMAIL ID PANEL -->
+          <p class="gap-no">Full Name</p>
+          <p fxFlex="100" fxLayout="row">
+            <i class="material-icons" style="color:#00008b">
+              how_to_reg
+            </i>
+            <mat-form-field>
+              <div fxFLex="30">
+                <input matInput type="text" placeholder="Enter your full name" formControlName="custName"
+                  class="text-uppercase" autocomplete="none" #custName>
+              </div>
+              <mat-error *ngIf="firstFormGroup.controls['custName'].errors?.required">
+                Customer name is required!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['custName'].errors?.pattern">
+                Please enter valid name!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['custName'].errors?.minlength">
+                Name should be 3 chars long!
+              </mat-error>
+              <mat-error
+                *ngIf="firstFormGroup.controls['custName'].errors?.whitespace && !firstFormGroup.controls['custName'].errors?.required && !firstFormGroup.controls['custName'].errors?.pattern && !firstFormGroup.controls['custName'].errors?.minlength">
+                Name can not be empty
+              </mat-error>
+              <mat-hint align="end">Should be at least 3 chars long</mat-hint>
+            </mat-form-field>
+          </p>
+          <p class="gap-no">Email Id</p>
+          <p fxFlex="100" fxLayout="row">
+            <i class="material-icons" style="color:#00008b">
+              email
+            </i>
+            <mat-form-field>
+              <div fxFLex="30">
+                <input matInput type="text" placeholder="Enter your email" formControlName="custEmail" maxlength="75"
+                  autocomplete="none" #custEmail>
+              </div>
+              <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.required">
+                Customer email is required!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                Please enter valid email!
+              </mat-error>
+              <mat-hint align="end">Ex: demo@demo.com</mat-hint>
+            </mat-form-field>
+          </p>
+          <div fxFlex="100" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="55" fxLayout="column">
+               <p class="gap-no">Education Qualification</p>
+              <p fxFlex="50" fxLayout="row">
+                <i class="material-icons" style="color:#00008b">school</i>
+                <mat-form-field>
+                  <mat-label>Education Qualification</mat-label>
+                  <mat-select matNativeControl formControlName="custQualification" required #custQualification>
+                    <mat-option value="10_below">Below 10th</mat-option>
+                    <mat-option value="10_pass">10th Pass</mat-option>
+                    <mat-option value="12_pass">12th Pass</mat-option>
+                    <mat-option value="Graduate_Post_Graduate">Graduation and above</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="firstFormGroup.controls['custQualification'].errors?.required">
+                    Qualifiation is required!
+                  </mat-error>
+                </mat-form-field>
+              </p>
+            </div>
+           
+            <div fxFlex="40" fxLayout="column">
+              <p class="gap-no">Pincode</p>
+              <p fxFlex="50" fxLayout="row">
+                <i class="material-icons" style="color:#00008b">location_on</i>
+                <mat-form-field >
+                  <input matInput type="number" maxlength="6" placeholder="Enter your pincode"
+                    formControlName="custPincode" (focus)="focusState = true" (focusout)="focusState = false"
+                    autocomplete="nope" (input)="checkLength($event.target.value, 6, 'custPincode')" #custPincode>
+                  <!-- <span matPrefix class="suffix-field-txt" *ngIf="firstFormGroup.controls['custCuntryCode'].value!=''">{{
+                      '+'+firstFormGroup.controls['custCuntryCode'].value }}</span> -->
+                  <mat-error *ngIf="firstFormGroup.controls['custPincode'].errors?.required">
+                    Pincode  is required!
+                  </mat-error>
+                  <mat-error *ngIf="firstFormGroup.controls['custPincode'].errors?.pattern">
+                    Please enter valid Pincode
+                  </mat-error>
+                  <mat-hint align="end">Ex: 560057</mat-hint>
+                </mat-form-field>
+              </p>
+
+            </div>
+          </div>
+          <div class="continue" style="margin:auto;">
+            <!-- <button class="btn btn-primary mx-2" type="submit">Admin Login <mat-icon class="forward">
+                supervised_user_circle</mat-icon></button> -->
+            <button class="btn btn-primary" type="submit">Continue <mat-icon class="forward">
+                arrow_forward</mat-icon></button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="thirdFormGroup" errorMessage="Address is required.">
+        <form [formGroup]="thirdFormGroup">
+          <mat-vertical-stepper [linear]="isLinear" #vstepper>
+            <mat-step [stepControl]="customerFormStep2">
+              <form [formGroup]="customerFormStep2">
+                <ng-template matStepLabel>Do You Smoke or Chew Tobacco?</ng-template>
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="customerSmoker"
+                  fxFlex="50">
+                  <mat-button-toggle value="Y" (click)="submitSmokerStatus(vstepper)" fxFlex="50">
+                    <mat-icon class="mat-icon-face">smoking_rooms</mat-icon>Yes
+                  </mat-button-toggle>
+                  <mat-button-toggle value="N" (click)="submitSmokerStatus(vstepper)" fxFlex="50">
+                    <mat-icon class="mat-icon-face">smoke_free</mat-icon>No
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="customerFormStep3">
+              <form [formGroup]="customerFormStep3" (ngSubmit)="checkStep3Form(vstepper)">
+                <ng-template matStepLabel>Please Select Your Annual Income</ng-template>
+                <mat-form-field>
+                  <input matInput type="number" placeholder="Annual Income" formControlName="customerIncome"
+                    autocomplete="none" #customerIncome min="0">
+
+                  <!-- <mat-select placeholder="Annual Income" formControlName="customerIncome"
+                    (selectionChange)="submitAnnualIncome(vstepper)">
+                    <mat-option *ngFor="let incomeItem of annualIncomeList" [value]="incomeItem.id">
+                      {{incomeItem.text}}
+                    </mat-option>
+                  </mat-select> -->
+                  <mat-error *ngIf="customerFormStep3.controls['customerIncome'].errors?.required">
+                    Please select your annual income !
+                  </mat-error>
+                  <mat-error *ngIf="customerFormStep3.controls['customerIncome'].errors?.nonNegative">
+                    Annual income cannot be negative !
+                  </mat-error>
+                </mat-form-field>
+              </form>
+            </mat-step>
+
+            <mat-step>
+              <form [formGroup]="customerFormStep4">
+                <ng-template matStepLabel>Please Choose your occupation</ng-template>
+                <mat-button-toggle-group name="fontStyle" formControlName="customerEmpStatus" aria-label="Font Style"
+                  style="margin-top: 15px;" fxFlex="90" fxLayout.xs="column">
+                  <mat-button-toggle value="salaried" (click)="submitEmpStatus(vstepper)" fxFlex="30">Salaried
+                  </mat-button-toggle>
+                  <mat-button-toggle value="self-employed" (click)="submitEmpStatus(vstepper)" fxFlex="50">Self Employed
+                  </mat-button-toggle>
+                  <mat-button-toggle value="other" (click)="submitEmpStatus(vstepper)" fxFlex="30">Other
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+
+                <!-- TERM AND SUM ASSURED SECTION -->
+                <input type="hidden" placeholder="Term age" formControlName="custTerm" readonly>
+                <input type="hidden" placeholder="Sum Assured in lacs Ex. 65" formControlName="custSumAssured" readonly>
+              </form>
+            </mat-step>
+          </mat-vertical-stepper>
+
+          <div style="margin:auto;text-align: center;" fxLayout="row">
+            <button mat-button matStepperPrevious (click)="previousStep()">
+              <mat-icon class="back" style="display: block !Important;">keyboard_backspace</mat-icon>
+            </button>
+            <button class="btn btn-primary" (click)="submitQuoteForm(stepper)" [disabled]="quoteFormSubmitBtn">
+              Get Quote
+              <mat-icon class="forward">arrow_forward</mat-icon>
+              <mat-progress-bar mode="indeterminate" color="warn" *ngIf="displayListingLoader"></mat-progress-bar>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+    </mat-horizontal-stepper>
+  </div>
+</div>
+
+<!-- <div class="container">
+  <div fxLayout="row wrap">
+    <div class="wrap-contact101 head-wrap" fxFlex="100" fxLayout.xs="column" fxLayout.sm="row" fxFlexFill>
+      <mat-card>
+        <mat-card-title>
+          <h2 style="font-size:medium;">What is Term Life Insurance?</h2>
+        </mat-card-title>
+        <mat-card-content>
+          Term insurance policy basically stands for a life insurance plan offered by a life insurance company that
+          provides wide-ranging financial protection against premiums paid for a limited period to the
+          recipient/beneficiary/nominee of the policy. The benefits provided under term insurance plans, is paid as
+          death benefit upon the death of insured during the policy term.
+        </mat-card-content>
+
+        <mat-card-content>
+          To be very specific, Term Insurance Plans are fundamentally the purest and most reasonably priced life
+          insurance plans. These plans offer comprehensive financial protection to your loved ones in the event of your
+          unforeseen demise.
+        </mat-card-content>
+        <mat-card-content>
+          A term insurance plan has been designed to offer the nominees of the policy with a lump sum amount as death
+          benefit, in the unfortunate event of the insured's ill-fated death, during the term of the policy.
+        </mat-card-content>
+
+        <mat-card-content>
+          A term insurance plan not only provides financial security to your family but also offers a gateway to
+          fulfilling your future needs like your child’s higher education, child’s marriage, etc. among others.
+        </mat-card-content>
+
+        <mat-card-content>
+          Among all the life insurance policies, the term insurance plan provides the highest life coverage in exchange
+          of minimum premiums during the tenure of the policy. There are some Insurance Companies in India that also
+          cover partial or permanent disability due to which the policyholder’s regular income is disrupted.
+        </mat-card-content>
+
+        <mat-card-content>
+          <b>Note:</b> After the expiry of the term insurance policy, the coverage at the earlier premiums price is not
+          guaranteed in case of survival of the life insured. The policy buyer has to either get extended coverage with
+          diverse payment condition or let go of the coverage completely.
+        </mat-card-content>
+
+        <mat-card-title>
+          <h2 style="font-size:medium;">Why to Buy Term Insurance Plans?</h2>
+        </mat-card-title>
+
+        <mat-card-content>
+          There are a bunch of reasons why you must buy a term life insurance plan. Nevertheless, let’s check out here
+          some of the chief reasons to buy term insurance:
+        </mat-card-content>
+
+        <mat-card-content>
+          <p style="display: list-item;list-style-type: disc;list-style-position: inside;">
+            <b>Protection of the Assets:</b> A term insurance plan lets you to take loans for assets like a house a car.
+            However, if you are no longer around, your family and dependents might be burdened with the settlement of
+            loans. Under such circumstances, your family can make use of the term insurance policy pay-out in pay the
+            outstanding loan amounts.
+          </p>
+        </mat-card-content>
+
+        <mat-card-content>
+          <p style="display: list-item;list-style-type: disc;list-style-position: inside;">
+            <b>Your Family’s Dependency:</b> The money obtainable from the term insurance policy can be utilized to meet
+            the monthly expenditures of your family as well as dependents when you’re not around. Furthermore, term
+            insurance is highly effective in terms of fulfilling essential life goals like education and marriage of
+            your child.
+          </p>
+        </mat-card-content>
+
+        <mat-card-content>
+          <p style="display: list-item;list-style-type: disc;list-style-position: inside;">
+            <b>Risks Associated to Lifestyle:</b> There’s no denying the fact that the present-day lifestyle problems
+            may lead to a range of ailments and diseases. There are a number of term insurance plans that not only
+            safeguard your dependents and loved ones after the death of the policyholder but also provide with
+            protection against critical illness for a lifetime. The key feature of such term insurance plan is that it
+            pays on the diagnosis of some critical illnesses namely heart attack, cancer, etc.
+          </p>
+        </mat-card-content>
+
+        <mat-card-title>
+          <h3 style="font-size:medium;">Top Term Life Insurance Plans in India</h3>
+        </mat-card-title>
+        <mat-card-subtitle>
+          (On the Basis of Claim Settlement Ratio)
+        </mat-card-subtitle>
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="Insurance Company">
+            <mat-header-cell *matHeaderCellDef> Company</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.company}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Term Plan Name">
+            <mat-header-cell *matHeaderCellDef> Plan Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.plan_name}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Claim Settlement Ratio">
+            <mat-header-cell *matHeaderCellDef> Claim Settlement Ratio </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.settlement}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Max Maturity Age">
+            <mat-header-cell *matHeaderCellDef> Max Maturity Age </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.maturity_age}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Premium (for a Cover of 1 Crore)">
+            <mat-header-cell *matHeaderCellDef> Premium (Cover of 1 Crore) </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.premium}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-card-title>
+          <h2 style="font-size:medium;">Advantages of Term Insurance Plan</h2>
+        </mat-card-title>
+        <mat-card-content>
+          There’s no doubt about the fact that a term insurance policy is an absolute necessity and it is a must for
+          each and every person. The importance of a term insurance policy is so immense that one cannot articulate its
+          significance from top to bottom.
+        </mat-card-content>
+
+        <mat-card-content>
+          Term insurance plans are the one and only life insurance products that have been particularly designed to
+          solve an exclusive purpose of protection. Since by now you have come to know that term insurance plans cover
+          death perils as well as various risk factors; check out some of the other core benefits of term insurance
+          plans in India:
+        </mat-card-content>
+
+        <mat-card-title>
+          <h3 style="font-size:medium;">Get Higher Return in Exchange of Affordable Premiums</h3>
+        </mat-card-title>
+
+        <mat-card-content>
+          Term insurance plan provides with a huge amount of coverage for life insurance and that too at an affordable
+          premium. What is more, term life insurance plans also compensate a Lump Sum amount as regular source of income
+          in the event of a disability or death leading to loss of income of the insured.
+        </mat-card-content>
+
+        <mat-card-title>
+          <h3 style="font-size:medium;">Safety against Loans and Liabilities</h3>
+        </mat-card-title>
+
+        <mat-card-content>
+          A term life insurance policy also helps in providing protection for the dependents from your financial
+          liabilities like loans or any other debts that you might have.
+        </mat-card-content>
+
+        <mat-card-title>
+          <h3 style="font-size:medium;">Covers Critical Illness</h3>
+        </mat-card-title>
+
+        <mat-card-content>
+          Term life insurance policies, alongside offering life cover, also provide coverage against critical illnesses.
+          In exchange of a tiny amount for add-on premium, Critical Illness cover offers a lump sum payment when any
+          critical illness like cancer, kidney failure or heart attack, etc. is first diagnosed.
+        </mat-card-content>
+
+        <mat-card-content>
+          Term Insurance Plan online also takes care of family in the event of your disability or critical illness. It
+          offers:
+        </mat-card-content>
+
+        <mat-card-content>
+          <p style="display: list-item;list-style-type: disc;list-style-position: inside;">
+            Additional income in case of loss of income owing to illness or accidental disability.
+          </p>
+        </mat-card-content>
+
+        <mat-card-content>
+          <p style="display: list-item;list-style-type: disc;list-style-position: inside;">
+            Avail lump sum amount if diagnosed with critical illnesses.
+          </p>
+        </mat-card-content>
+
+        <mat-card-content>
+          <p style="display: list-item;list-style-type: disc;list-style-position: inside;">
+            Offers additional Sum Assured in the event of accidental death.
+          </p>
+        </mat-card-content>
+
+        <mat-card-title>
+          <h3 style="font-size:medium;">Protection in the Case of Disability</h3>
+        </mat-card-title>
+
+        <mat-card-content>
+          Under some of the term life insurance plans, the insurance provider pays the future premiums in the case of
+          total or permanent disability of the insured. As a result, the policyholder’s life insurance cover will
+          continue even if he/she is not able to pay for the premiums.
+        </mat-card-content>
+
+        <mat-card-title>
+          <h3 style="font-size:medium;">Add-on Protection</h3>
+        </mat-card-title>
+
+        <mat-card-content>
+          Term life insurance plans come with a number of add-on protection to strengthen the security of the family.
+          The add-on pay-out is offered by term plans in the event of an untimely or accidental death of the insured.
+        </mat-card-content>
+
+        <mat-card-title>
+          <h3 style="font-size:medium;">Tax Benefits</h3>
+        </mat-card-title>
+
+        <mat-card-content>
+          Term insurance plans in India come packed with tax benefits on the paid premiums. The new introduced term
+          insurance plans together with critical illness cover also provide a number of additional tax benefits on the
+          premiums paid by the policyholders. You can also avail benefits subject to the conditions under section
+          10(10D) of the income tax act, on the amount that your family receives in the case of your untimely or
+          unfortunate death.
+        </mat-card-content>
+
+        <mat-card-title>
+          <h2 style="font-size:medium;">Choose the Best Term Policy</h2>
+        </mat-card-title>
+
+        <mat-card-content>
+          Choosing the best term insurance policy may seem like a tough job, which it technically is, however, with
+          proper guidance and ample knowledge, zeroing in on a particular term policy that matches your requirement will
+          not be that hard. You need to make sure that you are choosing a reliable and reputed insurer.
+        </mat-card-content>
+
+        <mat-card-content>
+          Considering the claim settlement ratio of different life insurance providers in India is a must to availing
+          the best term policy. For your consideration you may also follow the above table containing the top term
+          insurance plans. Keep in mind that buying term insurance policy at the earliest is a blessing that you will
+          realize with the passing of time.
+        </mat-card-content>
+
+        <mat-card-content>
+          You may call it a blessing in disguise for you don’t get to see or enjoy its benefits at this instant. Having
+          said that, you can be certain of the fact that the time you will need it the most, the term insurance policy
+          will be there, whether you survive to witness it or not.
+        </mat-card-content>
+
+      </mat-card>
+
+    </div>
+  </div>
+</div> -->
+

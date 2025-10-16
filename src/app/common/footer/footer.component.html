@@ -1,0 +1,244 @@
+<footer>
+   <div class="container" *ngIf="!isSponsored">
+      <div fxFlex="100">
+         <div class="mob-desk-footer" fxLayout.xs="column" fxLayout.md="row">
+            <div fxFlex="30" fxFlex.md="50" fxLayout.md="row" >
+               <p class="new_subfooter n_f1" style="border-bottom: 1px solid #989898!important;">Insurance for you</p>
+               <ul class="links_1">
+                  <li><a href="https://www.gibl.in/health-insurance/">Health Insurance</a></li>
+                  <li><a href="https://www.gibl.in/home-insurance/">Home Insurance</a></li>
+                  <li><a href="https://www.gibl.in/travel-insurance/">Travel Insurance</a></li>
+                  <li><a href="https://www.gibl.in/car-insurance/">Car Insurance</a></li>
+                  <li><a href="https://www.gibl.in/two-wheeler-insurance/">Two Wheeler Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/critical-illness-insurance/">Critical Illness Insurance</a></li>
+                  <li><a href="https://www.gibl.in/personal-accident-insurance/">Personal Accident Insurance</a></li>
+                  <li><a href="https://www.gibl.in/gadget-insurance/">Gadget Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/group-mediclaim-policy/">Group Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/extended-family-insurance/">Extended Family Insurance</a></li>
+                  <li><a href="https://www.gibl.in/commercial-vehicle-insurance/">Commercial Vehicle Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/health-insurance-for-senior-citizens.html">Health Insurance for Senior Citizen</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/family-health-insurance.html">Family Health Insurance</a></li>
+               </ul>
+            </div>
+            <div  fxFlex="30" fxFlex.md="50" fxLayout.md="row">
+               <p class="new_subfooter n_f1" style="border-bottom: 1px solid #989898!important;">Insurance for your business</p>
+               <ul class="col-md-12 links_1">
+                  <li></li>
+                  <li><a href="https://www.gibl.in/fire-insurance/">Fire Insurance</a></li>
+                  <li></li>
+                  <li><a href="https://www.gibl.in/marine-insurance/">Marine(Cargo)  Insurance</a></li>
+                  <li></li>
+                  <li><a href="https://www.gibl.in/liability-insurance/">Liability  Insurance</a></li>
+                  <li><a href="https://www.gibl.in/crop-insurance/">Crop Insurance</a></li>
+                  <li><a href="https://www.gibl.in/kidnap-ransom-insurance/">Kidnap Insurance</a></li>
+                  <li><a href="https://www.gibl.in/liability-insurance/cyber-risk-insurance/">Cyber Risk Insurance</a></li>
+                  <li><a href="https://www.gibl.in/marine-insurance/export-import-insurance/">Export and Import Insurance</a></li>
+                  <li><a href="https://www.gibl.in/property-insurance/factory-warehouse-insurance/">Factory and Warehouse Insurance</a></li>
+                  <li><a href="https://www.gibl.in/errors-omissions-insurance/">Error and Omission Insurance</a></li>
+                  <li><a href="https://www.gibl.in/property-insurance/construction-all-risk-insurance/">Construction All Risk Insurance</a></li>
+                  <li><a href="https://www.gibl.in/property-insurance/office-insurance/">Office Insurance</a></li>
+                  <li><a href="https://www.gibl.in/burglary-insurance/">Burglary Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/group-mediclaim-policy/">Group Mediclaim Insurance</a></li>
+               </ul>
+            </div>
+            <div  fxFlex="30" fxFlex.md="50">
+               <p class="new_subfooter n_f1" style="border-bottom: 1px solid #989898!important;">About GIBL</p>
+               <ul class="links_1">
+                  <li><a href="https://www.gibl.in/UI/Pages/AboutUs.aspx">About Us</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/Process.aspx">Process</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/FAQ.aspx">FAQ</a></li>
+                  <li><a href="https://www.gibl.in/blog" target="_blank">Blog</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/PrivacyPolicy.aspx">Privacy Policy </a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/TermsOfUse.aspx">Terms Of Use</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/PaymentModes.aspx">Payment Modes</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/Disclaimer.aspx">Disclaimer</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/CancellationRefundPolicy.aspx">Cancel &amp; Refund Policy</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/ContactUs.aspx">Contact Us</a></li>
+                  <li><a href="https://www.gibl.in/government-scheme/">Government Scheme</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/Careers.aspx">Careers</a></li>
+                  <li><a href="https://www.gibl.in/sitemap.aspx">Sitemap</a></li>
+               </ul>
+            </div>
+            <div  fxFlex="30" fxFlex.md="50">
+               <p class="new_subfooter n_f1" style="border-bottom: 1px solid #989898!important;">Security &amp; Payment</p>
+               <ul class="links_1">
+                  <li>
+                     <img src="https://www.gibl.in/government-scheme/image/payments.jpg" alt="Gibl-instant-policy" style="width: 150px;">
+                  </li>
+                  <br>
+                  <li style="padding-left: 0px;"><a  href="https://www.gibl.in/UI/Pages/HowItWorks.aspx" target="_blank" class="btn-primary-new">How it works</a></li>
+               </ul>
+            </div>
+         </div>
+         <div class="desk-footer" fxHide fxShow.xs fxShow.sm>
+            <mat-accordion>
+               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+               <mat-expansion-panel-header>
+                  <mat-panel-title>
+                     Insurance for you
+                  </mat-panel-title>
+                  <mat-panel-description>
+                     {{panelOpenState ? '' : ''}}
+                  </mat-panel-description>
+               </mat-expansion-panel-header>
+               <ul class="links_1">
+                  <li><a href="https://www.gibl.in/health-insurance/">Health Insurance</a></li>
+                  <li><a href="https://www.gibl.in/home-insurance/">Home Insurance</a></li>
+                  <li><a href="https://www.gibl.in/travel-insurance/">Travel Insurance</a></li>
+                  <li><a href="https://www.gibl.in/car-insurance/">Car Insurance</a></li>
+                  <li><a href="https://www.gibl.in/two-wheeler-insurance/">Two Wheeler Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/critical-illness-insurance/">Critical Illness Insurance</a></li>
+                  <li><a href="https://www.gibl.in/personal-accident-insurance/">Personal Accident Insurance</a></li>
+                  <li><a href="https://www.gibl.in/gadget-insurance/">Gadget Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/group-mediclaim-policy/">Group Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/extended-family-insurance/">Extended Family Insurance</a></li>
+                  <li><a href="https://www.gibl.in/commercial-vehicle-insurance/">Commercial Vehicle Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/health-insurance-for-senior-citizens.html">Health Insurance for Senior Citizen</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/family-health-insurance.html">Family Health Insurance</a></li>
+               </ul>
+               </mat-expansion-panel>
+               <mat-expansion-panel (opened)="panelOpenState = true"
+               (closed)="panelOpenState = false">
+               <mat-expansion-panel-header>
+                  <mat-panel-title>
+                     Insurance For your Business
+                  </mat-panel-title>
+                  <mat-panel-description>
+                     {{panelOpenState ? '' : ''}}
+                  </mat-panel-description>
+               </mat-expansion-panel-header>
+               <ul class="links_1">
+                  <li></li>
+                  <li><a href="https://www.gibl.in/fire-insurance/">Fire Insurance</a></li>
+                  <li></li>
+                  <li><a href="https://www.gibl.in/marine-insurance/">Marine(Cargo)  Insurance</a></li>
+                  <li></li>
+                  <li><a href="https://www.gibl.in/liability-insurance/">Liability  Insurance</a></li>
+                  <li><a href="https://www.gibl.in/crop-insurance/">Crop Insurance</a></li>
+                  <li><a href="https://www.gibl.in/kidnap-ransom-insurance/">Kidnap Insurance</a></li>
+                  <li><a href="https://www.gibl.in/liability-insurance/cyber-risk-insurance/">Cyber Risk Insurance</a></li>
+                  <li><a href="https://www.gibl.in/marine-insurance/export-import-insurance/">Export and Import Insurance</a></li>
+                  <li><a href="https://www.gibl.in/property-insurance/factory-warehouse-insurance/">Factory and Warehouse Insurance</a></li>
+                  <li><a href="https://www.gibl.in/errors-omissions-insurance/">Error and Omission Insurance</a></li>
+                  <li><a href="https://www.gibl.in/property-insurance/construction-all-risk-insurance/">Construction All Risk Insurance</a></li>
+                  <li><a href="https://www.gibl.in/property-insurance/office-insurance/">Office Insurance</a></li>
+                  <li><a href="https://www.gibl.in/burglary-insurance/">Burglary Insurance</a></li>
+                  <li><a href="https://www.gibl.in/health-insurance/group-mediclaim-policy/">Group Mediclaim Insurance</a></li>
+               </ul>
+               </mat-expansion-panel>
+               <mat-expansion-panel (opened)="panelOpenState = true"
+               (closed)="panelOpenState = false">
+               <mat-expansion-panel-header>
+                  <mat-panel-title>
+                     About You
+                  </mat-panel-title>
+                  <mat-panel-description>
+                     {{panelOpenState ? '' : ''}}
+                  </mat-panel-description>
+               </mat-expansion-panel-header>
+               <ul class="links_1">
+                  <li><a href="https://www.gibl.in/UI/Pages/AboutUs.aspx">About Us</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/Process.aspx">Process</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/FAQ.aspx">FAQ</a></li>
+                  <li><a href="https://www.gibl.in/blog" target="_blank">Blog</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/PrivacyPolicy.aspx">Privacy Policy </a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/TermsOfUse.aspx">Terms Of Use</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/PaymentModes.aspx">Payment Modes</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/Disclaimer.aspx">Disclaimer</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/CancellationRefundPolicy.aspx">Cancel &amp; Refund Policy</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/ContactUs.aspx">Contact Us</a></li>
+                  <li><a href="https://www.gibl.in/government-scheme/">Government Scheme</a></li>
+                  <li><a href="https://www.gibl.in/UI/Pages/Careers.aspx">Careers</a></li>
+                  <li><a href="https://www.gibl.in/sitemap.aspx">Sitemap</a></li>
+               </ul>
+               </mat-expansion-panel>
+               <mat-expansion-panel (opened)="panelOpenState = true"
+               (closed)="panelOpenState = false">
+               <mat-expansion-panel-header>
+                  <mat-panel-title>
+                     Security & Payment
+                  </mat-panel-title>
+                  <mat-panel-description>
+                     {{panelOpenState ? '' : ''}}
+                  </mat-panel-description>
+               </mat-expansion-panel-header>
+               <ul class="links_1">
+                  <li>
+                     <img src="https://www.gibl.in/government-scheme/image/payments.jpg" alt="Gibl-instant-policy" style="width: 150px;">
+                  </li>
+                  <br>
+                  <li style="padding-left: 0px;"><a  href="https://www.gibl.in/UI/Pages/HowItWorks.aspx" target="_blank" class="btn-primary-new">How it works</a></li>
+               </ul>
+               </mat-expansion-panel>
+            </mat-accordion>
+         </div>
+      </div>
+   </div>
+</footer>
+<div class="container-fluid footer-new" [ngStyle]="{'background':ftrColor}">
+  <div id="ctl00_n_footer" class="n_footer">
+    <div class="container" fxFlex="row" fxLayout.xs="column"  style="justify-content: space-between">
+        <div fxFlex="22" fxFlex.xs="100"  fxFlex.sm="100" style="float: left; ">
+            <p class="l_footer_txt">Follow Us</p>
+            <div style="float: right; padding-top: 5px;">
+              <a href="https://www.facebook.com/giblofficial">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                width="32" height="32"
+                viewBox="0 0 172 172"
+                style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M141.04,13.76h-110.08c-9.4944,0 -17.2,7.7056 -17.2,17.2v110.08c0,9.4944 7.7056,17.2 17.2,17.2h110.08c9.4944,0 17.2,-7.7056 17.2,-17.2v-110.08c0,-9.4944 -7.7056,-17.2 -17.2,-17.2zM127.28,65.36h-6.88c-7.3616,0 -10.32,1.72 -10.32,6.88v10.32h17.2l-3.44,17.2h-13.76v51.6h-17.2v-51.6h-13.76v-17.2h13.76v-10.32c0,-13.76 6.88,-24.08 20.64,-24.08c9.976,0 13.76,3.44 13.76,3.44z"></path></g></g></svg>
+              </a>
+              <a href="https://twitter.com/giblofficial">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                width="32" height="32"
+                viewBox="0 0 172 172"
+                style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M127.28,10.32h-82.56c-18.96816,0 -34.4,15.43528 -34.4,34.40344v82.54968c0,18.9716 15.43184,34.40688 34.4,34.40688h82.56c18.96816,0 34.4,-15.43528 34.4,-34.40344v-82.55656c0,-18.96816 -15.43184,-34.4 -34.4,-34.4zM124.65872,70.4512c0.0344,0.81528 0.05504,1.64088 0.05504,2.47336c0,25.24272 -19.17112,54.35544 -54.22472,54.35544c-10.76032,0 -20.78104,-3.16136 -29.20904,-8.58624c1.48952,0.17888 2.99968,0.26488 4.54424,0.26488c8.93024,0 17.1484,-3.04784 23.66376,-8.17344c-8.33856,-0.15136 -15.36992,-5.68632 -17.802,-13.26808c1.16616,0.2236 2.35984,0.344 3.59136,0.344c1.7372,0 3.4228,-0.23048 5.01552,-0.67424c-8.71008,-1.76128 -15.27704,-9.47376 -15.27704,-18.73424c0,-0.08256 0,-0.16168 0,-0.2408c2.56968,1.43104 5.504,2.29448 8.63096,2.39424c-5.11872,-3.43312 -8.47616,-9.27424 -8.47616,-15.90312c0,-3.50192 0.93568,-6.78024 2.57656,-9.60792c9.40152,11.5584 23.4436,19.16424 39.27792,19.96232c-0.3268,-1.40008 -0.4988,-2.8552 -0.4988,-4.3516c0,-10.55048 8.5312,-19.10576 19.0576,-19.10576c5.47992,0 10.43008,2.31856 13.90448,6.03376c4.33784,-0.85656 8.42112,-2.44584 12.10192,-4.63368c-1.42072,4.4548 -4.44448,8.20096 -8.38328,10.56768c3.85968,-0.46784 7.52672,-1.48952 10.94952,-3.01c-2.54904,3.83216 -5.7792,7.19992 -9.49784,9.89344z"></path></g></g></svg>
+              </a>
+              <a href="https://www.youtube.com/user/GreenLifeInsurance">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                width="32" height="32"
+                viewBox="0 0 172 172"
+                style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M30.96,13.76c-9.4944,0 -17.2,7.7056 -17.2,17.2v110.08c0,9.4944 7.7056,17.2 17.2,17.2h110.08c9.4944,0 17.2,-7.7056 17.2,-17.2v-110.08c0,-9.4944 -7.7056,-17.2 -17.2,-17.2zM51.6,27.52h8.25735l5.50265,13.76l5.50265,-13.76h8.25735l-10.32,24.08v13.76h-6.88v-13.7936c-2.064,-5.5384 -8.9096,-20.572 -10.32,-24.0464zM86,37.84c3.0616,0 6.08907,0.92611 8.01547,3.26531c1.4792,1.6856 2.30453,4.40427 2.30453,7.98187v5.02563c0,3.5776 -0.68505,6.0544 -2.12985,7.74c-1.9264,2.3048 -5.12855,3.50719 -8.19015,3.50719c-3.0616,0 -6.18985,-1.20239 -8.11625,-3.50719c-1.4792,-1.6856 -2.20375,-4.1624 -2.20375,-7.74v-4.99203c0,-3.5776 0.79093,-6.32987 2.30453,-8.01547c1.9264,-2.3392 4.54107,-3.26531 8.01547,-3.26531zM99.76,37.84h6.88v20.64c0.172,0.9288 1.16745,1.34375 2.09625,1.34375c1.4104,0 3.20135,-1.6504 4.78375,-3.4736v-18.51015h6.88v27.52h-6.88v-4.75015c-2.7864,2.7176 -5.16054,4.75257 -8.29094,4.64937c-2.2704,-0.0688 -3.85146,-0.8952 -4.64266,-2.5464c-0.4816,-0.9632 -0.8264,-2.51335 -0.8264,-4.78375zM86,43.40985c-0.473,0 -0.92585,0.10374 -1.33703,0.28219c-0.41119,0.17845 -0.7834,0.4343 -1.09515,0.7525c-0.31175,0.3182 -0.56438,0.69606 -0.73906,1.11531c-0.17469,0.41925 -0.26875,0.8823 -0.26875,1.3639v9.66156c0,0.9632 0.38431,1.84282 1.00781,2.47922c0.31175,0.3182 0.68397,0.57405 1.09515,0.7525c0.41119,0.17845 0.86403,0.28219 1.33703,0.28219c0.473,0 0.92585,-0.10374 1.33703,-0.28219c1.23356,-0.53535 2.10297,-1.78692 2.10297,-3.23172v-9.66156c0,-1.9264 -1.548,-3.5139 -3.44,-3.5139zM85.9664,75.68h0.06719c0,0 23.08052,0.00107 38.49172,1.10187c2.1672,0.2408 6.84882,0.27547 11.04562,4.57547c3.3024,3.2336 4.36719,10.66265 4.36719,10.66265c0,0 1.10187,5.26508 1.10187,13.96828v8.14985c0,8.7032 -1.10187,13.96828 -1.10187,13.96828c0,0 -1.06479,7.42906 -4.36719,10.66266c-4.1968,4.3 -8.87842,4.33467 -11.04562,4.57547c-15.4112,1.1008 -38.52531,1.13547 -38.52531,1.13547c0,0 -28.62375,-0.27627 -37.43015,-1.10187c-2.4424,-0.4472 -7.94398,-0.30987 -12.14078,-4.57547c-3.3024,-3.268 -4.36719,-10.69625 -4.36719,-10.69625c0,0 -1.10187,-5.26508 -1.10187,-13.96828v-8.14985c0,-8.7032 1.10187,-13.96828 1.10187,-13.96828c0,0 1.06479,-7.42905 4.36719,-10.66265c4.1968,-4.3 8.87842,-4.33467 11.04562,-4.57547c15.4112,-1.1008 38.49172,-1.10187 38.49172,-1.10187zM41.28,89.44v6.8061h6.88v34.4739h6.88v-34.4739h6.88v-6.8061zM86,89.44v41.28h6.88v-4.3c2.17064,2.68664 4.99832,4.3 7.31,4.3c2.58688,0 4.84406,-1.39212 5.71094,-4.05813c0.40936,-1.44136 0.71154,-2.78747 0.73906,-5.83187v-9.46c0,-3.39872 -0.46016,-5.95926 -0.8936,-7.40406c-0.86688,-2.68664 -2.96608,-4.18874 -5.5564,-4.20594c-3.3712,-0.02408 -4.73,1.72 -7.31,4.73v-15.05zM61.92,99.76v22.99828c0,2.48368 0.34561,4.15014 0.79281,5.24062c0.7568,1.76816 2.29996,2.7211 4.50156,2.7211c2.5112,0 5.74803,-1.76896 8.46563,-4.6964v4.6964h6.88v-30.96h-6.88v21.56719c-1.5136,2.00896 -3.71681,3.50719 -5.09281,3.50719c-0.8944,0 -1.61519,-0.37662 -1.78719,-1.3639v-23.71047zM120.50078,99.76c-3.46752,0 -6.1756,1.09054 -8.13641,3.1511c-1.4448,1.52048 -2.28437,4.00609 -2.28437,7.22937v10.54844c0,3.20264 0.92364,5.44391 2.365,6.94719c1.96424,2.06056 4.66695,3.0839 8.21703,3.0839c3.54664,0 6.33879,-1.07747 8.21703,-3.26531c0.8256,-0.96664 1.35514,-2.05443 1.58562,-3.26531c0.06192,-0.54696 0.25531,-2.03153 0.25531,-3.78937h-6.88v2.74797c0,1.59616 -1.54112,2.88906 -3.44,2.88906c-1.89888,0 -3.44,-1.29634 -3.44,-2.88906v-6.18797h13.76v-1.98203v-4.97187c0,-3.2164 -0.78975,-5.57108 -2.21047,-7.095c-1.90232,-2.06056 -4.60315,-3.1511 -8.00875,-3.1511zM120.4,104.7386c1.89888,0 3.44,1.29634 3.44,2.88906v4.56875h-6.88v-4.56875c0,-1.59616 1.54112,-2.88906 3.44,-2.88906zM97.07922,105.76656c1.8748,0 2.68078,1.15208 2.68078,4.74344v9.46c0,3.59136 -0.80598,4.83078 -2.68078,4.83078c-1.06984,0 -3.11218,-0.73374 -4.19922,-1.82078v-15.05c1.08704,-1.07328 3.12938,-2.16344 4.19922,-2.16344z"></path></g></g></svg>
+              </a>
+              <a href="https://www.instagram.com/giblofficial/">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                width="32" height="32"
+                viewBox="0 0 172 172"
+                style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M41.28,10.32c-17.0624,0 -30.96,13.8976 -30.96,30.96v89.44c0,17.0624 13.8976,30.96 30.96,30.96h89.44c17.0624,0 30.96,-13.8976 30.96,-30.96v-89.44c0,-17.0624 -13.8976,-30.96 -30.96,-30.96zM130.72,27.52h10.32c1.892,0 3.44,1.548 3.44,3.44v10.32c0,1.892 -1.548,3.44 -3.44,3.44h-10.32c-1.892,0 -3.44,-1.548 -3.44,-3.44v-10.32c0,-1.892 1.548,-3.44 3.44,-3.44zM86,34.4c18.3352,0 34.46773,9.632 43.61813,24.08h14.86187v68.8c0,9.4944 -7.7056,17.2 -17.2,17.2h-82.56c-9.4944,0 -17.2,-7.7056 -17.2,-17.2v-68.8h14.86187c9.1504,-14.448 25.28293,-24.08 43.61813,-24.08zM86,41.28c-24.6648,0 -44.72,20.0552 -44.72,44.72c0,24.6648 20.0552,44.72 44.72,44.72c24.6648,0 44.72,-20.0552 44.72,-44.72c0,-24.6648 -20.0552,-44.72 -44.72,-44.72zM86,55.04c17.0624,0 30.96,13.8976 30.96,30.96c0,17.0624 -13.8976,30.96 -30.96,30.96c-17.0624,0 -30.96,-13.8976 -30.96,-30.96c0,-17.0624 13.8976,-30.96 30.96,-30.96z"></path></g></g></svg>
+              </a>
+              <a href=" https://www.linkedin.com/company/giblofficial/">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                width="32" height="32"
+                viewBox="0 0 172 172"
+                style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M141.04,13.76h-110.08c-9.4944,0 -17.2,7.7056 -17.2,17.2v110.08c0,9.4944 7.7056,17.2 17.2,17.2h110.08c9.4944,0 17.2,-7.7056 17.2,-17.2v-110.08c0,-9.4944 -7.7056,-17.2 -17.2,-17.2zM58.48,68.8v65.36h-20.64v-65.36zM37.84,49.7768c0,-4.816 4.128,-8.4968 10.32,-8.4968c6.192,0 10.0792,3.6808 10.32,8.4968c0,4.816 -3.8528,8.7032 -10.32,8.7032c-6.192,0 -10.32,-3.8872 -10.32,-8.7032zM134.16,134.16h-20.64c0,0 0,-31.8544 0,-34.4c0,-6.88 -3.44,-13.76 -12.04,-13.8976h-0.2752c-8.3248,0 -11.7648,7.0864 -11.7648,13.8976c0,3.1304 0,34.4 0,34.4h-20.64v-65.36h20.64v8.8064c0,0 6.6392,-8.8064 19.9864,-8.8064c13.6568,0 24.7336,9.3912 24.7336,28.4144z"></path></g></g></svg>
+              </a>
+            </div>
+           
+        </div>
+        <div  fxFlex="25" fxFlex.xs="100" fxFlex.sm="100" *ngIf="isSponsored">
+         <p class="l_footer_txt">Powered By</p>
+         <a href="">
+             <img src="assets/quote/img/logo.png"  alt="Google Paly Store" width="" height="">
+         </a>
+     </div>
+
+        <div  fxFlex="27" fxFlex.xs="100" fxFlex.sm="100">
+            <p class="l_footer_txt">Download our App</p>
+            <a href="https://play.google.com/store/apps/details?id=com.ionicframework.giblpartner">
+                <img src="https://www.gibl.in/UI/assets/quote/images/google-play.png" class="google_play_img" alt="Google Paly Store" width="" height="">
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container-fluid footer-new copy_rights" *ngIf="!isSponsored">
+  <p>
+    ©Copyright 2014 - till now | www.gibl.in | All Rights Reserved | Insurance is the subject matter of solicitation.
+  </p>
+  <p>
+    IRDA License Code No : DB 482/10 Dated 27-05-2019 valid Till date 26-05-2022, Direct(Non-Life) | Principal Officer : Mr.
+    Sahid Ali | Ph: 033-6607 4257 | Our emergency lockdown number: +91 6289901320</p>
+  <p>Regd. & Corp. Office : GreenLife Insurance Broking Pvt. Ltd., A-4/B, 1st Floor, Rishi Tech Park, New Town,
+    Kolkata-700156, West Bengal, India |
+    <a href="http://eceltic.ie/" target="blank" rel="noopener">Designed & Developed By : e-Celtic</a>
+  </p>
+</div>

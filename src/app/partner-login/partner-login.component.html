@@ -1,0 +1,55 @@
+<div style="background-color:#eeeeee;min-height: 100vh">
+  <div class="container partner-login-page"  fxLayout="row" fxLayoutAlign="center center" >
+    <div class="login-container">
+        <h1 style="font-size:26px;text-align: center;margin: 10px 0px;" >Partner Login</h1>
+        <form [formGroup]="loginFormGroup">
+        <div fxLayout="row wrap">
+          
+            <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap='5'>
+              <i class="material-icons" style="color:#00008b;font-size:25px;margin-right: 5px">
+              how_to_reg
+            </i>
+                  <mat-form-field>
+              
+                <input matInput type="text" placeholder="User Name" 
+                  autocomplete="none" formControlName="userName" #userName >
+            <mat-error *ngIf="loginFormGroup.controls['userName'].errors?.required">
+                Username is required!
+              </mat-error>
+              <!-- <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.required">
+                Customer email is required!
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                Please enter valid email!
+              </mat-error> -->
+              <!-- <mat-hint align="end">Ex: demo@demo.com</mat-hint> -->
+            </mat-form-field>  
+            </div>
+            <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+               <i class="material-icons" style="color:#00008b;font-size:25px;margin-right: 5px">
+              visibility_off
+            </i>
+                  <mat-form-field>
+             
+                <input matInput type="text" placeholder="Password"  
+                  autocomplete="none" formControlName="password" #password>
+              
+               <mat-error *ngIf="loginFormGroup.controls['password'].errors?.required">
+                Password is required!
+              </mat-error>
+              <!-- <mat-error *ngIf="firstFormGroup.controls['custEmail'].errors?.pattern">
+                Please enter valid email!
+              </mat-error>  -->
+              <!-- <mat-hint align="end">Ex: demo@demo.com</mat-hint> -->
+            </mat-form-field>  
+            </div>
+            <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" style="margin:20px 0px">
+                <button class="btn btn-primary">Get OTP</button>
+            </div>
+          
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+

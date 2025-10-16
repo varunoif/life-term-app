@@ -1,0 +1,234 @@
+
+
+/*---------------------------------------------*/
+/deep/ body{background: #eee !important;}
+a{cursor: pointer;}
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding:10px 19px 10px;
+}
+/deep/.material-icons{color:#05ba87;}
+.only-desk-p{text-align: right; padding:0px 10px 0 0;}
+  .addons{ margin:0px; padding:0; width: 100%;}
+  .addons p{line-height: 0;
+    padding-top: 5px;
+    margin-top: 2px;}
+  .addons li{font-size: 12px; padding:0;}
+  .mat-dialog-title {
+    margin: 0 0 0px;
+    display: block;
+}
+/deep/ .cdk-overlay-pane{max-width:95vw !important}
+.mat-slider-horizontal{width:100% !important;}
+/deep/.mat-slider-horizontal .mat-slider-thumb-label{padding: 10px !important;}
+ul.selectbtn{margin: 0; padding: 0; float: left;}
+.float-left{ float: left;} .float-right{ float:right;}
+.text-size1{font-size: 13px;padding:0px 14px 4px 2px;}
+.text-size2{font-size: 12px;
+  padding: 5px;
+  text-align: center;}
+.text-size3{ font-size: 16px !important;
+  font-weight: bold;
+  padding-top: 27px !important;
+  color: #1a211f;}
+.mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+  background-color: #3f51b5 !important;
+}
+.m-top{margin-top:30px;} .m-bottom{margin-bottom:20px;}
+/* /deep/ .mat-dialog-container{padding: 12px !important;} */
+/deep/.mat-expansion-panel-header{padding:0 10px !important;}
+/deep/.mat-accordion .mat-expansion-panel:first-of-type{background:#fff !important;width:auto !important;
+  padding-right: 11px !important; }
+/deep/.mat-chip-list-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0px -10px !important;
+  float: right;
+}
+/deep/.mat-expansion-indicator::after, .mat-expansion-panel-header-description {
+  color: #000 !important;
+}
+/deep/ .mat-expansion-panel-header{ font-size: 14px !important;
+  font-family: "Avenir-Book" !important;
+  padding-left: 20px !important;}
+
+/deep/.badge-button {
+  max-width: 80% !important;
+  margin-top: 10% !important;
+}
+/deep/.only .material-icons{font-size: 18px; color: #0d6efd;}
+
+/deep/.mat-badge-accent .mat-badge-content {
+  background: #02b784;
+  color: #fff;
+  font-size: 18px;
+  padding: 9px;
+}
+.header h4{ margin:2px 0;}
+.price{ font-size:17px !important;
+  padding: 0 21px;
+  font-weight: bold;
+  font-family: "Avenir-Book" !important;
+  margin-bottom: 10px; margin-top: 5px;
+}
+.wrap{margin-top:1px;}
+.text-right{text-align: right !important;}
+.edit{color: blueviolet;
+  padding-left: 5px;
+  float: right;
+  position: absolute;
+  margin-left: 57px;
+  font-size: 15px;
+  padding-top: 6px;
+    padding-left: 8px;
+  font-weight: normal;
+  cursor: pointer; text-transform: uppercase;}
+  .example-container{font-size: 12px; float: left;}
+  /deep/.mat-raised-button {
+    font-size: 12px !important;
+    margin-top: 7px;
+}
+
+/deep/ .mat-expansion-panel-content{    font: 400 12px/16px Roboto,"Helvetica Neue",sans-serif;}
+.result-addon{ font-size: 12px; padding-bottom: 10px; background: #fff;}
+.result-addon span{float: left; padding: 5px; color: #5f5757;}
+.result-addon .material-icons{
+  top: 8px;
+  position: relative;
+  font-size: 22px;
+  color: #03b787;}
+.add-arrow{position: relative !important;
+  color: #fff !important;
+  font-size: 21px !important;
+  top: 7px !important;
+  padding-left: 7px;}
+  .white{ color:#fff !important;}
+  .selectbtn button{background:#03b787 !important;}
+@media (max-width:576px){
+  .only-top{margin-top:20px;}
+}
+  @media(max-width:960px){
+    .only-desk-p{padding:0px;}
+    .mob-addons{position: fixed;
+      z-index: 99;
+      padding: 14px;
+      right: 0;
+      bottom: 0;}
+      
+    .hide-xs{display: none !important;}
+    .newadd{    float: right;
+      padding-top: 8px;
+      font-size: 14px;}
+    .selectbtn{margin-top:10px !important;}
+  
+    
+    img.logo {
+      width:60%;}
+    .text-size3{font-size: 13px !important;
+      font-weight: bold; padding-top:0px !important;}
+      .price {
+        
+        padding: 0 10px;
+        font-weight: bold;
+        font-family: "Avenir-Book" !important;
+        margin-bottom: 10px;
+       
+    }
+    .nprow{text-align:right;}
+    .wrap-contact101{padding: 5px 5px !important; background:#fff;}
+    .head-wrap{padding:10px 5px !important;}
+    .idv{margin-right:15px;}
+    .badge-button {
+      max-width: 80% !important;
+      margin-top: 0% !important;
+      padding-left: 10% !important;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .mat-badge-medium.mat-badge-overlap.mat-badge-before .mat-badge-content {
+    left: -9px;
+}
+.mat-badge-medium.mat-badge-before .mat-badge-content {
+    left: -22px;
+}
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -10px;
+}
+.mat-badge-accent .mat-badge-content {
+    background: #05b787;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px 9px 7px 4px;
+}
+.mat-badge-medium .mat-badge-content {
+    width: 12px;
+    height: 12px;
+    line-height: 15px;
+    margin-left: 8px;
+}
+.mat-raised-button{padding:0 10px;}
+
+
+  }
+  .edit-n{font-size: 14px !important;}
+  /deep/.new-head .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-top: 0px;
+    margin-bottom: -10px;
+}
+
+/deep/.mat-dialog-container .mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: 2.1em 0 1em;
+}
+.text-center{text-align:center;}
+/* /deep/.mat-dialog-title{font-size: 16px !important;
+  padding-top: 20px !important;
+  padding-bottom: 0 !important;
+  font-weight: bold;} */
+
+.add {padding-top: 5px;}
+/deep/.mat-dialog-container label{font-size: 13px;
+  padding-bottom: 12px;padding-top: 12px;}
+  /* /deep/  .mat-dialog-title {font-size: 13px;
+    padding-bottom: 12px;} */
+   
+.show-add{
+  position: absolute;
+    left: 5px;
+    margin-right: 19px;}
+
+  @media(max-width:960px){
+    #bt{display: block !important;}
+    
+  }
+  @media (min-width:960px) and (max-width:1279px){
+
+    .header p{font-size:10px !important; }
+  }
+
+  @media (min-width:1280px) and (max-width:1299px){
+
+    .header p{font-size:13px !important; }
+  }
+  /* /deep/.mat-dialog-container{ font-family: Avenir-Book!important; position: absolute; right:0; width:25% !important; top: 0 !important; border-radius: 0 !important;}
+  /deep/ .mat-dialog-title{font-family: Avenir-Book!important;} */
+  /deep/ .mat-expansion-panel-header-title{font-weight: bold;}
+  mat-expansion-panel-header-description, .mat-expansion-panel-header-title{
+    margin-right: 0;
+    font-size: 17px;
+    font-weight: bold;
+}
+    @media(max-width:991px){
+
+      /deep/.mat-dialog-container{width:100% !important;}
+      .header p{text-align: left;}
+      /deep/ .cdk-overlay-pane.proposal_container_dialog{width:100% !important; height: 100% !important;}
+  }
+
+  /deep/.mat-checkbox-layout .mat-checkbox-label{color:#0b559e }
+  /deep/ .adons   .mat-expansion-panel-body{padding: 0;}
+ 
+

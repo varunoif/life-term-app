@@ -1,0 +1,327 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@font-face{
+    font-family:'Avenir-Book';
+    src:url('assets/quote/fonts/AvenirBook.ttf') format('truetype'), url('/assets/quote/fonts/avenirltstd-book-webfont.svg#AvenirLTStd45BookRegular') format('svg');font-weight:normal;font-style:normal;
+}
+body{font-family:'Avenir-Book' !important; }
+.mat-button, .mat-fab, .mat-flat-button, .mat-icon-button, .mat-mini-fab, .mat-raised-button, .mat-stroked-button{font-family:'Avenir-Book' !important; }
+body {
+    margin: 0;
+    padding: 0;
+    background:  #fff;
+    color: #00008b;
+    font-size: 18px;
+    font-family: 'Avenir-Book';background-repeat: no-repeat;
+    background-size: contain;
+}
+.mat-card{font-family: 'Avenir-Book';background-repeat: no-repeat;}
+.mat-form-field{font-family:'Avenir-Book' !important;}
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
+    background: #055ba9 !important;
+}
+.mat-stepper-horizontal, .mat-stepper-vertical {font-family:'Avenir-Book' !important;}
+.text-center{ text-align: center;}
+.mat-list-base .mat-list-item .mat-list-item-content-reverse, .mat-list-base .mat-list-option .mat-list-item-content-reverse{
+    flex-direction: row !important; 
+    margin-right:10px;
+}
+.mat-list-text{ padding-left:10px !important; font-family:'Avenir-Book' !important;}
+.gap-a{margin-right:30px}
+@media(max-width:599px){
+    .mat-stepper-horizontal-line{border:none !important;}
+    .mat-step-icon-state-number,.mat-step-icon mat-step-icon-selected{display: none !important;}
+    .mat-horizontal-stepper-header{padding:25px 0 10px !important; height: 14px !important;}
+    .mat-horizontal-stepper-header .mat-step-icon{display: none !important;}
+    .mat-horizontal-content-container {
+        padding: 9px 10px 24px 10px !important;
+    }
+}
+.mat-step-label-selected {
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 3px solid cadetblue;
+    color: #055ba9 !important;
+}
+.mat-list-base{display: inline !important;}
+.mat-toolbar.mat-primary{
+    background: #055ba9 !important;
+    color: #fff !important;
+    padding: 4px 30px !important;
+}
+.mat-toolbar-row, .mat-toolbar-single-row {
+    height: 80px !important;
+    padding: 7px !important;
+}
+.mat-stepper-horizontal, .mat-stepper-vertical {
+    display: block;
+    box-shadow: 0px -1px 14px 0px #797676;
+}
+.mat-form-field-infix{font-size: 13px !important;}
+.mat-horizontal-content-container{padding: 24px 24px 24px 24px;}
+h1{font-size: 26px;}
+.mat-stepper-horizontal, .mat-stepper-vertical {
+    font-family: "Avenir-Book" !important;
+    //margin:0px 10px 10px 10px !important;
+    padding: 0px 2px !important;
+}
+.mat-button-toggle-checked{background-color: #0d6efd;}
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    color: #fff; font-family:'Avenir-Book' !important;
+}
+.ng-untouched h2{font-size: 13px !important;}
+.mat-horizontal-stepper-header{display: none !important;}
+.mat-stepper-vertical{box-shadow: none !important;}
+.mat-step-label-selected{font-size: 16px;}
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+    font-family:'Avenir-Book' !important;
+}
+.mat-icon-face{top:0 !important;}
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    color: #fff;
+}
+.mat-button-toggle-checked .mat-icon-face{color:#fff !important;}
+.mat-select-value-text{    font-weight: bold;
+    font-size: 12px;
+    font-family: Avenir-Book!important;
+}
+.mat-form-field-hide-placeholder .mat-select-placeholder{
+    font-family: Avenir-Book!important;
+}
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{font-size: 14px; }
+.mat-button-toggle-group-appearance-standard, .mat-button-toggle-standalone.mat-button-toggle-appearance-standard{
+    border: solid 1px #0d6efd;
+}
+@media(max-width:991px){
+    .mat-vertical-stepper-header{
+        display: flex;
+        align-items: center;
+        padding:8px 0px  !important;
+        height: 24px;
+    }
+    .mat-vertical-content {
+        padding: 0 24px 24px 0px !important;
+    }
+    .mat-vertical-content-container{margin-left:3px !important;}
+    .mat-stepper-vertical-line::before{border:0 !important;}
+    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content{padding: 0 5px;}
+    .mat-step-label-selected {
+        font-size: 14px;
+    }     
+}
+@media(min-width:992px){
+    .gap-no{
+        margin: 5px 0;
+        font-size: 16px;
+        font-weight: bold; 
+        padding-top: 1%;
+    }
+}
+.mat-option, .mat-checkbox-label{font-family: 'Avenir-Book' !important ; font-weight: bold;}
+.mat-option-text{font-size: 14px !important; }
+.mat-form-field-infix {
+    font-size:16px !important;
+}
+.proposal_container_dialog  {
+    mat-dialog-container {
+        font-family: Avenir-Book!important;
+        position: relative;
+        width:44% !important;
+        top: 0 !important;
+        border-radius: 0 !important;
+        overflow: hidden !important;           
+        margin:auto !important;
+        background:none !important;
+        box-shadow: none !important;
+    }
+    .mat-dialog-container .mat-form-field-appearance-legacy .mat-form-field-infix{
+        padding: 1.3em 0 1em !important;
+    }        
+}
+
+.proposal_container_dialog_confirm  {
+    mat-dialog-container {
+        font-family: Avenir-Book!important;
+        position: relative;
+        width:44% !important;
+        top: 0 !important;
+        border-radius: 0 !important;
+        overflow: hidden !important;           
+        margin:auto !important;
+        box-shadow: none !important;
+    }
+    .mat-dialog-container .mat-form-field-appearance-legacy .mat-form-field-infix{
+        padding: 0em 0 1em !important;
+    }        
+}
+
+.proposal_containt_dialog {     
+    display: block;
+    margin: -20px -39px !important;
+    padding: 00 !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+}
+.mat-dialog-container{
+    overflow-x: hidden !important;
+}
+.mat-form-field-appearance-legacy .mat-form-field-wrapper{margin-right: 9px !important;}
+.contact100-form-btn{     
+    padding: 8px 20px !important;
+    height: 36px !important;
+}
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content{    
+    padding: 0 5px !important;
+}
+@media(max-width:991px){
+    .proposal_containt_dialog {
+        margin:10px  40px !important;
+    }
+    .mat-vertical-stepper-header .mat-step-icon{ margin-right:5px;}
+    .proposal_container_dialog .mat-dialog-container .mat-form-field-appearance-legacy .mat-form-field-infix{
+        padding: 1em 0 1em !important;
+    }
+    .proposal_containt_dialog {
+        margin: 10px 0!important;
+    }
+    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+        padding: 0 11px !important;
+    }
+}
+.proposal_container_dialog .mat-dialog-container .mat-form-field-appearance-legacy .mat-form-field-infi{
+    padding: 1.6em 0 1.5em !important;
+}
+
+@media (min-width:1200px){
+    // .head-wrap.wrap-contact101 {margin-top:3%;}
+    .mat-cell{font-size: 13px !important; font-family: 'Avenir-Book';}
+}
+@media(max-width:991px){
+    body{background:none !important;}
+}
+footer{background: #263b4e !important; margin-top: 25px;}
+footer .mat-expansion-panel-spacing{margin-top: 0;}
+footer .links_1 li {
+    list-style: none;
+    color: #fff;
+    font-size: 16px;
+}
+ul.links_1{padding-left: 0;}
+.links_1 li {
+    list-style: none;
+    color: #fff;
+    font-size: 16px;
+}
+.new_subfooter {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff !important;
+    border-bottom: 1px solid #989898;
+    padding-bottom: 8px;
+    margin-right: 7px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.links_1 li a{color:#fff; text-decoration: none!important;}
+.mat-expansion-panel-header{ 
+    text-transform: capitalize !important;
+    font-family:'Avenir-Book' !important;
+}
+@media (min-width:320px) and (max-width:991px){
+    .desk-footer{display: block;} 
+}
+@media(max-width:991px){
+    .mob-desk-footer{display: none !important;}
+    footer .links_1 li a {
+        color: #263b4e !important;
+        text-transform: capitalize !important;
+        font-family:'Avenir-Book' !important; 
+        text-decoration: none!important;    
+        cursor: pointer;
+        line-height: 29px;
+    }
+    .links_1 li a{ 
+        color: #263b4e !important; 
+        font-size:12px; 
+        font-family:'Avenir-Book' !important; 
+        font-size: 12px !important; 
+    }
+    footer .mat-expansion-indicator::after, .mat-expansion-panel-header-description{
+        color: rgb(255, 255, 255) !important;
+    }
+}
+footer .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+    background: #263b4e;
+}
+
+footer .mat-expansion-panel{border-radius: 0;}
+@media(max-width:1280px){
+    .mob-desk-footer{display:none !important;}
+}
+.example-tooltip-green{
+    background: #03B787;
+    white-space: pre-line;
+    font-size: 11px;
+    font-weight: normal;
+}
+.mat-tooltip-panel:after {
+    position: absolute;
+    content: "";
+    width: 0; 
+    height: 0; 
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;  
+    border-right: 5px solid #03B787;
+    margin: 15px 10px;
+    opacity: 1;
+    animation: 2s fadeIn;
+    animation-fill-mode: forwards;
+    transition: opacity 1.5s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media(min-width:320px) and (max-width:959px){
+    .nav-mob{
+        position: absolute;
+        right: 18px;
+        top: 38px; 
+        display:block !important;
+    }        
+}
+
+/* FOOTER BOTTOM SECTION */
+.footer-new p{font-size: 10px;}
+.copy_rights p{color: #000000;}
+.footer-new a{font-size: 10px;}
+.footer-new{
+background: #fff;
+	padding: 15px;
+	text-align: center;
+}
+.google_play_img {
+    text-align: left;
+    margin-top: 0;
+    padding-bottom: 0;
+    width: 48%;
+    float: right;
+    margin-bottom: 4px;
+}
+
+.l_footer_txt {
+    text-align: left;
+    font-size: 18px !important;
+    color: #fff;
+    width: auto;
+    float: left;
+    margin: 10px 5px;
+    font-weight: bold !important;
+}
+

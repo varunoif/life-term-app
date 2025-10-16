@@ -1,0 +1,5 @@
+<app-header></app-header>
+ <!-- *ngIf="!_router.url.includes('/listing/qid') && showHeader" -->
+<div [hidden]="showHeader"></div>
+<router-outlet></router-outlet>
+<!-- <app-footer *ngIf="_router.url != '/listing' && showHeader"></app-footer> -->

@@ -1,0 +1,48 @@
+.logo-title{
+    font-size: 18px !important;
+    text-decoration: none !important;
+}
+.between-line{
+        border-left: 1px solid #D9D9D9;
+    height: 46px;
+    margin: 0 15px;
+}
+.site-navbar{
+    .navbar-menu{
+        a{
+        text-decoration: underline;
+    }
+    .nav-item{
+        padding: 5px 10px;
+        border-radius: 20px;
+        transition: 0.2s;
+        margin-left: 5px;
+        font-size: 14px;
+        text-decoration: underline;
+    }
+    .nav-item:hover{
+        background-color: #0d6efd;
+        color:white;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    }
+    
+}
+a.mat-menu-item {
+    line-height: 30px !important;
+    height: 30px !important;
+    &:hover {
+        color:#fff !important;
+        background-color: #FC5846 !important;
+    }
+}
+.title{ 
+    font-family: "Avenir-Book" !important;     
+    padding: 21px 15px;
+    font-size: 17px;
+}
+// .mat-toolbar{
+//     color:#fff;
+// }
+.pinc img{width:150px; height: 27px; margin-top:21px;}

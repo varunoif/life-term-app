@@ -1,0 +1,93 @@
+.mat-form-field-label-wrapper{top: -1.8em !important;
+  margin-top: 2px;}
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+      padding-top: 20px !important;
+  }
+.mat-expansion-panel-header-description{flex:none;}
+.mat-icon {
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  height: 34px;
+  width: 23px;
+  margin-left: -12px;
+  margin-right: 6px;
+  font-size: 22px;
+}
+.mat-expansion-panel-header-description, .mat-expansion-panel-header-title{font-weight: bold;color: #470394;}
+.dob{position: absolute; font-weight: bold; color: #999; font-size: 11px;}
+.warn{margin:15px auto !important;}
+.justify-content-between {
+justify-content: space-between!important;
+}
+
+.d-flex {
+display: flex!important;
+}
+.list-group-item {
+position: relative;
+display: block;
+padding: .75rem 1.25rem;
+margin-bottom: -1px;
+background-color: #fff;
+border: 1px solid rgba(0,0,0,.125);
+}
+ul{padding-left:0;}
+.badge-secondary {
+background: #fc5846;
+padding: 15px;
+border-radius: 5px;    color: #fff;
+width: 100%;
+}
+
+.thanks {
+text-align:left;
+display: inherit;
+padding-top: 2px;
+font-size:17px;
+color: blueviolet;
+
+}
+.my-0{font-size: 15px;}
+.text-center{text-align: center; padding:15px 0;}
+.material-icons{color:#fff;}
+.badge-pill a{color:#fff;}
+.text-right{text-align: right;}
+.pull-right{float:right;}
+span{vertical-align: top;}
+.side-add{max-width: 300px;
+float: right;
+position: fixed;
+display: flex;
+top: 130px;
+right: 19px;}
+.name-comp{ float: left; margin:-2px 0;padding: 12px;    font-size: 19px; text-transform: uppercase; font-size: 16px !important;}
+#icon{background: #fff;}
+#icon .material-icons{color: #055ba9  !important; padding-top:0px !important; float: left;}
+.badge-secondary{ border-radius: 0;}
+
+@media(max-width:576px){
+  #icon{font-size:12px;}
+ .material-icons{font-size:14px;}
+ .paym small, span{font-size: 15px !important;
+  padding-top: 2px !important;
+  text-transform: uppercase !important;
+  clear: both;
+  display: inline-block;
+  text-align: left !important; }
+}
+@media(max-width:400px){
+  .mat-toolbar span{display: none  !important;}
+}
+  @media (max-width:699px){
+    .container{padding:2px 5px;}
+    .mat-toolbar span{margin-top:18px !important;}
+    .premim-mob{place-content: center !important;}
+  }
+  p{padding:16px 0;}
+  .container{padding: 4px 11px 10px !important;}
+  #icon span{font-size:20px; text-align: center;}
+  .badge-secondary{padding: 10px 7px 3px 8px; text-transform: capitalize !important;}
+  .pay-btn{
+    color:black!important;
+  }
