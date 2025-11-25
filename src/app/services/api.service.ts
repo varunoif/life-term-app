@@ -666,6 +666,18 @@ export class ApiService implements Resolve<any> {
 		return this.httpClient.post(`${baseURL}bhartiaxa/api/getPremium/${quoteJson.providerId}`, quoteJson);
 	}
 	//new quote-form submit
+
+	checkLoginType() {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Authorization': 'Bearer eSKBy4CQRJ-1KdEZL8dV5w'
+			})
+		};
+		const baseURL = this.getBaseURL();
+		return this.httpClient.post(`${baseURL}php-services/life-services/api.php?action=Get_session`,null,httpOptions);
+	}
 	submitQuoteTerm(quoteJson) {
 		const httpOptions = {
 			headers: new HttpHeaders({
@@ -676,6 +688,19 @@ export class ApiService implements Resolve<any> {
 		};
 		const baseURL = this.getBaseURL();
 		return this.httpClient.post(`${baseURL}/php-services/life-services/service.php?action=PREMIUM_SUBMIT`, quoteJson, httpOptions);
+	}
+	submitQuoteCrm(contactForm,quoteJson,quoteId) {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				Authorization: 'my-auth-token'
+			})
+		};
+		var finalQuote ={...quoteJson,contactForm,quoteId:quoteId,policy_type: "TL"}
+		const baseURL = this.getBaseURL();
+		return this.httpClient.post(`${baseURL}php-services/crm-services/angular-quote-data-service.php`,finalQuote, httpOptions);
+	 
 	}
 
 	//new quote-list
@@ -761,6 +786,32 @@ export class ApiService implements Resolve<any> {
 		return this.httpClient.post(
 			
 			`${baseURL}php-services/life-services/service.php?action=SEND_QUOTE_EMAIL`,
+			requestBody, // payload including serviceUrl
+			httpOptions
+		);
+	}
+
+	//ICICI Propoal redirect
+	getIciciProposal(customerJson: any, source_user: any, user_code:any,uniqueId:any,filters:any,providerId?: any, quoteId?: any, serviceUrl?: any, ) {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Accept': 'application/json',
+				'Authorization': 'my-auth-token'
+			})
+		};
+		const requestBody = {
+			...customerJson,
+			quoteID: quoteId,
+			...filters,
+			serviceUrl: serviceUrl,
+			user_code: user_code,
+			source_user: source_user,
+			uniqueId:uniqueId
+		};
+		const baseURL = this.getBaseURL();
+		return this.httpClient.post(
+			
+			`${baseURL}php-services/life-services/service.php?PROVIDER_ID=7&action=CREATE_PROPOSAL`,
 			requestBody, // payload including serviceUrl
 			httpOptions
 		);

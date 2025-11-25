@@ -1,8 +1,13 @@
-<div fxflex="80" *ngIf="showPageContent">
-  <div fxFlex="40" fxLayout.xs="column" style="margin:15px auto;" id="quote" fxFlex.sm="100">
+<div class="container" style="font-family:Montserrat ,sans-serif">
+  <div class="content-holder" fxLayout="row" fxLayoutAlign="space-between start" *ngIf="showPageContent">
+  <div  fxHide.lt-md fxFlex="50" fxLayout="column" fxLayoutAlign="space-between center" style="margin-top: 55px;">
+    
+    <h1 class="main-heading">Term Life Insurance</h1>
+    <!-- <p class="text-center">Protection against all forms of death, disease, disability</p> -->
+    <img src="assets/term-life-banner.png" width="90%">
+  </div>  
+  <div fxFlex="100" fxFlex.md="45" fxLayout.xs="column" style="margin:15px auto;" id="quote" fxFlex.sm="100">
 
-    <h1 class="text-center">Term Life Insurance</h1>
-    <p class="text-center">Protection against all forms of death, disease, disability</p>
 
     <div fxLayoutAlign="center" style="flex-basis:100%;">
       <mat-progress-spinner style="text-align:center !important;" *ngIf="redirectSpinnerShow" [color]="spinnerColor"
@@ -13,7 +18,7 @@
       <span style="color: #354052e0;font-size: 14px;">{{progressValue}}% Complete </span>
     </div>
     <mat-progress-bar mode="determinate" [value]="progressValue" style="height: 8px;
-    border-radius: 4px"></mat-progress-bar>
+    border-radius: 13px 13px 0px 0px"></mat-progress-bar>
     <mat-horizontal-stepper linear #stepper *ngIf="!redirectSpinnerShow">
 
       <mat-step [stepControl]="firstFormGroup" errorMessage="Gender is required.">
@@ -59,7 +64,7 @@
           <p class="gap-no">Choose Gender</p>
           <p>
             <mat-button-toggle-group name="fontStyle" formControlName="customerGender" aria-label="Font Style"
-              fxFlex="52">
+             >
               <mat-button-toggle value="M" aria-checked="checked" fxFlex="50">
                 <mat-icon class="mat-icon-face">tag_faces</mat-icon>Male
               </mat-button-toggle>
@@ -285,6 +290,8 @@
     </mat-horizontal-stepper>
   </div>
 </div>
+</div>
+
 
 <!-- <div class="container">
   <div fxLayout="row wrap">

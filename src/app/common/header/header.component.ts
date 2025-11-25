@@ -59,6 +59,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	isSponsored:boolean=false;
 	logo:string='assets/quote/img/logo.png';
 	hdrColor:string='#055ba9';
+	role_data:any;
+	isAgentLogin:boolean = false
+role_type:number;
 
 	constructor(
 		public dialog: MatDialog,
@@ -80,31 +83,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		
 	}
 	ngOnInit() {
+		this.isAgentLogin = false;
 		this.checkParam();
 		this.checkAutoLogin();
 		this.generateUi();
 		this.host_name =this.apiService.HOST_NAME;
+		console.log("header HOST NAME ==",this.host_name);
 		if(this.host_name == 'uatweb.synergy-insurance.com'){
 			this.registerURL = "https://uatweb.synergy-insurance.com/pos/";
 			this.loginURL = "https://uatweb.synergy-insurance.com/login.php"
 		}
-		if(this.host_name == 'web.synergy-insurance.in'){
+		else if(this.host_name == 'web.synergy-insurance.in'){
 			this.registerURL = "https://web.synergy-insurance.in/pos/";
 			this.loginURL = "https://web.synergy-insurance.in/login.php"
 		}
-		if(this.host_name == 'uatweb.finarray.in'){
+		else if(this.host_name == 'uatweb.finarray.in'){
 			this.registerURL = "https://uatweb.finarray.in/pos/";
 			this.loginURL = "https://uatweb.finarray.in/login.php"
 		}
-		if(this.host_name == 'web.finarray.in'){
+		else if(this.host_name == 'web.finarray.in'){
 			this.registerURL = "https://web.finarray.in/pos/";
 			this.loginURL = "https://web.finarray.in/login.php"
 		}
-		if(this.host_name == 'uatweb.justpolicy.in'){
+		else if(this.host_name == 'uatweb.justpolicy.in'){
 			this.registerURL = "https://uatweb.justpolicy.in/pos/";
 			this.loginURL = "https://uatweb.justpolicy.in/login.php"
 		}
-		if(this.host_name == 'web.justpolicy.in'){
+		else if(this.host_name == 'web.justpolicy.in'){
 			this.registerURL = "https://web.justpolicy.in/pos/";
 			this.loginURL = "https://web.justpolicy.in/login.php"
 		}
@@ -112,6 +117,75 @@ export class HeaderComponent implements OnInit, OnDestroy {
 			this.registerURL = "https://uatweb.synergy-insurance.com/pos/";
 			this.loginURL = "https://uatweb.synergy-insurance.com/login.php"
 		}
+		this.apiService.checkLoginType().subscribe({
+  next: (data: any) => {
+    if (data && data.status && data.user_json && data.user_json.role_type) {
+      this.role_data=data;
+      this.role_type = data.user_json.role_type;
+	  this.isAgentLogin = true;
+      console.log("Login type is:", this.role_type);
+    } else {
+      console.warn("Unexpected response:", data);
+      this.role_type = null;
+	  this.isAgentLogin = false;
+    }
+  },
+  error: (err) => {
+    console.error("Error checking login type:", err);
+    this.role_type = null;
+	this.isAgentLogin = false;
+  }
+});
+	}
+	onDashboardAction(){
+		// if(this.host_name == 'uatweb.synergy-insurance.com'){
+		// 	this.registerURL = "https://uatweb.synergy-insurance.com/pos/";
+		// 	this.loginURL = "https://uatweb.synergy-insurance.com/login.php"
+		// }
+		// else if(this.host_name == 'web.synergy-insurance.in'){
+		// 	this.registerURL = "https://web.synergy-insurance.in/pos/";
+		// 	this.loginURL = "https://web.synergy-insurance.in/login.php"
+		// }
+		 if(this.host_name == 'uatweb.finarray.in'){
+			window.open('https://uatweb.finarray.in/posp-profile/dashboard');
+		}
+		else if(this.host_name == 'web.finarray.in'){
+			window.open('https://web.finarray.in/posp-profile/dashboard');
+		}
+		// else if(this.host_name == 'uatweb.justpolicy.in'){
+		// 	this.registerURL = "https://uatweb.justpolicy.in/pos/";
+		// 	this.loginURL = "https://uatweb.justpolicy.in/login.php"
+		// }
+		// else if(this.host_name == 'web.justpolicy.in'){
+		// 	this.registerURL = "https://web.justpolicy.in/pos/";
+		// 	this.loginURL = "https://web.justpolicy.in/login.php"
+		// }
+		
+	}
+	onCrmAction(){
+		// if(this.host_name == 'uatweb.synergy-insurance.com'){
+		// 	this.registerURL = "https://uatweb.synergy-insurance.com/pos/";
+		// 	this.loginURL = "https://uatweb.synergy-insurance.com/login.php"
+		// }
+		// else if(this.host_name == 'web.synergy-insurance.in'){
+		// 	this.registerURL = "https://web.synergy-insurance.in/pos/";
+		// 	this.loginURL = "https://web.synergy-insurance.in/login.php"
+		// }
+		 if(this.host_name == 'uatweb.finarray.in'){
+			window.open('https://uatcrm.finarray.in/my-dashboard.php');
+		}
+		else if(this.host_name == 'web.finarray.in'){
+			window.open('https://crm.finarray.in/my-dashboard.php');
+		}
+		// else if(this.host_name == 'uatweb.justpolicy.in'){
+		// 	this.registerURL = "https://uatweb.justpolicy.in/pos/";
+		// 	this.loginURL = "https://uatweb.justpolicy.in/login.php"
+		// }
+		// else if(this.host_name == 'web.justpolicy.in'){
+		// 	this.registerURL = "https://web.justpolicy.in/pos/";
+		// 	this.loginURL = "https://web.justpolicy.in/login.php"
+		// }
+		
 	}
 	
 	checkAutoLogin(){

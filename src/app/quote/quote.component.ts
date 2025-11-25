@@ -461,7 +461,19 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 										this.displayListingLoader = false;
 										this.quoteFormSubmitBtn = !this.quoteFormSubmitBtn;
 										this.progressValue = 100;
-										this.router.navigate(['/listing/qid', quoteId]); // Runs only after API success
+										const contactForm = {
+											cust_dob: this.completeQuoteFormData.customerDOB,
+											emailCtrl: this.completeQuoteFormData.custEmail,
+											genderCtrl:this.completeQuoteFormData.customerGender,
+											fullnameCtrl:this.completeQuoteFormData.custName,
+											pinNoCtrl:this.completeQuoteFormData.custPincode,
+											mobileNoCtrl:this.completeQuoteFormData. custMob,
+										}
+										this.apiService.submitQuoteCrm(contactForm,this.completeQuoteFormData,quoteId).subscribe({next:(data) => {
+											console.log(data);
+											//  this.router.navigate(['/listing/qid', quoteId]);
+										}});
+										 this.router.navigate(['/listing/qid', quoteId]); // Runs only after API success
 									},
 									error: (err) => {
 										this.displayListingLoader = false;

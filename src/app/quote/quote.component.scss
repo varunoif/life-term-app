@@ -1,5 +1,38 @@
 
 mat-form-field{width:100% !important;}
+.main-heading{
+        font-weight: 500;
+        max-width: 360px;
+    color: rgb(0, 0, 0);
+    text-transform: uppercase;
+    display: inline-flex;
+    line-height: 1;
+    font-size: 30px;
+    letter-spacing: 1px;
+    padding: 3px 4px 3px 0px;
+    border-right: 4px solid rgb(255, 255, 255);
+    overflow: hidden;
+    white-space: nowrap;
+    animation: 4s steps(30) 0s infinite normal none running typing, 0.75s step-end 0s infinite normal none running blink-caret;
+}
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+.content-holder{
+    border-radius: 22px;
+    background: rgb(255, 255, 255);
+    padding: 11px;
+    box-shadow: rgb(204, 204, 204) 0px 2px 4px 0px;
+}
+
 p{
     margin: 5px 0;
     font-size: 14px;

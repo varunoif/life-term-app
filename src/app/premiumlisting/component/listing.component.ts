@@ -432,6 +432,12 @@ refEmailAddress:string = "";
 contact_no:any;
 copied = false;
 uniqueProvidersCount:any = 0;
+userJson:any;
+successes:any[]=[];
+role_data:any;
+role_type:string;
+
+
 
 
   constructor(
@@ -506,6 +512,24 @@ uniqueProvidersCount:any = 0;
  this.router.events.subscribe(() => {
       this.quoteUrl = window.location.href;
     });
+   this.apiService.checkLoginType().subscribe({
+  next: (data: any) => {
+    if (data && data.status && data.user_json && data.user_json.role_type) {
+      this.role_data=data;
+      this.role_type = data.user_json.role_type;
+      console.log("Login type is:", this.role_type);
+    } else {
+      console.warn("Unexpected response:", data);
+      this.role_type = null;
+    }
+  },
+  error: (err) => {
+    console.error("Error checking login type:", err);
+    this.role_type = null;
+  }
+});
+    //   this.userJson = localStorage.getItem('user_json');
+    // console.log("user type is",this.userJson);
     // this.localStorage.getItem('quoteJson').subscribe((data:any) => {
     //   this.refEmailAddress = data.custEmail;
     //   this.contact_no = data.custMob;
@@ -514,6 +538,7 @@ uniqueProvidersCount:any = 0;
     this.getScreenSize();
     // SET SEO META DATA
     this.setSeoTagsData();
+    
     // SET ICICI STATE LIST DROP DOWN
     this.filteredStates = this.iciciStateCtrl.valueChanges.pipe(
       startWith(''),
@@ -521,7 +546,7 @@ uniqueProvidersCount:any = 0;
       map(name => name ? this._filterStates(name) : this.iciciStateOptions.slice())
     );
     this.browserName = this.checkBrowser();
-    this.checkQuoteValue();
+    
     const curObj = this;
     setTimeout(() => {
       curObj.loaderComplete = true;
@@ -534,13 +559,15 @@ uniqueProvidersCount:any = 0;
 
     this.filterFormGroup = this._formBuilder.group({
       coverAmount: ['5000000', [Validators.required, this.minimumCoverValidator(2500000), this.maximumCoverValidator(350000000)]],
-      maturityAge: ['', [Validators.required, this.maturityAgeValidator()]],
+      coverUpto: ['', [Validators.required, this.maturityAgeValidator()]],
       premiumPaymentTerm: ['', [Validators.required, this.checkPolicyTerm()]],
       paymentFrequency: ['Monthly', [Validators.required]],
       payoutType: ['ALL', [Validators.required]],
+      maturityAge:['75']
 
-    })
-
+    });
+ 
+this.checkQuoteValue();
     this.firstFormGroup = this._formBuilder.group({
       custName: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z ]*$/)]],
       custEmail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
@@ -634,9 +661,9 @@ uniqueProvidersCount:any = 0;
     }
   });
  this.host_name= this.apiService.HOST_NAME;
- this.maxPayForYears = this.filterFormGroup.get('maturityAge').value - this.quoteJson.custAge;
       this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
-      this.quoteCover = this.filterFormGroup.get('maturityAge').value;
+      this.quoteCover = this.filterFormGroup.get('coverUpto').value;
+      
   }
    ngAfterViewInit(): void {
     // optional: initialize the toast once after view is ready
@@ -645,12 +672,22 @@ uniqueProvidersCount:any = 0;
       this.toast = new bootstrap.Toast(toastEl);
     }
   }
-    showToast() {
-    if (!this.toast) {
+    showToast(provider_id,) {
+      if(provider_id == 2 && this.role_data && this.role_data.status == true && this.role_type != '18'){
+        window.open('https://blsht.in/BJAZLI/dCaWde', '_blank');
+      }
+      if(provider_id == 7 && this.role_data && this.role_data.status == true && this.role_type != '18'){
+        this.apiService.getIciciProposal( this.quoteJson,
+      this.source_user,
+      this.user_code,
+      this.quoteID,
+      this.filterFormGroup.value).subscribe((data=> console.log("ICICI data is ==>>",data)));
+      }
+    else{if (!this.toast) {
       const toastEl = document.getElementById('liveToast');
       this.toast = new bootstrap.Toast(toastEl);
     }
-    this.toast.show();
+    this.toast.show();}
   }
 
   selectSumAssured(option: any) {
@@ -680,7 +717,7 @@ uniqueProvidersCount:any = 0;
   }
   selectCoverUpto(option: any) {
     this.filterFormGroup.patchValue({
-      maturityAge: option.value
+      coverUpto: option.value
     });
     this.callQuotesForAllServices();
     this.showCoverChips = false; // hide chips immediately
@@ -703,10 +740,21 @@ uniqueProvidersCount:any = 0;
       this.contact_no = newData.custMob;
            let custAge = Number(this.quoteJson.custAge);
           let custTerm = Number(this.quoteJson.custTerm);
+              this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
+ 
+      this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
+      this.quoteCover = this.filterFormGroup.get('coverUpto').value;
+      this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
           this.filterFormGroup.patchValue({
-            maturityAge: 75,
-            premiumPaymentTerm: 75 - this.quoteJson.custAge
+            coverUpto: 75,
+            premiumPaymentTerm: 75 - this.quoteJson.custAge,
+            maturityAge:this.maxPayForYears
           });
+          this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
+          this.filterFormGroup.patchValue({
+            maturityAge:this.maxPayForYears
+          });
+          
           // this.selTermAge = 70;
           this.quoteJson.custTerm = this.selTermAge - custAge;
           //localStorage.setItem('quoteJson', this.quoteJson).subscribe(() => { });
@@ -725,8 +773,13 @@ uniqueProvidersCount:any = 0;
           this.refEmailAddress = newData.custEmail;
       this.contact_no = newData.custMob;
           this.filterFormGroup.patchValue({
-            maturityAge: 75,
-            premiumPaymentTerm: 75 - this.quoteJson.custAge
+            coverUpto: 75,
+            premiumPaymentTerm: 75 - this.quoteJson.custAge,
+          
+          });
+           this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
+          this.filterFormGroup.patchValue({
+            maturityAge:this.maxPayForYears
           });
           // this.selTermAge = 70;
           this.quoteJson.custTerm = this.selTermAge - custAge;
@@ -850,58 +903,60 @@ uniqueProvidersCount:any = 0;
     }
   }
 
-  callQuotesForAllServices() {
-    this.isLoadingQuotes = true;
-    const activeServices = Object.keys(rollsconfig.services)
-      .filter(key => rollsconfig.services[key] === 1);
+callQuotesForAllServices() {
+  this.isLoadingQuotes = true;
+  this.successes = [];
+  this.premiumItemArr = [];
+  console.log("Quote-JSON IS",this.filterFormGroup.value)
+  const activeServices = Object.keys(rollsconfig.services)
+    .filter(key => rollsconfig.services[key] === 1);
 
-    const requests = activeServices.map(serviceId => {
-      const serviceUrl = `https://uatweb.synergy-insurance.com/php-services/life-services/service.php?action=PREMIUM_REQUEST&PROVIDER_ID=${serviceId}`;
+  const requests = activeServices.map(serviceId =>
+    this.apiService.getQuotesList(
+      this.quoteJson,
+      this.source_user,
+      this.user_code,
+      this.quoteID,
+      this.filterFormGroup.value,
+      serviceId
+    ).pipe(
+      catchError(err => {
+        console.error(`❌ Error for provider ${serviceId}`, err);
+        return of({ error: true, providerId: serviceId, details: err });
+      })
+    )
+  );
 
-      return this.apiService.getQuotesList(
-        this.quoteJson,
-        this.source_user,
-        this.user_code,
-        this.quoteID,
-        this.filterFormGroup.value,
-        serviceId,
+  forkJoin(requests).subscribe((results: any[]) => {
+    console.log('✅ All API responses:', results);
 
-        // this.qId,
-        // serviceUrl,
-        // serviceId,
+    // Filter out failed ones (which have error=true)
+    this.successes = results.filter(r => Array.isArray(r));
+    const failures = results.filter(r => r && r.error);
 
-      ).pipe(
-        // 👇 catch error so forkJoin doesn’t cancel
-        catchError(err => {
-          console.error(`❌ Error for provider ${serviceId}`, err);
-          return of({ error: true, providerId: serviceId, details: err });
-        })
-      );
-    });
+    // Flatten nested arrays [[...], [...]] -> [...]
+    this.premiumItemArr = ([] as any[]).concat(...this.successes);
 
-    forkJoin(requests).subscribe((results: any[]) => {
-      // let premiumJson = JSON.parse(results);
-     
-      console.log('✅ All API responses (with errors if any):', results);
+    // Filter unique providers where premium_show === 1
+    const visiblePlans = this.premiumItemArr.filter(item => item.premium_show === 1);
+this.uniqueProvidersCount = visiblePlans.length;
 
-      const successes = results.filter(r => r && !r.error);
-      const failures = results.filter(r => r && r.error);
-       const uniqueProviders = new Set(successes[0].map(item => item.premium_show == 1));
-  const uniqueProviderCount = uniqueProviders.size;
+    console.log('✅ Successful premium items:', this.premiumItemArr);
+    console.log('✅ Unique providers count:', this.uniqueProvidersCount);
+    console.log('❌ Failed responses:', failures);
 
-  // Store in a variable (class property)
-  this.uniqueProvidersCount = uniqueProviderCount;
-      // this.parsePremiumJson(successes);
-      this.premiumItemArr = successes[0];
-      this.maxPayForYears = this.filterFormGroup.get('maturityAge').value - this.quoteJson.custAge;
-      this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
-      this.quoteCover = this.filterFormGroup.get('maturityAge').value;
-      console.log('Successful responses:', successes);
+    this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
+     this.filterFormGroup.patchValue({
+        maturityAge:this.maxPayForYears
+      });
+    this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
+    this.quoteCover = this.filterFormGroup.get('coverUpto').value;
 
-      console.log('Failed responses:', failures);
+    if(this.premiumItemArr){
       this.isLoadingQuotes = false;
-    });
-  }
+    }
+  });
+}
   minimumCoverValidator(min: number) {
     return (control: AbstractControl): ValidationErrors | null => {
       if (control.value !== null && control.value !== undefined && +control.value < min) {
@@ -945,7 +1000,7 @@ uniqueProvidersCount:any = 0;
       if (control.value != null && +control.value == 0) {
         return { checkPolicyZero: true };
       }
-      if (control.value && control.value != 1 && this.filterFormGroup.get('paymentFrequency').value != "Single" && (+control.value > this.filterFormGroup.get('maturityAge').value - this.quoteJson.custAge || control.value < 5)) {
+      if (control.value && control.value != 1 && this.filterFormGroup.get('paymentFrequency').value != "Single" && (+control.value > this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge || control.value < 5)) {
         return { checkPolicy: true };
       }
       if (control.value && (+control.value == 1 && this.filterFormGroup.get('paymentFrequency').value != "Single")) {
@@ -958,11 +1013,12 @@ uniqueProvidersCount:any = 0;
   calculatePayFor() {
     if (this.filterFormGroup.valid) {
       this.isLoadingQuotes = true;
-      this.maxPayForYears = this.filterFormGroup.get('maturityAge').value - this.quoteJson.custAge;
+      this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
       // this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
       // this.quoteCover = this.filterFormGroup.get('maturityAge').value;
       this.filterFormGroup.patchValue({
-        premiumPaymentTerm: this.filterFormGroup.get('maturityAge').value - this.quoteJson.custAge
+        premiumPaymentTerm: this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge,
+        maturityAge:this.maxPayForYears
       });
       this.isLoadingQuotes = true;
       this.loadTermPlans();
@@ -972,7 +1028,7 @@ uniqueProvidersCount:any = 0;
   resetFilter() {
     this.filterFormGroup.patchValue({
       coverAmount:'5000000',
-      maturityAge: 75,
+      coverUpto: 75,
       premiumPaymentTerm: 75 - this.quoteJson.custAge,
       paymentFrequency:'Monthly',
       payoutType:'ALL'
