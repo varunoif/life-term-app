@@ -1,0 +1,55 @@
+{
+
+  "services":{
+    "finarray": {
+      "2": 1,
+      "7": 1
+    },
+    "synergy": {
+      "55": 1
+    },
+    "localhost":{
+      "2":1,
+      "7": 1,
+      "55": 1
+    },
+    "justpolicy": {},
+    "mutualglobal": {},
+    "insurancepe": {},
+    "insuright": {},
+    "policykarwalo": {},
+    "atlasinsurancebrokers": {},
+    "akshayagroup": {},
+    "iproinfinity": {},
+    "insuremanthra": {},
+     "wmgwealth": {},
+    "insurekkart": {}
+
+  },
+  
+  
+  "restService":{
+        "4": 0,
+    "5": 1,
+    "6": 1,
+    "7": 1,
+    "8": 0,
+    "9": 1,
+    "10": 0,
+    "11": 0,
+    "12": 1,
+    "13": 0,
+    "14": 0,
+    "15": 0,
+    "16": 0,
+    "17": 1,
+    "18": 0,
+    "20": 1,
+    "21": 0,
+    "23": 0,
+    "25": 0,
+    "27": 0,
+    "28": 0,
+    "29": 1
+  }
+ }

@@ -1,0 +1,316 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4 my-3">
+            <div class="card-container h-100">
+                <div class="d-flex justify-content-between">
+                    <img src="assets/listing/company_logo/{{premiumJson.company_logo}}" alt="" class="company-logo">
+                    <button class="btn btn-outline-info btn-sm" style="height: fit-content;"
+                        (click)="backToListing()"><mat-icon>autorenew</mat-icon></button>
+                </div>
+
+                <div class="d-flex justify-content-between my-3">
+                    <div class="details-label">
+                        Insurer
+                    </div>
+                    <div class="details-value">
+                        {{premiumJson.company_name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-8 my-3">
+            <div class="card-container h-100 d-flex flex-column flex-wrap justify-content-center">
+                <div class="details-header my-2">
+                    Policy Details
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="details-label">
+                            Company
+                        </div>
+                        <div class="details-value">
+                            {{premiumJson.company_name}}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="details-label">
+                            Sum Insured
+                        </div>
+                        <div class="details-value">
+                            {{premiumJson.sum_assured}}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="details-label">
+                            Policy Name
+                        </div>
+                        <div class="details-value">
+                            {{premiumJson.plan_name}}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="details-label">
+                            Policy Variant
+                        </div>
+                        <div class="details-value">
+                            {{premiumJson.plan_variant | titlecase }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-8 my-3">
+            <div class="card-container">
+                <div class="row gx-3">
+                    <div class="col-6">
+                        <div class="d-flex justify-content-between my-2">
+                            <span class="details-header">Your Details</span>
+                            <button class="btn btn-outline-info btn-sm" style="height: fit-content;"
+                                (click)="backToProposal()"><mat-icon>edit</mat-icon></button>
+                        </div>
+
+                        <div class="row gy-3">
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="details-label">
+                                    Name
+                                </div>
+                                <div class="details-value">
+                                    {{userData.custName}}
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="details-label">
+                                    Email
+                                </div>
+                                <div class="details-value">
+                                    {{userData.custEmail}}
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="details-label">
+                                    Mobile
+                                </div>
+                                <div class="details-value">
+                                    {{userData.custMob}}
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="details-label">
+                                    DOB
+                                </div>
+                                <div class="details-value">
+                                    {{userData.customerFormatDOB}}
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="details-label">
+                                    Gender
+                                </div>
+                                <div class="details-value">
+                                    {{ getGenderLabel(userData.customerGender) }}
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="details-label">
+                                    Customer Employee Status
+                                </div>
+                                <div class="details-value">
+                                    {{userData.customerEmpStatus}}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-6" *ngIf="premiumJson.provider_id && premiumJson.provider_id != 2">
+                        <div class="d-flex justify-content-between my-2">
+                            <span class="details-header">Nominee Details</span>
+
+                            <button class="btn btn-outline-info btn-sm" style="height: fit-content;"
+                                (click)="backToProposalNominee()"><mat-icon>edit</mat-icon></button>
+                        </div>
+                        <div class="row gy-3">
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="details-label">
+                                    Name
+                                </div>
+                                <div class="details-value">
+                                    {{nomineeDetails.nomineeFullName}}
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="details-label">
+                                    DOB
+                                </div>
+                                <div class="details-value">
+                                    {{nomineeDetails.nomineeDob}}
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <div class="details-label">
+                                    Relationship
+                                </div>
+                                <div class="details-value">
+                                    {{nomineeDetails.nomineeRelation}}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-4 my-3">
+            <div class="card-container">
+                <div class="d-flex justify-content-center">
+                    <img src="assets/right-col (1).jpg" />
+                </div>
+                <div class="row gy-3">
+                    <div class="col-12 d-flex justify-content-between">
+                        <div class="details-label">
+                            Net Premium
+                        </div>
+                        <div class="details-value">
+                            Rs {{formatIndianNumber(premiumJson.net_premium)}}
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <div class="details-label text-center">
+                            + (GST)
+                        </div>
+                        <div class="details-value">
+                            Rs {{formatIndianNumber(premiumJson.gst) }}
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <div class="details-label">
+                            Total Premium
+                        </div>
+                        <div class="details-value">
+                            Rs {{formatIndianNumber(premiumJson.net_premium + premiumJson.gst)}}
+                        </div>
+                    </div>
+                    <div class="col-12  d-flex justify-content-end">
+                        <!-- <button class="btn  btn-outline-info mx-2" data-toggle="tooltip" title="Copy Proposal URL"
+                            (click)="copyUrl()"><mat-icon>file_copy</mat-icon></button> -->
+                            <button class="btn btn-outline-info btn-sm share-btn d-flex mx-2 align-items-center" (click)="openShareDialog();$event.stopPropagation();" data-toggle="tooltip" title="Share Proposal URL">
+                                Share 
+                                <mat-icon class="share-icon" style="font-size: 20px;">
+                                    share
+                                </mat-icon>
+                            </button>
+                        <button class="btn  btn-info" (click)="openConfirmationDialog()">Proceed</button>
+                    </div>
+                    <ng-template #confirmDialogTemplate>
+                        <div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
+                            <h6 class="m-0">Proceed to Payment</h6>
+                            <button mat-button mat-dialog-close><mat-icon style="color:white">close</mat-icon></button>
+                        </div>
+
+                        <mat-dialog-content class="share-dialog">
+                            <p>
+                                By clicking <strong>Continue</strong>, you will be redirected to the Insurance Company’s
+                                <strong>secure payment link</strong> in a new tab.
+                            </p>
+                            <p>
+                                After successful payment, the Insurance Company will be solely responsible for
+                                policy issuance, servicing, and documentation.
+                            </p>
+                            <p class="mb-0">
+                                The broker will have no role in any post-payment processing.
+                            </p>
+                        </mat-dialog-content>
+                        <mat-dialog-actions class="d-flex justify-content-end">
+                            <button class="btn btn-success mx-2" (click)="redirectToPayment()">Continue</button>
+                            <button class="btn btn-danger" mat-dialog-close cdkFocusInitial>Cancel</button>
+                        </mat-dialog-actions>
+
+                    </ng-template>
+                    <ng-template #shareDialogTemplate>
+                        <div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
+                            <h6 class="m-0">Share This Proposal</h6>
+                            <button mat-button mat-dialog-close><mat-icon style="color:white">close</mat-icon></button>
+                        </div>
+
+                        <mat-dialog-content class="share-dialog">
+                            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+                                <div fxFlex="80">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>URL</mat-label>
+                                        <input matInput type="text" [(ngModel)]="quoteUrl" disabled />
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="15" fxLayout="column" style="margin: 0.25em 0;">
+                                    <button mat-raised-button color="primary" (click)="copyUrl()">Copy <mat-icon
+                                            style="color:white;font-size: 20px;">file_copy</mat-icon></button>
+                                    <div *ngIf="copied" style="color: green; font-size: 13px; margin-top: 5px;">
+                                        URL Copied!
+                                    </div>
+                                </div>
+
+                                <div fxFlex="80">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Enter Email Address</mat-label>
+                                        <input matInput type="email" type="email" name="email"
+                                            [(ngModel)]="refEmailAddress" #emailCtrl="ngModel"
+                                            [ngModelOptions]="{standalone: true}" required email />
+                                        <mat-error *ngIf="emailCtrl.invalid && emailCtrl.touched">
+                                            <span *ngIf="emailCtrl.errors?.required">Email is required.</span>
+                                            <span *ngIf="emailCtrl.errors?.email">Please enter a valid email
+                                                address.</span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="15" style="margin: 0.25em 0;">
+                                    <button mat-raised-button color="primary" (click)="sendQuoteViaEmail()"
+                                        [disabled]="emailCtrl.invalid">Send <mat-icon
+                                            style="color:white;font-size: 20px;">send</mat-icon></button>
+                                </div>
+                                <!-- <div fxFlex="80">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Enter Mobile Number</mat-label>
+                                        <input matInput type="number" type="tel" name="contactNumber" maxlength="10"
+                                            minlength="10" pattern="^[0-9]{10}$" [(ngModel)]="contact_no"
+                                            #contactCtrl="ngModel" [ngModelOptions]="{standalone: true}" required />
+                                        <mat-error *ngIf="contactCtrl.invalid && contactCtrl.touched">
+                                            <span *ngIf="contactCtrl.errors?.required">Mobile number is required.</span>
+                                            <span *ngIf="contactCtrl.errors?.pattern">
+                                                Please enter a valid 10-digit number.
+                                            </span>
+                                            <span
+                                                *ngIf="contactCtrl.errors?.minlength || contactCtrl.errors?.maxlength">
+                                                Must be exactly 10 digits.
+                                            </span>
+                                        </mat-error>
+
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="15" style="margin: 0.25em 0;">
+                                    <button mat-raised-button color="primary" (click)="sendQuoteViaMobile()"
+                                        [disabled]="contactCtrl.invalid">Send <mat-icon
+                                            style="color:white;font-size: 20px;">send</mat-icon></button>
+                                </div> -->
+                            </div>
+                        </mat-dialog-content>
+                        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200;">
+                            <div class="toast align-items-center text-white" [ngClass]="toastClass" role="alert"
+                                aria-live="assertive" aria-atomic="true" #toastEl>
+                                <div class="d-flex">
+                                    <div class="toast-body">
+                                        {{ toastMessage }}
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                        data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

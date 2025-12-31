@@ -137,3 +137,15 @@ table td {
     margin: auto;    
     font-family: "Avenir-Book" !important;*/
 }
+
+::ng-deep .mat-vertical-stepper-content{
+      height: fit-content !important;
+    visibility: visible !important;
+}
+::ng-deep .mat-select-value-text {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+}
+::ng-deep .mat-input-element{
+    color: black !important;
+}

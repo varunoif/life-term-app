@@ -88,7 +88,7 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 	displayedColumns: string[] = ['Insurance Company', 'Term Plan Name', 'Claim Settlement Ratio', 'Max Maturity Age', 'Premium (for a Cover of 1 Crore)'];
 	dataSource = this.ELEMENT_DATA;
-	source_user: string = "100173";
+	source_user: string = "100001";
 
 	// SET FORM DEFAULT OPTIONS
 	public annualIncomeList: any[] = [
@@ -126,7 +126,9 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 	@ViewChild('custName', { static: false }) custName: ElementRef;
 	@ViewChild('custEmail', { static: false }) custEmail: ElementRef;
 	@ViewChild('custQualification', { static: false }) custQualification: ElementRef;
-	@ViewChild('custcustPincodeEmail', { static: false }) custPincode: ElementRef;
+	//@ViewChild('custFirstBuyer', { static: false }) custFirstBuyer: ElementRef;
+	// @ViewChild('custExisting', { static: false }) custExisting: ElementRef;
+	@ViewChild('custPincode', { static: false }) custPincode: ElementRef;
 
 	public genderValue: string;
 
@@ -160,6 +162,8 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 	dobMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
 	localWindow: any;
 	progressValue:number = 0;
+	 hostname:any;
+	
 	constructor(
 		private _formBuilder: FormBuilder,
 		private router: Router,
@@ -189,6 +193,8 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 		// CALL AUTO REDIRECT
 		this.checkQuoteAutoRedirect();
+	 this.hostname = window.location.hostname;
+		localStorage.clear();
 
 		this.subscribeList.add(
 			this.localStorage.getItem('userJson').subscribe((data) => {
@@ -222,7 +228,9 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 			custName: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^(\w.+\s).+$/), this.noWhitespaceValidator]],
 			custEmail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), this.noWhitespaceValidator]],
 			custPincode: ['', [Validators.required, Validators.pattern(/^[1-9][0-9]{5}$/)]],
-			custQualification: ['', [Validators.required]]
+			custQualification: ['', [Validators.required]],
+			// custExisting:['no',[Validators.required]],
+			// custFirstBuyer:['yes',[Validators.required]],
 		});
 		this.thirdFormGroup = this._formBuilder.group({});
 		this.customerFormStep2 = this._formBuilder.group({
@@ -242,6 +250,25 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 		// GET DEVICE DETAILS
 		this.getDeviceDetails();
 	}
+	// customerSwitch(fieldName:any){
+	// 	console.log(fieldName);
+	// 	if(fieldName == "exsistingCustomer"){
+	// 		if(this.firstFormGroup.get('custExisting').value == "yes"){
+	// 			this.firstFormGroup.get('custFirstBuyer').setValue('no');
+	// 		}
+	// 		else{
+	// 			this.firstFormGroup.get('custFirstBuyer').setValue('yes');
+	// 		}
+	// 	}
+	// 	else{
+	// 		if(this.firstFormGroup.get('custFirstBuyer').value == "yes"){
+	// 			this.firstFormGroup.get('custExisting').setValue('no');
+	// 		}
+	// 		else{
+	// 			this.firstFormGroup.get('custExisting').setValue('yes');
+	// 		}
+	// 	}
+	// }
 	nonNegativeValidator(control: AbstractControl): ValidationErrors | null {
 		const value = +control.value; // ensure number
 		if (value < 0 || Object.is(value, -0)) {
@@ -312,6 +339,8 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 		this.firstFormGroup.get('custEmail').setValue(this.quoteJson.custEmail);
 		this.firstFormGroup.get('custPincode').setValue(this.quoteJson.custPincode);
 		this.firstFormGroup.get('custQualification').setValue(this.quoteJson.custQualification);
+		// this.firstFormGroup.get('custFirstBuyer').setValue(this.quoteJson.custFirstBuyer);
+		// this.firstFormGroup.get('custExisting').setValue(this.quoteJson.custExisting);
 
 		this.customerFormStep2.get('customerSmoker').setValue(this.quoteJson.customerSmoker);
 		this.customerFormStep3.get('customerIncome').setValue(this.quoteJson.customerIncome);
@@ -345,6 +374,8 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 									this.completeQuoteFormData.customerDOB = quoteResponse[0].custDOB;
 									this.completeQuoteFormData.custPincode = quoteResponse[0].custPincode;
 									this.completeQuoteFormData.custQualification = quoteResponse[0].custQualification;
+									// this.completeQuoteFormData.custExisting = quoteResponse[0].custExisting;
+									// this.completeQuoteFormData.custFirstBuyer = quoteResponse[0].custFirstBuyer;
 									this.completeQuoteFormData.customerFormatDOB = customerFormatDOB;
 									this.completeQuoteFormData.custName = quoteResponse[0].custName;
 									this.completeQuoteFormData.custEmail = quoteResponse[0].custEmail;
@@ -500,6 +531,8 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 		this.completeQuoteFormData.custName = this.apiService.toTitleCase(this.firstFormGroup.get('custName').value);
 		this.completeQuoteFormData.custEmail = this.firstFormGroup.get('custEmail').value;
 		this.completeQuoteFormData.custQualification = this.firstFormGroup.get('custQualification').value;
+		// this.completeQuoteFormData.custExisting = this.firstFormGroup.get('custExisting').value;
+		// this.completeQuoteFormData.custFirstBuyer = this.firstFormGroup.get('custFirstBuyer').value;
 		this.completeQuoteFormData.custPincode = this.firstFormGroup.get('custPincode').value;
 
 		this.completeQuoteFormData.customerSmoker = this.customerFormStep2.get('customerSmoker').value;
@@ -509,7 +542,7 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 		this.completeQuoteFormData.custTerm = this.customerFormStep4.get('custTerm').value;
 		this.completeQuoteFormData.uniqueId = new Date().getTime();
 		this.completeQuoteFormData.source_user = this.source_user;
-		this.completeQuoteFormData.userCode = 0;
+		this.completeQuoteFormData.userCode = 100001;
 		// SET DEVICE VALUE
 		this.completeQuoteFormData.deviceInfo = this.device_info;
 		if (this.userJson !== null) {
@@ -536,7 +569,7 @@ export class QuoteComponent implements OnInit, AfterViewChecked, OnDestroy {
 			source_device = 'DESKTOP'
 		}
 		this.device_info = {
-			visitor_source: "GIBL.IN",
+			visitor_source: this.hostname,
 			visitor_device: source_device,
 			visitor_browser: this.deviceInfo.browser.toUpperCase(),
 			visitor_agent: this.deviceInfo.userAgent

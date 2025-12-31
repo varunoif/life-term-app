@@ -70,3 +70,6 @@ p{
     opacity: 0.75;
     font-size: 0.75em;
   }
+  .cdk-global-overlay-wrapper {
+     z-index: 1000;
+}

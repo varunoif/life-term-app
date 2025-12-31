@@ -70,7 +70,6 @@ export class ApiService implements Resolve<any> {
 
 	checkDomain() {
 		this.HOST_NAME = document.location.hostname;
-		console.log("HOST NAME =>>>>>" , this.HOST_NAME);
 
 		switch (this.HOST_NAME) {
 			case '192.168.7.128':
@@ -384,19 +383,19 @@ export class ApiService implements Resolve<any> {
 	}
 
 	resolve(route: ActivatedRouteSnapshot) {
-		const curObj = this;
-		const quoteJson: any = '';
+		// const curObj = this;
+		// const quoteJson: any = '';
 
-		const baseURL = this.getBaseURL();
-		const httpOptions = {
-			headers: new HttpHeaders({
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: 'my-auth-token'
-			})
-		};
-		return this.httpClient.post(`${baseURL}api/resolveData`, quoteJson, httpOptions)
-			.pipe(retryWhen(errors => errors.pipe(delay(1000), take(1))));
+		// const baseURL = this.getBaseURL();
+		// const httpOptions = {
+		// 	headers: new HttpHeaders({
+		// 		'Content-Type': 'application/json',
+		// 		Accept: 'application/json',
+		// 		Authorization: 'my-auth-token'
+		// 	})
+		// };
+		// return this.httpClient.post(`${baseURL}api/resolveData`, quoteJson, httpOptions)
+		// 	.pipe(retryWhen(errors => errors.pipe(delay(1000), take(1))));
 	}
 
 	callTest(quoteJson: any) {
@@ -689,7 +688,7 @@ export class ApiService implements Resolve<any> {
 		const baseURL = this.getBaseURL();
 		return this.httpClient.post(`${baseURL}/php-services/life-services/service.php?action=PREMIUM_SUBMIT`, quoteJson, httpOptions);
 	}
-	submitQuoteCrm(contactForm,quoteJson,quoteId) {
+	submitQuoteCrm(contactForm,quoteJson?:any,quoteId?:any,premiumJson?:any) {
 		const httpOptions = {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
@@ -697,15 +696,43 @@ export class ApiService implements Resolve<any> {
 				Authorization: 'my-auth-token'
 			})
 		};
-		var finalQuote ={...quoteJson,contactForm,quoteId:quoteId,policy_type: "TL"}
+		var finalQuote ={...quoteJson,contactForm,quoteId:quoteId,policy_type: "LIFEINSURANCE",premiumJson}
 		const baseURL = this.getBaseURL();
 		return this.httpClient.post(`${baseURL}php-services/crm-services/angular-quote-data-service.php`,finalQuote, httpOptions);
 	 
 	}
+	
 
 	//new quote-list
 	
-		getQuotesList(customerJson: any, source_user: any, user_code:any,uniqueId:any,filters:any,providerId?: any, quoteId?: any, serviceUrl?: any, ) {
+		getQuotesList(quoteJson: any, source_user: any, user_code:any,uniqueId:any,filters:any,providerId?: any, quoteId?: any, serviceUrl?: any,custExisting?:any, custFirstBuyer?:any,covers?:any) {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Accept': 'application/json',
+				'Authorization': 'my-auth-token'
+			})
+		};
+		const requestBody = {
+			...quoteJson,
+			quoteID: quoteId,
+			...filters,
+			serviceUrl: serviceUrl,
+			user_code: user_code,
+			source_user: source_user,
+			uniqueId:uniqueId,
+			custFirstBuyer:custFirstBuyer,
+			custExisting:custExisting,
+			covers:covers
+		};
+		const baseURL = this.getBaseURL();
+		return this.httpClient.post(
+			
+			`${baseURL}php-services/life-services/service.php?action=PREMIUM_REQUEST&PROVIDER_ID=${providerId}`,
+			requestBody, // payload including serviceUrl
+			httpOptions
+		);
+	}
+		updateQuotesList(customerJson: any, source_user: any, user_code:any,uniqueId:any,filters:any,providerId?: any, quoteId?: any, serviceUrl?: any, ) {
 		const httpOptions = {
 			headers: new HttpHeaders({
 				'Accept': 'application/json',
@@ -720,15 +747,100 @@ export class ApiService implements Resolve<any> {
 			user_code: user_code,
 			source_user: source_user,
 			uniqueId:uniqueId
-		};
+		}
 		const baseURL = this.getBaseURL();
 		return this.httpClient.post(
 			
-			`${baseURL}php-services/life-services/service.php?action=PREMIUM_REQUEST&PROVIDER_ID=${providerId}`,
+			`${baseURL}php-services/life-services/service.php?action=PREMIUM_UPDATE&QUOTE_ID=${quoteId}`,
+			requestBody, // payload including serviceUrl
+			httpOptions
+		);
+	
+	}
+		storeSubProposal(userJson:any,quoteJson: any,filterForm:any,proposalJson:any, premiumJson:any, serviceUrl?: any, ) {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Accept': 'application/json',
+				'Authorization': 'my-auth-token'
+			})
+		};
+		const requestBody = {
+			userJson:userJson,
+			quoteJson: {...quoteJson,...filterForm},
+			proposalJson:proposalJson,
+			premiumJson: premiumJson,
+			serviceUrl:serviceUrl
+		}
+		const baseURL = this.getBaseURL();
+		return this.httpClient.post(
+			
+			`${baseURL}php-services/life-services/service.php?action=STORE_SUB_PROPOSAL`,
+			requestBody, // payload including serviceUrl
+			httpOptions
+		);
+	
+	}
+	getProposalApi(QID:any){
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Accept': 'application/json',
+				'Authorization': 'my-auth-token'
+			})
+		};
+		const requestBody = {
+			QID:QID
+		}
+		const baseURL = this.getBaseURL();
+		return this.httpClient.post(
+			
+			`${baseURL}php-services/life-services/service.php?action=GET_PROPOSAL_NEW`,
 			requestBody, // payload including serviceUrl
 			httpOptions
 		);
 	}
+	storeProposal(quoteJson: any,proposalJson:any, premiumJson:any, serviceUrl: any ) {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Accept': 'application/json',
+				'Authorization': 'my-auth-token'
+			})
+		};
+		const requestBody = {		
+			quoteJson: quoteJson,
+			proposalJson:proposalJson,
+			premiumJson: premiumJson,
+			serviceUrl:serviceUrl
+		}
+		const baseURL = this.getBaseURL();
+		return this.httpClient.post(
+			
+			`${baseURL}php-services/life-services/service.php?action=STORE_SUB_PROPOSAL`,
+			requestBody, // payload including serviceUrl
+			httpOptions
+		);
+	
+	}
+	updatePremium(quoteJson: any,filterForm:any,quoteId:any  ) {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Accept': 'application/json',
+				'Authorization': 'my-auth-token'
+			})
+		};
+		const requestBody = {		
+			 ...quoteJson,
+			...filterForm
+		}
+		const baseURL = this.getBaseURL();
+		return this.httpClient.post(
+			
+			`${baseURL}php-services/life-services/service.php?action=PREMIUM_UPDATE&QUOTE_ID=${quoteId}`,
+			requestBody, // payload including serviceUrl
+			httpOptions
+		);
+	
+	}
+
 	//get User details
 
 	getUserDetails(quoteId: any ) {
@@ -790,9 +902,31 @@ export class ApiService implements Resolve<any> {
 			httpOptions
 		);
 	}
-
+	trackButton(unique_id: any,quote_id:any, page_id:any, btn_id: any,referrerLink:any,serviceUrl:any ) {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Accept': 'application/json',
+				'Authorization': 'my-auth-token'
+			})
+		};
+		const requestBody = {		
+			unique_id: unique_id,
+			quote_id:quote_id,
+			page_id: page_id,
+			referrerLink:referrerLink,
+			serviceUrl:serviceUrl
+		}
+		const baseURL = this.getBaseURL();
+		return this.httpClient.post(
+			
+			`${baseURL}php-services/life-services/service.php?action=TRACK_BUTTON`,
+			requestBody, // payload including serviceUrl
+			httpOptions
+		);
+	
+	}
 	//ICICI Propoal redirect
-	getIciciProposal(customerJson: any, source_user: any, user_code:any,uniqueId:any,filters:any,providerId?: any, quoteId?: any, serviceUrl?: any, ) {
+	getIciciProposal(customerJson: any,proposalJson:any, source_user: any, user_code:any,uniqueId:any,providerId?: any, quoteId?: any, serviceUrl?: any, ) {
 		const httpOptions = {
 			headers: new HttpHeaders({
 				'Accept': 'application/json',
@@ -801,8 +935,8 @@ export class ApiService implements Resolve<any> {
 		};
 		const requestBody = {
 			...customerJson,
+			proposalJson,
 			quoteID: quoteId,
-			...filters,
 			serviceUrl: serviceUrl,
 			user_code: user_code,
 			source_user: source_user,
@@ -810,17 +944,18 @@ export class ApiService implements Resolve<any> {
 		};
 		const baseURL = this.getBaseURL();
 		return this.httpClient.post(
-			
 			`${baseURL}php-services/life-services/service.php?PROVIDER_ID=7&action=CREATE_PROPOSAL`,
-			requestBody, // payload including serviceUrl
+			requestBody,
 			httpOptions
+		).pipe(
+			map((res: any) => res.URL)   // ⬅️ ONLY return the URL
 		);
 	}
 
 	setFavicon() {
   const favicons: { [key: string]: string } = {
-    'web.finarray.in': 'assets/broker/finArray.jpg',
-    'uatweb.finarray.in': 'assets/broker/finArray.jpg',
+    'web.finarray.in': 'assets/broker/finarray.png',
+    'uatweb.finarray.in': 'assets/broker/finarray.png',
     'web.synergy-insurance.in': 'assets/synergy-favicon.png',
     'uatweb.synergy-insurance.com': 'assets/synergy-favicon.png',
     'uatweb.justpolicy.in': 'assets/broker/justPolicy.jpeg',
@@ -830,7 +965,7 @@ export class ApiService implements Resolve<any> {
 
   const hostname = window.location.hostname;
   console.log('HOST',hostname)
-  const faviconUrl = favicons[hostname] || 'assets/synergy-favicon.png';
+  const faviconUrl = favicons[hostname] || '';
 console.log('FAVICON URL ',faviconUrl)
   let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
   if (!link) {

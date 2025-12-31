@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router'
 import { ApiService } from '../../services/api.service';
 import { SeoService } from '../../services/seo.service';
 import { Resolve } from '@angular/router';
-import rollsconfig from "../../brokerConfig/synergy-insurance.json"
+import rollsconfig from "../../../assets/brokerConfig/synergy-insurance.json"
 import {
   MatSnackBar,
   MatSnackBarConfig,
@@ -18,7 +18,7 @@ import {
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
-import { Observable, forkJoin, interval, of, timer } from 'rxjs';
+import { Observable, Subject, forkJoin, interval, merge, of, timer } from 'rxjs';
 import { catchError, map, startWith } from 'rxjs/operators';
 
 import { Title, Meta } from '@angular/platform-browser';
@@ -26,6 +26,9 @@ import { TooltipPosition, MAT_TOOLTIP_DEFAULT_OPTIONS, SCROLL_THROTTLE_MS, MatTo
 import { VERSION } from '@angular/material';
 
 import { SubSink } from 'subsink'; // FOR UNSUBSCRIBE ALL SUBSCRIPTION ON PAGE DESTROY
+import { hostname } from 'os';
+import { ConfigServicesService } from 'src/app/services/config-services.service';
+
 declare var bootstrap: any;
 
 export interface Payout {
@@ -71,93 +74,93 @@ export const scc: number = 30;
 export class ListingComponent implements OnInit, OnDestroy {
   premiumStaticItemArr = [
     {
-        "provider_id": 2,
-        "company_logo": "bajaj.png",
-        "company_name": "Bajaj Allianz Life",
-        "plan_name": "iSecure ROP",
-        "premium_show": 1,
-        "premium_group": 1,
-        "item_group_count": 0,
-        "sum_assured": 5000000,
-        "cover_upto": 50,
-        "claim_settled": 83,
-        "db_type": "Term Plan",
-        "premium_pdf": "bajaj_brochure.pdf",
-        "net_premium": 1780,
-        "annual_premium": 0,
-        "monthly_premium_ist_year": 1781,
-        "monthly_premium_2nd_year": 0,
-        "gst": 0,
-        "bajaj_addons": 0,
-        "eddl_addons": 1
+      "provider_id": 2,
+      "company_logo": "bajaj.png",
+      "company_name": "Bajaj Allianz Life",
+      "plan_name": "iSecure ROP",
+      "premium_show": 1,
+      "premium_group": 1,
+      "item_group_count": 0,
+      "sum_assured": 5000000,
+      "cover_upto": 50,
+      "claim_settled": 83,
+      "db_type": "Term Plan",
+      "premium_pdf": "bajaj_brochure.pdf",
+      "net_premium": 1780,
+      "annual_premium": 0,
+      "monthly_premium_ist_year": 1781,
+      "monthly_premium_2nd_year": 0,
+      "gst": 0,
+      "bajaj_addons": 0,
+      "eddl_addons": 1
     },
     {
-        "provider_id": 2,
-        "company_logo": "bajaj.png",
-        "company_name": "Bajaj Allianz Life",
-        "plan_name": "eTouch",
-        "plan_variant": "BAJAJ ALLIANZ LIFE SHEILD NEW",
-        "premium_show": 1,
-        "premium_group": 1,
-        "item_group_count": 2,
-        "sum_assured": 5000000,
-        "cover_upto": 50,
-        "claim_settled": 87,
-        "db_type": "Term Plan",
-        "premium_pdf": "bajaj_brochure.pdf",
-        "net_premium": 1204,
-        "annual_premium": 16014,
-        "monthly_premium_ist_year": 1204,
-        "monthly_premium_2nd_year": 1334,
-        "gst": 0,
-        "bajaj_addons": 0,
-        "eddl_addons": 1
+      "provider_id": 2,
+      "company_logo": "bajaj.png",
+      "company_name": "Bajaj Allianz Life",
+      "plan_name": "eTouch",
+      "plan_variant": "BAJAJ ALLIANZ LIFE SHEILD NEW",
+      "premium_show": 1,
+      "premium_group": 1,
+      "item_group_count": 2,
+      "sum_assured": 5000000,
+      "cover_upto": 50,
+      "claim_settled": 87,
+      "db_type": "Term Plan",
+      "premium_pdf": "bajaj_brochure.pdf",
+      "net_premium": 1204,
+      "annual_premium": 16014,
+      "monthly_premium_ist_year": 1204,
+      "monthly_premium_2nd_year": 1334,
+      "gst": 0,
+      "bajaj_addons": 0,
+      "eddl_addons": 1
     },
     {
-        "provider_id": 2,
-        "company_logo": "bajaj.png",
-        "company_name": "Bajaj Allianz Life",
-        "plan_name": "eTouch",
-        "plan_variant": "BAJAJ ALLIANZ LIFE SHEILD PLUS NEW",
-        "premium_show": 0,
-        "premium_group": 1,
-        "item_group_count": 2,
-        "sum_assured": 5000000,
-        "cover_upto": 50,
-        "claim_settled": 86,
-        "db_type": "Term Plan",
-        "premium_pdf": "bajaj_brochure.pdf",
-        "net_premium": 1946,
-        "annual_premium": 25880,
-        "monthly_premium_ist_year": 1946,
-        "monthly_premium_2nd_year": 2157,
-        "gst": 0,
-        "bajaj_addons": 0,
-        "eddl_addons": 1
+      "provider_id": 2,
+      "company_logo": "bajaj.png",
+      "company_name": "Bajaj Allianz Life",
+      "plan_name": "eTouch",
+      "plan_variant": "BAJAJ ALLIANZ LIFE SHEILD PLUS NEW",
+      "premium_show": 0,
+      "premium_group": 1,
+      "item_group_count": 2,
+      "sum_assured": 5000000,
+      "cover_upto": 50,
+      "claim_settled": 86,
+      "db_type": "Term Plan",
+      "premium_pdf": "bajaj_brochure.pdf",
+      "net_premium": 1946,
+      "annual_premium": 25880,
+      "monthly_premium_ist_year": 1946,
+      "monthly_premium_2nd_year": 2157,
+      "gst": 0,
+      "bajaj_addons": 0,
+      "eddl_addons": 1
     },
     {
-        "provider_id": 2,
-        "company_logo": "bajaj.png",
-        "company_name": "Bajaj Allianz Life",
-        "plan_name": "eTouch",
-        "plan_variant": "BAJAJ ALLIANZ LIFE SHEILD ROP NEW",
-        "premium_show": 0,
-        "premium_group": 1,
-        "item_group_count": 2,
-        "sum_assured": 5000000,
-        "cover_upto": 50,
-        "claim_settled": 90,
-        "db_type": "Term Plan",
-        "premium_pdf": "bajaj_brochure.pdf",
-        "net_premium": 1650,
-        "annual_premium": 21938,
-        "monthly_premium_ist_year": 1650,
-        "monthly_premium_2nd_year": 1828,
-        "gst": 0,
-        "bajaj_addons": 0,
-        "eddl_addons": 1
+      "provider_id": 2,
+      "company_logo": "bajaj.png",
+      "company_name": "Bajaj Allianz Life",
+      "plan_name": "eTouch",
+      "plan_variant": "BAJAJ ALLIANZ LIFE SHEILD ROP NEW",
+      "premium_show": 0,
+      "premium_group": 1,
+      "item_group_count": 2,
+      "sum_assured": 5000000,
+      "cover_upto": 50,
+      "claim_settled": 90,
+      "db_type": "Term Plan",
+      "premium_pdf": "bajaj_brochure.pdf",
+      "net_premium": 1650,
+      "annual_premium": 21938,
+      "monthly_premium_ist_year": 1650,
+      "monthly_premium_2nd_year": 1828,
+      "gst": 0,
+      "bajaj_addons": 0,
+      "eddl_addons": 1
     }
-]
+  ]
   sumInsuranceAssured: string = "5000000";
   sumAssuredOptions = [
     { label: '1 Cr', value: 10000000 },
@@ -197,7 +200,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   public focusState: boolean = true;
   public groupItemShow: boolean = false;
-  public showGroup: string =" ";
+  public showGroup: string = " ";
   // TERM AGE RANGE ARRAY DETAILS
   termRange: any[] = [];
 
@@ -328,7 +331,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   @ViewChild('pnbStepper', { static: false }) pnbStepper: MatStepper;
   @ViewChild('aegonStepper', { static: false }) aegonStepper: MatStepper;
   @ViewChild('shareDialogTemplate', { static: false }) shareDialogTemplate!: TemplateRef<any>;
-
+  @ViewChild('toastEl', { static: false }) toastEl: any;
   // MAX NEW YORK QUOTE FORM FIELDS
   // tslint:disable-next-line: ban-types
   public maxNyQuoteFormAction = 'https://www.maxlifeinsurance.com/bin/action/route?method=routeMethod';
@@ -415,28 +418,33 @@ export class ListingComponent implements OnInit, OnDestroy {
   qId: any;
   source_user = "100001";
   user_code = "100001";
-    toast: any;
+  toast: any;
   public pnbAddonsFormGroup: FormGroup;
   public tataAiaAddonsFormGroup: FormGroup;
   public aegonAddonsFormGroup: FormGroup;
-singleOptionDisabled = false;
-maxPayForYears:any;
-host_name:string="";
-quoteID:any;
-quotePayment:any;
-quotePolicyTerm:any;
-quoteCover:any;
-isLoadingQuotes = false;
-quoteUrl = ""
-refEmailAddress:string = "";
-contact_no:any;
-copied = false;
-uniqueProvidersCount:any = 0;
-userJson:any;
-successes:any[]=[];
-role_data:any;
-role_type:string;
+  singleOptionDisabled = false;
+  maxPayForYears: any;
+  host_name: string = "";
+  quoteID: any;
+  quotePayment: any;
+  quotePolicyTerm: any;
+  quoteCover: any;
+  isLoadingQuotes = false;
+  quoteUrl = ""
+  refEmailAddress: string = "";
+  contact_no: any;
+  copied = false;
+  uniqueProvidersCount: any = 0;
+  userJson: any;
+  successes: any[] = [];
+  role_data: any;
+  role_type: string;
+  private requestId = 0;
+  groupCounts: { [key: string]: number } = {};
 
+
+toastMessage = '';
+toastClass = 'bg-success';
 
 
 
@@ -450,7 +458,8 @@ role_type:string;
     private _snackBar: MatSnackBar,
     private _formBuilder: FormBuilder,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    private configService: ConfigServicesService
   ) {
     this.quoteUrl = window.location.href;
     this.pnbAddonsFormGroup = this._formBuilder.group({
@@ -505,29 +514,29 @@ role_type:string;
 
   // FUNCTIONALITY NEEDS TO TAKE PLACE DURING INITIALIZATION
   ngOnInit() {
-    
-    this.quoteID = this.route.snapshot.paramMap.get('quoteId');
-  console.log('NEW ->>>> Quote ID:', this.quoteID);
 
- this.router.events.subscribe(() => {
+    this.quoteID = this.route.snapshot.paramMap.get('quoteId');
+    console.log('NEW ->>>> Quote ID:', this.quoteID);
+
+    this.router.events.subscribe(() => {
       this.quoteUrl = window.location.href;
     });
-   this.apiService.checkLoginType().subscribe({
-  next: (data: any) => {
-    if (data && data.status && data.user_json && data.user_json.role_type) {
-      this.role_data=data;
-      this.role_type = data.user_json.role_type;
-      console.log("Login type is:", this.role_type);
-    } else {
-      console.warn("Unexpected response:", data);
-      this.role_type = null;
-    }
-  },
-  error: (err) => {
-    console.error("Error checking login type:", err);
-    this.role_type = null;
-  }
-});
+    this.apiService.checkLoginType().subscribe({
+      next: (data: any) => {
+        if (data && data.status && data.user_json && data.user_json.role_type) {
+          this.role_data = data;
+          this.role_type = data.user_json.role_type;
+          console.log("Login type is:", this.role_type);
+        } else {
+          console.warn("Unexpected response:", data);
+          this.role_type = null;
+        }
+      },
+      error: (err) => {
+        console.error("Error checking login type:", err);
+        this.role_type = null;
+      }
+    });
     //   this.userJson = localStorage.getItem('user_json');
     // console.log("user type is",this.userJson);
     // this.localStorage.getItem('quoteJson').subscribe((data:any) => {
@@ -538,7 +547,7 @@ role_type:string;
     this.getScreenSize();
     // SET SEO META DATA
     this.setSeoTagsData();
-    
+
     // SET ICICI STATE LIST DROP DOWN
     this.filteredStates = this.iciciStateCtrl.valueChanges.pipe(
       startWith(''),
@@ -546,7 +555,7 @@ role_type:string;
       map(name => name ? this._filterStates(name) : this.iciciStateOptions.slice())
     );
     this.browserName = this.checkBrowser();
-    
+
     const curObj = this;
     setTimeout(() => {
       curObj.loaderComplete = true;
@@ -562,12 +571,15 @@ role_type:string;
       coverUpto: ['', [Validators.required, this.maturityAgeValidator()]],
       premiumPaymentTerm: ['', [Validators.required, this.checkPolicyTerm()]],
       paymentFrequency: ['Monthly', [Validators.required]],
-      payoutType: ['ALL', [Validators.required]],
-      maturityAge:['75']
+      lifeBenefit: ['LUMPSUM_PAYOUT', [Validators.required]],
+      maturityAge: ['75'],
+      lumpSumPercentage: ['', [Validators.required]],
+      installmentYears: ['', [Validators.required]],
+      maturityBenefit: ['Lump_Sum_Payout', [Validators.required]]
 
     });
- 
-this.checkQuoteValue();
+
+    this.checkQuoteValue();
     this.firstFormGroup = this._formBuilder.group({
       custName: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z ]*$/)]],
       custEmail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')]],
@@ -641,55 +653,76 @@ this.checkQuoteValue();
       iciciPremiumItem: ['', [Validators.required]],
       iciciPremiumMode: ['', [Validators.required]],
     });
-      const premiumPaymentTermCtrl = this.filterFormGroup.get('premiumPaymentTerm');
-  const paymentFrequencyCtrl = this.filterFormGroup.get('paymentFrequency');
+    const premiumPaymentTermCtrl = this.filterFormGroup.get('premiumPaymentTerm');
+    const paymentFrequencyCtrl = this.filterFormGroup.get('paymentFrequency');
 
-  premiumPaymentTermCtrl.valueChanges.subscribe((val: number) => {
-    if (val === 1) {
-      // Auto select Single + disable whole dropdown
-      paymentFrequencyCtrl.setValue('Single', { emitEvent: false });
-      paymentFrequencyCtrl.disable({ emitEvent: false });
-      this.singleOptionDisabled = false;  // "Single" stays enabled since it's locked
-    } else {
-      // Re-enable dropdown but block "Single Premium"
-      paymentFrequencyCtrl.enable({ emitEvent: false });
-      this.singleOptionDisabled = true;
-      // Reset to something valid if it was Single earlier
-      if (paymentFrequencyCtrl.value === 'Single') {
-        paymentFrequencyCtrl.setValue(null, { emitEvent: false });
+    premiumPaymentTermCtrl.valueChanges.subscribe((val: number) => {
+      if (val === 1) {
+        // Auto select Single + disable whole dropdown
+        paymentFrequencyCtrl.setValue('Single', { emitEvent: false });
+        paymentFrequencyCtrl.disable({ emitEvent: false });
+        this.singleOptionDisabled = false;  // "Single" stays enabled since it's locked
+      } else {
+        // Re-enable dropdown but block "Single Premium"
+        paymentFrequencyCtrl.enable({ emitEvent: false });
+        this.singleOptionDisabled = true;
+        // Reset to something valid if it was Single earlier
+        if (paymentFrequencyCtrl.value === 'Single') {
+          paymentFrequencyCtrl.setValue(null, { emitEvent: false });
+        }
       }
-    }
-  });
- this.host_name= this.apiService.HOST_NAME;
-      this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
-      this.quoteCover = this.filterFormGroup.get('coverUpto').value;
-      
+    });
+    this.host_name = this.apiService.HOST_NAME;
+    console.log(this.host_name)
+    this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
+    this.quoteCover = this.filterFormGroup.get('coverUpto').value;
+
   }
-   ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     // optional: initialize the toast once after view is ready
     const toastEl = document.getElementById('liveToast');
     if (toastEl) {
       this.toast = new bootstrap.Toast(toastEl);
     }
   }
-    showToast(provider_id,) {
-      if(provider_id == 2 && this.role_data && this.role_data.status == true && this.role_type != '18'){
-        window.open('https://blsht.in/BJAZLI/dCaWde', '_blank');
-      }
-      if(provider_id == 7 && this.role_data && this.role_data.status == true && this.role_type != '18'){
-        this.apiService.getIciciProposal( this.quoteJson,
-      this.source_user,
-      this.user_code,
-      this.quoteID,
-      this.filterFormGroup.value).subscribe((data=> console.log("ICICI data is ==>>",data)));
-      }
-    else{if (!this.toast) {
-      const toastEl = document.getElementById('liveToast');
-      this.toast = new bootstrap.Toast(toastEl);
+  showToast(premiumItem: any, provider_id: any) {
+    //if(provider_id == 2 && this.role_data && this.role_data.status == true && this.role_type != '18'){
+    if (provider_id == 2) {
+      this.apiService.storeSubProposal('', this.quoteJson, this.filterFormGroup.getRawValue(), '', premiumItem, 'https://uatweb.finarray.in/php-services/life-services/service.php?action=STORE_SUB_PROPOSAL').subscribe(data => console.log(data))
+      // window.open('https://blsht.in/BJAZLI/dCaWde', '_blank');
+      this.apiService.trackButton(this.quoteID,this.quoteID,2,1,window.location.href,'https://uatweb.finarray.in/php-services/life-services/service.php?action=TRACK_BUTTON').subscribe();
+      this.router.navigate(['/proposal/qid', this.quoteID]);
     }
-    this.toast.show();}
+
+    //if(provider_id == 7  && this.role_data && this.role_data.status == true && this.role_type != '18'){
+  //  if (provider_id == 7) {
+  //     this.apiService.storeSubProposal('', this.quoteJson, this.filterFormGroup.getRawValue(), '', premiumItem, 'https://uatweb.finarray.in/php-services/life-services/service.php?action=STORE_SUB_PROPOSAL').subscribe(data => console.log(data));
+  //     this.apiService.trackButton(this.quoteID,this.quoteID,2,1,window.location.href,'https://uatweb.finarray.in/php-services/life-services/service.php?action=TRACK_BUTTON').subscribe();
+  //     this.router.navigate(['/proposal/qid', this.quoteID]);
+  //   }
+    else {
+      if (!this.toast) {
+        const toastEl = document.getElementById('liveToast');
+        this.toast = new bootstrap.Toast(toastEl);
+      }
+      this.toast.show();
+    }
+    // this.apiService.storeSubProposal('', this.quoteJson, this.filterFormGroup.getRawValue(), '', premiumItem, 'https://uatweb.finarray.in/php-services/life-services/service.php?action=STORE_SUB_PROPOSAL').subscribe(data => console.log(data))
   }
 
+  getHostKey(): string {
+  const host = window.location.hostname;
+
+  if (host.indexOf('finarray') > -1) {
+    return 'finarray';
+  }
+
+  if (host.indexOf('synergy') > -1) {
+    return 'synergy';
+  }
+
+  return 'localhost';
+}
   selectSumAssured(option: any) {
     // this.sumInsuranceAssured = option.value;
     this.filterFormGroup.patchValue({
@@ -719,6 +752,7 @@ this.checkQuoteValue();
     this.filterFormGroup.patchValue({
       coverUpto: option.value
     });
+    this.quoteCover = option;
     this.callQuotesForAllServices();
     this.showCoverChips = false; // hide chips immediately
   }
@@ -732,63 +766,93 @@ this.checkQuoteValue();
   // CHECK QUOTE LOCAL STORAGE VALUES
   checkQuoteValue() {
     this.subscribeList.add(
-      this.localStorage.getItem('quoteJson').subscribe((data:any) => {
+      this.localStorage.getItem('quoteJson').subscribe((data: any) => {
         if (data != null) {
-          this.apiService.getUserDetails(this.quoteID).subscribe((newData:any) => {
+          this.apiService.getUserDetails(this.quoteID).subscribe((newData: any) => {
             this.quoteJson = newData;
+            this.filterFormGroup.patchValue({
+              coverAmount: newData.coverAmount || '5000000',
+              coverUpto: newData.coverUpto || '75',
+              premiumPaymentTerm: newData.premiumPaymentTerm || '',
+              paymentFrequency: newData.paymentFrequency || 'Monthly',
+              lifeBenefit: newData.lifeBenefit || 'LUMPSUM_PAYOUT',
+              maturityAge: newData.maturityAge || '75',
+              lumpSumPercentage: newData.lumpSumPercentage || '',
+              installmentYears: newData.installmentYears || '',
+              maturityBenefit: newData.maturityBenefit || 'Lump_Sum_Payout'
+            });
             this.refEmailAddress = newData.custEmail;
-      this.contact_no = newData.custMob;
-           let custAge = Number(this.quoteJson.custAge);
-          let custTerm = Number(this.quoteJson.custTerm);
-              this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
- 
-      this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
-      this.quoteCover = this.filterFormGroup.get('coverUpto').value;
-      this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
-          this.filterFormGroup.patchValue({
-            coverUpto: 75,
-            premiumPaymentTerm: 75 - this.quoteJson.custAge,
-            maturityAge:this.maxPayForYears
+            this.contact_no = newData.custMob;
+            let custAge = Number(this.quoteJson.custAge);
+            let custTerm = Number(this.quoteJson.custTerm);
+            this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
+
+            this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
+            this.quoteCover = this.filterFormGroup.get('coverUpto').value;
+            this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
+            if(this.quoteJson.premiumPaymentTerm == 1){
+              maturityAge: this.maxPayForYears
+            }
+            if(this.quoteJson.premiumPaymentTerm != 1){
+               this.filterFormGroup.patchValue({
+              // coverUpto: 75,
+              premiumPaymentTerm: this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge,
+              maturityAge: this.maxPayForYears
+            });
+            }
+           
+            this.quoteCover = this.filterFormGroup.get('coverUpto').value;
+            this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
+            this.filterFormGroup.patchValue({
+              maturityAge: this.maxPayForYears
+            });
+
+            // this.selTermAge = 70;
+            this.quoteJson.custTerm = this.selTermAge - custAge;
+            //localStorage.setItem('quoteJson', this.quoteJson).subscribe(() => { });
+            this.selSumAssured = this.quoteJson.custSumAssured;
+            this.premiumItemArr = [];
+            // console.log('Full Quote Data::', this.quoteJson);
+            // CALL QUOTE DATA SAVE FUNCTION
+            this.saveTermQuote();
           });
-          this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
-          this.filterFormGroup.patchValue({
-            maturityAge:this.maxPayForYears
-          });
-          
-          // this.selTermAge = 70;
-          this.quoteJson.custTerm = this.selTermAge - custAge;
-          //localStorage.setItem('quoteJson', this.quoteJson).subscribe(() => { });
-          this.selSumAssured = this.quoteJson.custSumAssured;
-          this.premiumItemArr = [];
-          // console.log('Full Quote Data::', this.quoteJson);
-          // CALL QUOTE DATA SAVE FUNCTION
-          this.saveTermQuote();
-          });
-         
+
         } else {
-           this.apiService.getUserDetails(this.quoteID).subscribe((newData:any) => {
+          this.apiService.getUserDetails(this.quoteID).subscribe((newData: any) => {
             this.quoteJson = newData;
-           let custAge = Number(this.quoteJson.custAge);
-          let custTerm = Number(this.quoteJson.custTerm);
-          this.refEmailAddress = newData.custEmail;
-      this.contact_no = newData.custMob;
-          this.filterFormGroup.patchValue({
-            coverUpto: 75,
-            premiumPaymentTerm: 75 - this.quoteJson.custAge,
-          
-          });
-           this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
-          this.filterFormGroup.patchValue({
-            maturityAge:this.maxPayForYears
-          });
-          // this.selTermAge = 70;
-          this.quoteJson.custTerm = this.selTermAge - custAge;
-          //localStorage.setItem('quoteJson', this.quoteJson).subscribe(() => { });
-          this.selSumAssured = this.quoteJson.custSumAssured;
-          this.premiumItemArr = [];
-          // console.log('Full Quote Data::', this.quoteJson);
-          // CALL QUOTE DATA SAVE FUNCTION
-          this.saveTermQuote();
+            this.filterFormGroup.patchValue({
+              coverAmount: newData.coverAmount,
+              coverUpto: newData.coverUpto,
+              premiumPaymentTerm: newData.premiumPaymentTerm,
+              paymentFrequency: newData.paymentFrequency,
+              lifeBenefit: newData.lifeBenefit,
+              maturityAge: newData.maturityAge,
+              lumpSumPercentage: newData.lumpSumPercentage,
+              installmentYears: newData.installmentYears,
+              maturityBenefit: newData.maturityBenefit
+            });
+            let custAge = Number(this.quoteJson.custAge);
+            let custTerm = Number(this.quoteJson.custTerm);
+            this.refEmailAddress = newData.custEmail;
+            this.contact_no = newData.custMob;
+            this.filterFormGroup.patchValue({
+              coverUpto: 75,
+              premiumPaymentTerm: 75 - this.quoteJson.custAge,
+
+            });
+            this.quoteCover = this.filterFormGroup.get('coverUpto').value;
+            this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
+            this.filterFormGroup.patchValue({
+              maturityAge: this.maxPayForYears
+            });
+            // this.selTermAge = 70;
+            this.quoteJson.custTerm = this.selTermAge - custAge;
+            //localStorage.setItem('quoteJson', this.quoteJson).subscribe(() => { });
+            this.selSumAssured = this.quoteJson.custSumAssured;
+            this.premiumItemArr = [];
+            // console.log('Full Quote Data::', this.quoteJson);
+            // CALL QUOTE DATA SAVE FUNCTION
+            this.saveTermQuote();
           });
         }
       })
@@ -797,33 +861,33 @@ this.checkQuoteValue();
 
   // SAVE REQUEST QUOTE TERM TO DATABASE
   saveTermQuote() {
-   
-      
-        this.qId = this.quoteID;
-        if (this.quoteID > 0) {
-          this.quoteJson.quote_id = this.quoteID;
-          this.localStorage.removeItem('quoteJson');
-          this.subscribeList.add(
-            this.localStorage.setItem('quoteJson', this.quoteJson).subscribe(() => {
+
+
+    this.qId = this.quoteID;
+    if (this.quoteID > 0) {
+      this.quoteJson.quote_id = this.quoteID;
+      this.localStorage.removeItem('quoteJson');
+      this.subscribeList.add(
+        this.localStorage.setItem('quoteJson', this.quoteJson).subscribe(() => {
+          // this.callPremiumServices();
+          this.callQuotesForAllServices();
+        })
+      );
+    } else {
+      this.subscribeList.add(
+        this.localStorage.getItem('quoteJson').subscribe((data) => {
+          if (data !== '') {
+            this.quoteJson = data;
+            if (this.quoteJson.quote_id > 0) {
               // this.callPremiumServices();
               this.callQuotesForAllServices();
-            })
-          );
-        } else {
-          this.subscribeList.add(
-            this.localStorage.getItem('quoteJson').subscribe((data) => {
-              if (data !== '') {
-                this.quoteJson = data;
-                if (this.quoteJson.quote_id > 0) {
-                  // this.callPremiumServices();
-                  this.callQuotesForAllServices();
-                }
-              }
-            })
-          );
-        }
-      
-  
+            }
+          }
+        })
+      );
+    }
+
+
   }
 
   // CALL ALL PREMIUM SERVICES
@@ -903,13 +967,175 @@ this.checkQuoteValue();
     }
   }
 
-callQuotesForAllServices() {
+  // callQuotesForAllServices() {
+
+  //   const currentRequest = ++this.requestId;
+
+  //   this.isLoadingQuotes = true;
+  //   this.successes = [];
+  //   this.premiumItemArr = [];
+  //   this.apiService.updatePremium(this.quoteJson, this.filterFormGroup.getRawValue(), this.quoteID).subscribe();
+  //   const activeServices = Object.keys(rollsconfig.services)
+  //     .filter(key => rollsconfig.services[key] === 1).filter(serviceId => {
+  //   // Call 55 ONLY on UAT host
+  //   if (serviceId === '55') {
+  //     return this.host_name === 'uatweb.synergy-insurance.com';
+  //   }
+  //   return true;
+  // });;
+
+  //   const totalAPIs = activeServices.length;
+  //   let completedAPIs = 0;
+
+  //   const requests = activeServices.map(serviceId =>
+  //     this.apiService.getQuotesList(
+  //       this.quoteJson,
+  //       this.source_user,
+  //       this.user_code,
+  //       this.quoteID,
+  //       this.filterFormGroup.getRawValue(),
+  //       serviceId
+  //     ).pipe(
+  //       catchError(() => of(null))
+  //     )
+  //   );
+
+  //   merge(...requests).subscribe(result => {
+
+  //     // ❌ Ignore delayed OLD responses
+  //     if (currentRequest !== this.requestId) {
+  //       return;
+  //     }
+
+  //     completedAPIs++;
+
+  //     if (Array.isArray(result)) {
+  //       this.successes.push(result);
+  //       this.premiumItemArr = ([] as any[]).concat(...this.successes);
+  //       this.groupCounts = {};
+  //       this.premiumItemArr.forEach(item => {
+  //         const key = this.getGroupKey(item);
+  //         this.groupCounts[key] = (this.groupCounts[key] || 0) + 1;
+  //       });
+  //       this.uniqueProvidersCount = this.premiumItemArr
+  //         .filter(item => item.premium_show === 1)
+  //         .length;
+  //       this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
+  //     }
+
+  //     if (completedAPIs === totalAPIs) {
+  //       this.isLoadingQuotes = false;
+  //     }
+  //   });
+  // }
+
+//build issue
+//   callQuotesForAllServices() {
+
+//   const currentRequest = ++this.requestId;
+
+//   this.isLoadingQuotes = true;
+//   this.successes = [];
+//   this.premiumItemArr = [];
+
+//   this.apiService.updatePremium(
+//     this.quoteJson,
+//     this.filterFormGroup.getRawValue(),
+//     this.quoteID
+//   ).subscribe();
+
+//   const hostKey = this.getHostKey();
+
+//   const servicesForHost =
+//     rollsconfig.services &&
+//     rollsconfig.services[hostKey]
+//       ? rollsconfig.services[hostKey]
+//       : {};
+
+//   const activeServices = Object.keys(servicesForHost)
+//     .filter(key => servicesForHost[key] === 1);
+
+//   const totalAPIs = activeServices.length;
+//   let completedAPIs = 0;
+
+//   if (totalAPIs === 0) {
+//     this.isLoadingQuotes = false;
+//     return;
+//   }
+
+//   const requests = activeServices.map(serviceId =>
+//     this.apiService.getQuotesList(
+//       this.quoteJson,
+//       this.source_user,
+//       this.user_code,
+//       this.quoteID,
+//       this.filterFormGroup.getRawValue(),
+//       serviceId
+//     ).pipe(
+//       catchError(() => of(null))
+//     )
+//   );
+
+//   merge(...requests).subscribe(result => {
+
+//     // ❌ ignore old responses
+//     if (currentRequest !== this.requestId) {
+//       return;
+//     }
+
+//     completedAPIs++;
+
+//     if (Array.isArray(result)) {
+//       this.successes.push(result);
+//       this.premiumItemArr = ([] as any[]).concat(...this.successes);
+
+//       this.groupCounts = {};
+//       this.premiumItemArr.forEach(item => {
+//         const key = this.getGroupKey(item);
+//         this.groupCounts[key] = (this.groupCounts[key] || 0) + 1;
+//       });
+
+//       this.uniqueProvidersCount = this.premiumItemArr
+//         .filter(item => item.premium_show === 1)
+//         .length;
+
+//       this.quotePayment =
+//         this.filterFormGroup.get('premiumPaymentTerm').value;
+//     }
+
+//     if (completedAPIs === totalAPIs) {
+//       this.isLoadingQuotes = false;
+//     }
+//   });
+// }
+  callQuotesForAllServices() {
+
+  const currentRequest = ++this.requestId;
+
   this.isLoadingQuotes = true;
   this.successes = [];
   this.premiumItemArr = [];
-  console.log("Quote-JSON IS",this.filterFormGroup.value)
-  const activeServices = Object.keys(rollsconfig.services)
-    .filter(key => rollsconfig.services[key] === 1);
+
+  this.apiService.updatePremium(
+    this.quoteJson,
+    this.filterFormGroup.getRawValue(),
+    this.quoteID
+  ).subscribe();
+
+  const hostKey = this.getHostKey();
+
+  const services = this.configService.getServicesByHost(this.host_name);
+
+  const activeServices = Object.keys(services)
+    .filter(key => services[key] === 1);
+
+  const totalAPIs = activeServices.length;
+  let completedAPIs = 0;
+
+  if (totalAPIs === 0) {
+    this.isLoadingQuotes = false;
+    return;
+  }
 
   const requests = activeServices.map(serviceId =>
     this.apiService.getQuotesList(
@@ -917,42 +1143,41 @@ callQuotesForAllServices() {
       this.source_user,
       this.user_code,
       this.quoteID,
-      this.filterFormGroup.value,
+      this.filterFormGroup.getRawValue(),
       serviceId
     ).pipe(
-      catchError(err => {
-        console.error(`❌ Error for provider ${serviceId}`, err);
-        return of({ error: true, providerId: serviceId, details: err });
-      })
+      catchError(() => of(null))
     )
   );
 
-  forkJoin(requests).subscribe((results: any[]) => {
-    console.log('✅ All API responses:', results);
+  merge(...requests).subscribe(result => {
 
-    // Filter out failed ones (which have error=true)
-    this.successes = results.filter(r => Array.isArray(r));
-    const failures = results.filter(r => r && r.error);
+    // ❌ ignore old responses
+    if (currentRequest !== this.requestId) {
+      return;
+    }
 
-    // Flatten nested arrays [[...], [...]] -> [...]
-    this.premiumItemArr = ([] as any[]).concat(...this.successes);
+    completedAPIs++;
 
-    // Filter unique providers where premium_show === 1
-    const visiblePlans = this.premiumItemArr.filter(item => item.premium_show === 1);
-this.uniqueProvidersCount = visiblePlans.length;
+    if (Array.isArray(result)) {
+      this.successes.push(result);
+      this.premiumItemArr = ([] as any[]).concat(...this.successes);
 
-    console.log('✅ Successful premium items:', this.premiumItemArr);
-    console.log('✅ Unique providers count:', this.uniqueProvidersCount);
-    console.log('❌ Failed responses:', failures);
-
-    this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
-     this.filterFormGroup.patchValue({
-        maturityAge:this.maxPayForYears
+      this.groupCounts = {};
+      this.premiumItemArr.forEach(item => {
+        const key = this.getGroupKey(item);
+        this.groupCounts[key] = (this.groupCounts[key] || 0) + 1;
       });
-    this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
-    this.quoteCover = this.filterFormGroup.get('coverUpto').value;
 
-    if(this.premiumItemArr){
+      this.uniqueProvidersCount = this.premiumItemArr
+        .filter(item => item.premium_show === 1)
+        .length;
+
+      this.quotePayment =
+        this.filterFormGroup.get('premiumPaymentTerm').value;
+    }
+
+    if (completedAPIs === totalAPIs) {
       this.isLoadingQuotes = false;
     }
   });
@@ -1011,33 +1236,56 @@ this.uniqueProvidersCount = visiblePlans.length;
   }
 
   calculatePayFor() {
-    if (this.filterFormGroup.valid) {
-      this.isLoadingQuotes = true;
-      this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
-      // this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
-      // this.quoteCover = this.filterFormGroup.get('maturityAge').value;
-      this.filterFormGroup.patchValue({
-        premiumPaymentTerm: this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge,
-        maturityAge:this.maxPayForYears
-      });
-      this.isLoadingQuotes = true;
-      this.loadTermPlans();
-    }
+
+    this.isLoadingQuotes = true;
+    this.maxPayForYears = this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge;
+    // this.quotePayment = this.filterFormGroup.get('premiumPaymentTerm').value;
+    // this.quoteCover = this.filterFormGroup.get('maturityAge').value;
+    this.filterFormGroup.patchValue({
+      premiumPaymentTerm: this.filterFormGroup.get('coverUpto').value - this.quoteJson.custAge,
+      maturityAge: this.maxPayForYears
+    });
+    this.isLoadingQuotes = true;
+    this.loadTermPlans();
+    this.quoteCover = this.filterFormGroup.get('coverUpto').value;
+
+
 
   }
   resetFilter() {
     this.filterFormGroup.patchValue({
-      coverAmount:'5000000',
+      coverAmount: '5000000',
       coverUpto: 75,
       premiumPaymentTerm: 75 - this.quoteJson.custAge,
-      paymentFrequency:'Monthly',
-      payoutType:'ALL'
+      paymentFrequency: 'Monthly',
+      lifeBenefit: 'ALL'
     });
   }
 
   loadTermPlans() {
+    if (this.filterFormGroup.get('lifeBenefit').value == "LUMPSUM_PAYOUT") {
+      this.filterFormGroup.get('lumpSumPercentage').clearValidators();
+      this.filterFormGroup.get('installmentYears').clearValidators();
+      this.filterFormGroup.get('lumpSumPercentage').setValue('');
+      this.filterFormGroup.get('installmentYears').setValue('');
+
+    }
+    if (this.filterFormGroup.get('lifeBenefit').value == "MONTHLY_INSTALLMENTS") {
+      this.filterFormGroup.get('lumpSumPercentage').clearValidators();
+      this.filterFormGroup.get('lumpSumPercentage').setValue('');
+      this.filterFormGroup.get('installmentYears').setValidators([Validators.required]);
+    }
+    if (this.filterFormGroup.get('lifeBenefit').value == "LUMP_SUM_PAYOUT_AND_MONTHLY_INSTALLMENTS") {
+      this.filterFormGroup.get('lumpSumPercentage').disable();
+      this.filterFormGroup.get('lumpSumPercentage').setValue('50');
+      this.filterFormGroup.get('installmentYears').setValidators([Validators.required]);
+    }
+    // if(this.filterFormGroup.get('lifeBenefit').value == "LUMPSUM_PAYOUT"){
+    //   this.filterFormGroup.get('installmentYears').clearValidators();
+    //   this.filterFormGroup.get('installmentYears').clearValidators();
+    // }
     if (this.filterFormGroup.valid) {
-       this.isLoadingQuotes = true;
+      this.isLoadingQuotes = true;
       this.callQuotesForAllServices();
     }
   }
@@ -1815,7 +2063,7 @@ this.uniqueProvidersCount = visiblePlans.length;
   // SHOW ANY PDF FROM URL
   showPdfFromUrl(url: string) {
     //const	fullUrl	= `https://docs.google.com/viewer?url=${url}`;
-    window.open(url, '_blank');
+    window.open(`assets/brochures/${url}`, '_blank');
   }
   // GET SELECTED PREMIUM ITEM
   selectPremiumItem(premiumItem: any, itemIndex: number, content) {
@@ -2669,21 +2917,19 @@ this.uniqueProvidersCount = visiblePlans.length;
     }
   }
   // SHOW HIDE MULTIPLE GROUP PREMIUM OPTIONS
-  toggleGroup(plan_name: string) {
+  toggleGroup(item: any) {
     this.spinnerComplete = false;
-    if (plan_name != "") {
-      if (this.showGroup == plan_name) {
-        this.showGroup = "";
-      } else {
-        this.showGroup = plan_name;
-      }
-    }
-    console.log("SHOWGROUP IS +++", this.showGroup)
-    // this.scrollToBottom();
-    const curObj = this;
+
+    const key = this.getGroupKey(item);
+
+    this.showGroup = this.showGroup === key ? '' : key;
+
     setTimeout(() => {
-      curObj.spinnerComplete = true;
-    }, 1000);
+      this.spinnerComplete = true;
+    }, 300);
+  }
+  getGroupKey(item: any): string {
+    return item.provider_id + '_' + item.plan_name;
   }
 
   chooseForShare(event): void {
@@ -2704,11 +2950,11 @@ this.uniqueProvidersCount = visiblePlans.length;
     }
   }
 
- openShareDialog(): void {
-  
+  openShareDialog(): void {
+
     this.dialog.open(this.shareDialogTemplate);
   }
-   copyUrl() {
+  copyUrl() {
     if (!this.refEmailAddress) return;
 
     navigator.clipboard.writeText(this.quoteUrl).then(() => {
@@ -2718,17 +2964,37 @@ this.uniqueProvidersCount = visiblePlans.length;
       setTimeout(() => (this.copied = false), 2000);
     });
   }
-  sendQuoteViaEmail(){
-    this.apiService.shareQuoteMail(this.quoteUrl,this.refEmailAddress).subscribe((data) => {
-      console.log(data);
-    })
+  sendQuoteViaEmail() {
+  this.apiService.shareQuoteMail(this.quoteUrl, this.refEmailAddress)
+    .subscribe(
+      (res: any) => {
+        this.showEmailToast(res.message, res.status);
+      },
+      () => {
+        this.showEmailToast('Something went wrong. Please try again.', 'error');
+      }
+    );
   }
-  sendQuoteViaMobile(){
-    this.apiService.shareQuoteContact(this.contact_no,this.qId).subscribe((data) => {
+
+showEmailToast(message: string, status: string) {
+  this.toastMessage = message;
+
+  // Change color based on status
+  this.toastClass = status === 'success' ? 'bg-success' : 'bg-danger';
+
+  const toast = new bootstrap.Toast(this.toastEl.nativeElement, {
+    delay: 3000
+  });
+
+  toast.show();
+}
+  sendQuoteViaMobile() {
+    this.apiService.shareQuoteContact(this.contact_no, this.qId).subscribe((data) => {
       console.log(data);
     })
   }
   ngOnDestroy() {
     this.subscribeList.unsubscribe();
   }
+
 }

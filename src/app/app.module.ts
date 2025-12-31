@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import {MatChipsModule} from '@angular/material/chips';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,7 +8,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // tslint:disable-next-line: max-line-length
-import {MatMenuModule, MatButtonModule, MatIconModule, MatSidenavModule, MatCheckboxModule, MatRadioModule, MatFormFieldModule, MatOptionModule,  MatInputModule,  MatToolbarModule, MatListModule, MatSnackBarModule, MatCardModule, MatTableModule} from '@angular/material';
+import {MatMenuModule, MatButtonModule, MatIconModule, MatSidenavModule, MatCheckboxModule, MatRadioModule, MatFormFieldModule, MatOptionModule,  MatInputModule,  MatToolbarModule, MatListModule, MatSnackBarModule, MatCardModule, MatTableModule, MatTabsModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -32,7 +32,12 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { TextMaskModule } from 'angular2-text-mask';
 import { PartnerLoginComponent } from './partner-login/partner-login.component';
 import { PartnerRegistrationComponent } from './partner-registration/partner-registration.component';
-
+import { ProposalComponent } from './proposal/proposal.component';
+import { ProposalConfirmationComponent } from './proposal-confirmation/proposal-confirmation.component';
+import { ConfigServicesService } from './services/config-services.service';
+export function initConfig(cfg: ConfigServicesService) {
+  return () => cfg.loadConfig();
+}
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -43,6 +48,12 @@ import { PartnerRegistrationComponent } from './partner-registration/partner-reg
 		PartnerLoginComponent,
 	
 		PartnerRegistrationComponent,
+	
+		ProposalComponent,
+	
+		ProposalConfirmationComponent,
+	
+
 	],
 	imports: [
 		BrowserModule,
@@ -79,11 +90,19 @@ import { PartnerRegistrationComponent } from './partner-registration/partner-reg
 		MatSnackBarModule,
     	MatCardModule,
    		MatTableModule,
+		MatTabsModule,
    		TextMaskModule,
 		DeviceDetectorModule.forRoot(),
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 	],
-	providers: [MatNativeDateModule],
+	providers: [MatNativeDateModule,
+		{
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      deps: [ConfigServicesService],
+      multi: true
+    }
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

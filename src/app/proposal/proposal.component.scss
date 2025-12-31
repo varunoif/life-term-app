@@ -1,0 +1,106 @@
+*{
+    color:black;
+}
+.proposal-page{
+    background-color: #f3f1f0;
+}
+.page-container{
+    padding-top: 20px;
+}
+.proposal-page{
+    margin-bottom: 70px;
+}
+.tab-content-title{
+    font-size: 15px;
+    font-weight: 600;
+    color:BLACK;
+}
+.card-container{
+        background: #fff;
+    font-family: "Montserrat", sans-serif;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    // margin: 10px 0px;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.22);
+}
+::ng-deep .mat-tab-label{
+  border-radius: 10px 10px 0 0;
+}
+::ng-deep .mat-tab-label-content{
+    font-weight: 700;
+    
+}
+::ng-deep .mat-tab-label-active{
+    font-weight: 700;
+    background-color: #003466 !important;
+    border-color: #003466 !important;
+    color: #fff;
+}
+
+::ng-deep  .mat-tab-body-content{
+        background: #fff;
+    font-family: "Montserrat", sans-serif;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    // margin: 10px 0px;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.22);
+}
+::ng-deep  .mat-form-field{
+      width: 100%;
+}
+.quote-label{
+    font-size: 14px;
+    font-weight: bold;
+}
+.quote-value{
+   font-size: 14px;
+    color: #333;
+}
+.text-center{
+    text-align: center;
+}
+.form-check-label{
+    font-size: 1rem;
+}
+.tab-content{
+    .row{
+        margin: 0px;
+    }
+}
+.details-header{
+    background-color: #003466;
+    color: white;
+    border-radius: 8px 8px 0px 0px;
+}
+.details-container{
+    padding: 10px;
+}
+.details-label{
+    font-size: 14px;
+    font-weight: 700;
+}
+.details-value{
+    color: #333;
+    font-size: 14px;
+}
+.company-logo{
+    max-width: 110px;
+    max-height: 70px;
+}
+::ng-deep .mat-select-value-text {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+}
+::ng-deep .mat-input-element{
+    color: black !important;
+}
+// .change-btn{
+//     color:red;
+// }
+// .change-btn:hover{
+//     color:white;
+// }
+mat-label{
+    color: #00008b;
+    font-weight: bold;
+}

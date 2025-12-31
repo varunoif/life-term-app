@@ -6,36 +6,11 @@
        src="../../../assets/broker/finArray.jpg"
        width="135px"
        style="margin-left: 13px;"> -->
-  <img *ngIf="host_name == 'uatweb.synergy-insurance.com'"
-       src="assets/SynergyLogoFull.png"
-       width="135px"
-       style="margin-left: 13px;"
-       class="brand-logo">
-  <img *ngIf="host_name == 'web.synergy-insurance.com'"
-       src="assets/SynergyLogoFull.png"
-       width="135px"
-       style="margin-left: 13px;"
-       class="brand-logo">
-  <img *ngIf="host_name == 'uatweb.justpolicy.in'"
-       src="assets/broker/justPolicy.jpeg"
-       width="135px"
-       style="margin-left: 13px;"
-       class="brand-logo">
-  <img *ngIf="host_name == 'web.justpolicy.in'"
-       src="assets/broker/justPolicy.jpeg"
-       width="135px"
-       style="margin-left: 13px;"
-       class="brand-logo">
-  <img *ngIf="host_name == 'uatweb.finarray.in'"
-       src="assets/broker/finArray.jpg"
-       width="110px"
-       style="margin-left: 13px;"
-       class="brand-logo">
-  <img *ngIf="host_name == 'web.finarray.in'"
-       src="assets/broker/finArray.jpg"
-       width="110px"
-       style="margin-left: 13px;"
-       class="brand-logo">
+  <img *ngIf="logoSrc"
+     [src]="logoSrc"
+     [style.width]="logoWidth"
+     style="margin-left: 13px;"
+     class="brand-logo">
        <span class="between-line"></span>
   <span class="ms-2 logo-title">TERM INSURANCE</span>
 </a>

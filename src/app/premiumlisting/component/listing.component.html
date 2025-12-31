@@ -408,9 +408,9 @@
                 <mat-icon style="cursor: pointer;" matSuffix
                   (click)="showChips = !showChips">keyboard_arrow_down</mat-icon>
 
-                <!-- <mat-error *ngIf="filterFormGroup.controls['coverAmount'].errors?.required " style="font-size: 12px;">
+                <mat-error *ngIf="filterFormGroup.controls['coverAmount'].errors?.required " style="font-size: 12px;">
                   Sum Assured is required
-                </mat-error> -->
+                </mat-error>
                 <mat-error *ngIf="filterFormGroup.controls['coverAmount'].errors?.minCover " style="font-size: 12px;">
                   Minimum Cover amount is 25 Lakh
                 </mat-error>
@@ -419,7 +419,7 @@
                 </mat-error>
                 <mat-chip-list *ngIf="showChips" class="chip-list">
                   <mat-chip *ngFor="let option of sumAssuredOptions" selectable="false"
-                    (click)="selectSumAssured(option)" color="primary" style="cursor: pointer;">
+                    (click)="selectSumAssured(option)" color="primary" style="cursor: pointer;font-weight: 700;font-size: 13.5px">
                     {{ option.label }}
                   </mat-chip>
                 </mat-chip-list>
@@ -427,7 +427,7 @@
             </div>
             <div class="mb-12">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Cover Upto</mat-label>
+                <mat-label>Cover upto</mat-label>
                 <input matInput type="number" placeholder="Enter Cover Upto" (click)="showCoverChips = !showCoverChips"
                   (input)="onManualCoverInput()" (change)="calculatePayFor()" formControlName="coverUpto"
                   #coverUpto />
@@ -446,7 +446,7 @@
                 </mat-error>
                 <mat-chip-list *ngIf="showCoverChips" class="chip-list">
                   <mat-chip *ngFor="let option of coverUptoOptions" selectable="false" (click)="selectCoverUpto(option)"
-                    color="primary" style="cursor: pointer;">
+                    color="primary" style="cursor: pointer;font-weight: 700;font-size: 13.5px">
                     {{ option.label }}
                   </mat-chip>
                 </mat-chip-list>
@@ -479,11 +479,11 @@
             <div class="mb-12">
               <mat-form-field appearance="outline" style="font-size: 14px;">
                 <mat-label>Payment Frequency</mat-label>
-                <mat-select matNativeControl required (selectionChange)="loadTermPlans()"
+                <mat-select  required (selectionChange)="loadTermPlans()"
                   formControlName="paymentFrequency" #paymentFrequency>
                   <mat-option value="Monthly">Monthly</mat-option>
-                  <mat-option value="Quarterly">Quaterly</mat-option>
-                  <mat-option value="halfYearly">Half Yearly</mat-option>
+                  <mat-option value="Quarterly">Quarterly</mat-option>
+                  <mat-option value="HalfYearly">Half Yearly</mat-option>
                   <mat-option value="Yearly">Yearly</mat-option>
                   <mat-option value="Single" [disabled]="singleOptionDisabled">Single Premium</mat-option>
                 </mat-select>
@@ -499,15 +499,58 @@
             </div>
             <div >
               <mat-form-field appearance="outline">
-                <mat-label>Payment Mode</mat-label>
-                <mat-select matNativeControl required (selectionChange)="loadTermPlans()" formControlName="payoutType"
-                  #payoutType>
-                  <mat-option value="ALL">All</mat-option>
-                  <mat-option value="LUMPSUM">Lumpsum</mat-option>
+                <mat-label>Life Benefit</mat-label>
+                <mat-select required (selectionChange)="loadTermPlans()" formControlName="lifeBenefit"
+                  #lifeBenefit>
+                  <!-- <mat-option value="ALL">All</mat-option> -->
+                  <!-- <mat-option value="LUMPSUM">Lumpsum</mat-option>
                   <mat-option value="LUMPSUM_PLUS_LEVEL_INCOME">Lumpsum + Level Income</mat-option>
-                  <mat-option value="LUMPSUM_PLUS_INCREASING">Lumpsum + Increasing</mat-option>
+                  <mat-option value="LUMPSUM_PLUS_INCREASING">Lumpsum + Increasing</mat-option> -->
+                  <mat-option value="LUMPSUM_PAYOUT">Lump Sum Payout</mat-option>
+                  <mat-option value="LUMP_SUM_PAYOUT_AND_MONTHLY_INSTALLMENTS">Lump Sum Payout & Monthly Installments</mat-option>
+                  <mat-option value="MONTHLY_INSTALLMENTS">Monthly Installments</mat-option>
                 </mat-select>
-                <mat-error *ngIf="filterFormGroup.controls['payoutType'].errors?.required " style="font-size: 12px;">
+                <mat-error *ngIf="filterFormGroup.controls['lifeBenefit'].errors?.required " style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div *ngIf="filterFormGroup.get('lifeBenefit').value === 'LUMP_SUM_PAYOUT_AND_MONTHLY_INSTALLMENTS'">
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Choose % Of Lump Sum</mat-label>
+            
+                <input matInput type="number" formControlName="lumpSumPercentage" min="1">
+            
+                <mat-error *ngIf="filterFormGroup.controls['lumpSumPercentage'].errors?.required">
+                  This field is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+             <div *ngIf="filterFormGroup.get('lifeBenefit').value == 'LUMP_SUM_PAYOUT_AND_MONTHLY_INSTALLMENTS' || filterFormGroup.get('lifeBenefit').value == 'MONTHLY_INSTALLMENTS'">
+              <mat-form-field appearance="outline">
+                <mat-label>Installment For Years</mat-label>
+                <mat-select required (selectionChange)="loadTermPlans()" formControlName="installmentYears"
+                  #installmentYears>
+                  <mat-option value="5">5</mat-option>
+                  <mat-option value="10">10</mat-option>
+                  <mat-option value="20">20</mat-option>
+                  <mat-option value="30">30</mat-option>
+                  <mat-option value="40">40</mat-option>
+                </mat-select>
+                <mat-error *ngIf="filterFormGroup.controls['installmentYears'].errors?.required " style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline">
+                <mat-label>Maturity Benefit</mat-label>
+                <mat-select matNativeControl required (selectionChange)="loadTermPlans()" formControlName="maturityBenefit"
+                  #maturityBenefit>
+                  <mat-option value="Lump_Sum_Payout">Lump Sum Payout</mat-option>
+                  <mat-option value="Installment_Payout">Installment Payout</mat-option>
+                </mat-select>
+                <mat-error *ngIf="filterFormGroup.controls['installmentYears'].errors?.required " style="font-size: 12px;">
                   This Field is required
                 </mat-error>
               </mat-form-field>
@@ -604,11 +647,11 @@
             <div class="mb-12">
               <mat-form-field appearance="outline" style="font-size: 14px;">
                 <mat-label>Payment Frequency</mat-label>
-                <mat-select matNativeControl required (selectionChange)="loadTermPlans()"
+                <mat-select  required (selectionChange)="loadTermPlans()"
                   formControlName="paymentFrequency" #paymentFrequency>
                   <mat-option value="Monthly">Monthly</mat-option>
-                  <mat-option value="Quarterly">Quaterly</mat-option>
-                  <mat-option value="halfYearly">Half Yearly</mat-option>
+                  <mat-option value="Quarterly">Quarterly</mat-option>
+                  <mat-option value="HalfYearly">Half Yearly</mat-option>
                   <mat-option value="Yearly">Yearly</mat-option>
                   <mat-option value="Single" [disabled]="singleOptionDisabled">Single Premium</mat-option>
                 </mat-select>
@@ -624,15 +667,58 @@
             </div>
             <div >
               <mat-form-field appearance="outline">
-                <mat-label>Payment Mode</mat-label>
-                <mat-select matNativeControl required (selectionChange)="loadTermPlans()" formControlName="payoutType"
-                  #payoutType>
+                <mat-label>Life Benefit</mat-label>
+                <mat-select required (selectionChange)="loadTermPlans()" formControlName="lifeBenefit"
+                  #lifeBenefit>
                   <!-- <mat-option value="ALL">All</mat-option> -->
-                  <mat-option value="LUMPSUM">Lumpsum</mat-option>
+                  <!-- <mat-option value="LUMPSUM">Lumpsum</mat-option>
                   <mat-option value="LUMPSUM_PLUS_LEVEL_INCOME">Lumpsum + Level Income</mat-option>
-                  <mat-option value="LUMPSUM_PLUS_INCREASING">Lumpsum + Increasing</mat-option>
+                  <mat-option value="LUMPSUM_PLUS_INCREASING">Lumpsum + Increasing</mat-option> -->
+                  <mat-option value="LUMPSUM_PAYOUT">Lump Sum Payout</mat-option>
+                  <mat-option value="LUMP_SUM_PAYOUT_AND_MONTHLY_INSTALLMENTS">Lump Sum Payout & Monthly Installments</mat-option>
+                  <mat-option value="MONTHLY_INSTALLMENTS">Monthly Installments</mat-option>
                 </mat-select>
-                <mat-error *ngIf="filterFormGroup.controls['payoutType'].errors?.required " style="font-size: 12px;">
+                <mat-error *ngIf="filterFormGroup.controls['lifeBenefit'].errors?.required " style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div *ngIf="filterFormGroup.get('lifeBenefit').value === 'LUMP_SUM_PAYOUT_AND_MONTHLY_INSTALLMENTS'">
+              <mat-form-field appearance="outline" class="example-full-width">
+                <mat-label>Choose % Of Lump Sum</mat-label>
+            
+                <input matInput type="number" formControlName="lumpSumPercentage" min="1">
+            
+                <mat-error *ngIf="filterFormGroup.controls['lumpSumPercentage'].errors?.required">
+                  This field is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+             <div *ngIf="filterFormGroup.get('lifeBenefit').value == 'LUMP_SUM_PAYOUT_AND_MONTHLY_INSTALLMENTS' || filterFormGroup.get('lifeBenefit').value == 'MONTHLY_INSTALLMENTS'">
+              <mat-form-field appearance="outline">
+                <mat-label>Installment For Years</mat-label>
+                <mat-select required (selectionChange)="loadTermPlans()" formControlName="installmentYears"
+                  #installmentYears>
+                  <mat-option value="5">5</mat-option>
+                  <mat-option value="10">10</mat-option>
+                  <mat-option value="20">20</mat-option>
+                  <mat-option value="30">30</mat-option>
+                  <mat-option value="40">40</mat-option>
+                </mat-select>
+                <mat-error *ngIf="filterFormGroup.controls['installmentYears'].errors?.required " style="font-size: 12px;">
+                  This Field is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline">
+                <mat-label>Maturity Benefit</mat-label>
+                <mat-select matNativeControl required (selectionChange)="loadTermPlans()" formControlName="maturityBenefit"
+                  #maturityBenefit>
+                  <mat-option value="Lump_Sum_Payout">Lump Sum Payout</mat-option>
+                  <mat-option value="Installment_Payout">Installment Payout</mat-option>
+                </mat-select>
+                <mat-error *ngIf="filterFormGroup.controls['installmentYears'].errors?.required " style="font-size: 12px;">
                   This Field is required
                 </mat-error>
               </mat-form-field>
@@ -710,6 +796,28 @@
       </div>
     </div>
   </mat-dialog-content>
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200;">
+  <div
+    class="toast align-items-center text-white"
+    [ngClass]="toastClass"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    #toastEl
+  >
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ toastMessage }}
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>
 </ng-template>
       <div *ngIf="isLoadingQuotes " class="premium-loader-container">
     <div *ngFor="let i of [1]" class="premium-loader-box">
@@ -772,16 +880,16 @@
                     
                     <ng-template #indirectCall>
                         <!-- Customer btn -->
-                      <div id="liveToastBtn" type="button"
+                      <button class="btn btn-info" id="liveToastBtn" type="button"
                         *ngIf="premiumItem?.net_premium && premiumItem.net_premium>0 && premiumItem.provider_id != 40 && premiumItem.provider_id != 32"
                          style
-                        (click)="showToast(premiumItem.provider_id)"
+                        (click)="showToast(premiumItem, premiumItem.provider_id)"
                         style="font-size: 22px;font-weight: bold;color: #003466">
                         {{ premiumItem.net_premium | currency:'Rs. ':'code':'1.0-0' }}  
                         <mat-progress-bar mode="indeterminate" 
                           *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index">
                         </mat-progress-bar>
-                      </div>
+                      </button>
 <!-- (click)="selectPremiumItem(premiumItem, item_index, ipruProposalDialog);" -->
                       <button 
                         *ngIf="premiumItem?.net_premium && premiumItem.net_premium>0 && premiumItem.provider_id === 40"
@@ -883,13 +991,16 @@
               
               <div  fxFlex="100" fxLayout="row" fxLayoutAlign="end center"   style="padding:10px 20px;border-top: 1px solid #eee;" *ngIf="premiumItem.premium_group==1 && premiumItem.item_group_count>0 && premiumItem.premium_show!=0">
                 <!-- <a (click)="showPdfFromUrl(premiumItem.premium_pdf)" *ngIf="premiumItem?.premium_pdf && premiumItem?.premium_pdf!=''">Brochure</a> -->
-                <button class="more-plans-btn"   fxLayout="row" fxLayoutAlign="space-between center"  
-                  *ngIf="premiumItem.premium_group==1 && premiumItem.item_group_count>0 && premiumItem.premium_show!=0"
-                  (click)="toggleGroup(premiumItem.plan_name)" >
-                  {{ premiumItem.item_group_count  }}
-                  {{ showGroup==premiumItem.plan_name?'Less Plans':'More Plans' }}
-                  <i class="material-icons plus-ad" style="color: #cf0019;">
-                    {{ showGroup==premiumItem.plan_name?'remove':'add'}}
+                <button class="more-plans-btn" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="premiumItem.premium_group==1 
+                      && premiumItem.item_group_count>1 
+                      && premiumItem.premium_show!=0" (click)="toggleGroup(premiumItem)">
+                
+                  {{ (groupCounts[getGroupKey(premiumItem)] || 0) - 1 }}
+                
+                  {{ showGroup === getGroupKey(premiumItem) ? 'Less Plans' : 'More Plans' }}
+                
+                  <i class="material-icons plus-ad" style="color:#cf0019">
+                    {{ showGroup === getGroupKey(premiumItem) ? 'remove' : 'add' }}
                   </i>
                 </button>
                 <!-- <a fxHide fxShow.sm fxShow.xs class="text-size6" 
@@ -915,19 +1026,19 @@
         <!-- DEFAULT HIDE PREMIUM ITEMS -->
          <div 
   class="expand-wrapper" 
-  [class.open]="showGroup == premiumItem.plan_name"
+  [class.open]="showGroup === getGroupKey(premiumItem)"
   style="flex-basis:100%;">
-        <div class="expand-inner" *ngIf="premiumItem.premium_show == 0 && showGroup == premiumItem.plan_name">
+        <div class="expand-inner"  *ngIf="premiumItem.premium_show == 0 && showGroup === getGroupKey(premiumItem)">
           
             <div *ngIf="premiumItem.showGroup != ''" class=" quote-container-inner no-padding mt-10 header newpad" style="background: #fff!important;"
               fxLayout="row wrap"  fxFlexFill fxFlex="" fxFlex.sm="100">
-              <div fxFlex="100"   fxFlex.xs="100" fxFlex.sm="100" fxLayout="row" fxLayoutAlign="space-between start" style="background: linear-gradient(270deg, #e7eefe, rgba(231, 238, 254, 0) 101.19%);padding: 10px 20px;">
+              <div fxFlex="100"   fxFlex.xs="100" fxFlex.sm="100" fxLayout="row wrap" fxLayoutAlign="space-between start" style="background: linear-gradient(270deg, #e7eefe, rgba(231, 238, 254, 0) 101.19%);padding: 10px 20px;">
                 <div fxLayout="row" fxFlex="70" fxLayoutGap="10px" fxFlex.xs="50" fxFlex.sm="100" fxLayoutAlign="start center">
                   <img class="logo2" style="width:110px" src="assets/listing/company_logo/{{premiumItem.company_logo}}"
                     alt="{{premiumItem.company_name}}">
                     <div fxLayout="column" fxLayoutAlign="space-between start">
                       <small class="quote-help-text ">Plan Name</small>
-                  <span class="quote-values inc_days">{{premiumItem.plan_name}}</span>
+                  <span class="inc_days" style="font-size: 14px;font-weight: bold;color: #003466">{{premiumItem.plan_name}}</span>
                     </div>
                     <div fxLayout="column" fxLayoutAlign="space-between start" *ngIf="premiumItem.plan_variant">
                       <small class="quote-help-text ">Plan Variant</small>
@@ -968,14 +1079,14 @@
                                    </button>
                                -->
                       <!-- old logic -->
-                      <div id="liveToastBtn"   
-                        (click)="showToast(premiumItem.provider_id)"
+                      <button class="btn btn-info" id="liveToastBtn"   
+                        (click)="showToast(premiumItem,premiumItem.provider_id)"
                         style="font-size: 22px;font-weight: bold;color: #003466" >
                         {{ premiumItem.net_premium | currency:'Rs. ':'code':'1.0-0' }} 
                         <mat-progress-bar mode="indeterminate" 
                           *ngIf="displayBuyNowLoader && buyNowLoaderIndex === item_index">
                         </mat-progress-bar>
-                      </div>
+                      </button>
                       <!-- (click)="selectPremiumItem(premiumItem, item_index, ipruProposalDialog);" -->
                     </ng-template>
                   </div>
@@ -995,7 +1106,7 @@
                 </div>
               </div>
               <div fxFlex="100"   fxFlex.xs="100" fxFlex.sm="100" fxLayout="row wrap" fxLayoutAlign="space-between start" style="padding: 15px 20px;">
-                <div fxFlex="20" fxLayout="column"  class="sec3 my-3" fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30"
+                <div fxFlex="15" fxLayout="column"   class="sec3 my-3"  fxFlex.xs="50"  fxFlex.sm="30" fxFlex.md="30"
                 fxLayoutAlign="flex-basis">
                 <small class="quote-help-text">Sum Assured</small>
                 <span class="quote-values inc_days">
@@ -1007,18 +1118,18 @@
                   <small class="quote-help-text ">Payment/Policy Term</small>
                   <span class="quote-values inc_days">{{quotePayment}} Yrs/{{maxPayForYears}} Years</span>
                 </div>
-                <div fxFlex="20" fxLayout="column" fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30" class="sec3 my-3" 
+                <div fxFlex="15" fxLayout="column"   class="sec3 my-3"  fxFlex.xs="50"  fxFlex.sm="30" fxFlex.md="30" 
                   fxLayoutAlign="flex-basis">
                   <small class="quote-help-text">Cover Upto</small>
                   <span class="quote-values inc_days">{{quoteCover}} Yrs</span>
                 </div>
-                <div fxFlex="20" fxLayout="column" class="sec3 my-3  Claim Settled" fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30" fxLayout.sm="column">
+                <div fxFlex="15" fxLayout="column" class="sec3 my-3  Claim Settled" fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30" fxLayout.sm="column">
                   <!-- <p fxHide fxShow.xs fxShow.sm>Claim Settled <a fxHide fxShow.xs fxShow.sm
                       style="color: blueviolet; padding-left:5px; text-transform: uppercase;"></a></p> -->
                   <small class="quote-help-text">Claim Settled</small>
                   <span class="quote-values">{{premiumItem.claim_settled | number:'1.0-2'}}%</span>
                 </div>
-                <div fxFlex="20" fxLayout="column" class="sec3 my-3" fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30" fxLayout.sm="column">
+                <div fxFlex="15" fxLayout="column" class="sec3 my-3" fxFlex.xs="50" fxFlex.sm="30" fxFlex.md="30" fxLayout.sm="column">
                   <small class="quote-help-text">Plan Type</small>
                   <span *ngIf="premiumItem.db_type" class="quote-values">
                     {{premiumItem.db_type}}
@@ -1026,6 +1137,14 @@
                   <ng-container *ngIf="show">
                   </ng-container>
                 </div>
+                <div fxFlex="20" class="my-3">
+                <p class="inc_days" fxHide.xs fxHide.sm>
+                  <a (click)="showPdfFromUrl(premiumItem.premium_pdf)"
+                    *ngIf="premiumItem?.premium_pdf && premiumItem?.premium_pdf!=''"
+                    style="padding-left:0px !important">{{
+                    'View Brochure' | titlecase }}</a>
+                </p>
+              </div>
               </div>
              
 

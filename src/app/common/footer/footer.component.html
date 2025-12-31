@@ -1,9 +1,9 @@
-<div class="footer-page">
+<!-- <div class="footer-page">
    <div class="container">
       <p>Copyright © 2023 Finarray | All rights reserved | http://finarray.in</p>
 
-      <p> IRDA License Code No- CA0657 valid Till date 05/01/2026, Direct(Life & General) | Principal Officer: Mr.
-         Kashish Nathwani | Email: kashish.nathwani@finarraywealth.com
+      <p> IMF Number: IMF07700320240666 Valid Upto 28/02/2027, Direct(Life & General) | Principal Officer: Mr.
+         Parth Doshi | Email Id: parth.doshi@finarraywealth.com
       </p>
       <p>
          Finarray Insurance Broking Pvt. Ltd.|1014 - Iconic Shyamal, Shyamal Cross road, Satellite |Ahmedabad - 380015,
@@ -15,6 +15,23 @@
       </p>
    </div>
 
+</div> -->
+<div class="footer-page" *ngIf="footerData.length">
+  <div class="container">
+
+    <p *ngFor="let item of footerData">
+      {{ item.text }}
+
+      <br *ngIf="item.link">
+
+      <a *ngIf="item.link"
+         [href]="item.link.url"
+         target="_blank">
+        {{ item.link.text }}
+      </a>
+    </p>
+
+  </div>
 </div>
 <!-- <footer>
    <div class="container" *ngIf="!isSponsored">

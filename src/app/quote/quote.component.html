@@ -204,6 +204,40 @@
 
             </div>
           </div>
+           <!-- <div fxFlex="100" fxLayout="row" fxLayout.xs="column">
+            <div fxFlex="55" fxLayout="column">
+               <p class="gap-no">Existing customer</p>
+              <p fxFlex="50" fxLayout="row">
+                <i class="material-icons" style="color:#00008b">person_add</i>
+                <mat-form-field>
+                  <mat-label>Existing customer</mat-label>
+                  <mat-select matNativeControl formControlName="custExisting" required #custExisting (selectionChange)="customerSwitch('exsistingCustomer')">
+                    <mat-option value="yes">Yes</mat-option>
+                    <mat-option value="no">No</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="firstFormGroup.controls['custExisting'].errors?.required">
+                    Existing customer is required!
+                  </mat-error>
+                </mat-form-field>
+              </p>
+            </div>
+            <div fxFlex="55" fxLayout="column">
+               <p class="gap-no">First Time Buyer</p>
+              <p fxFlex="50" fxLayout="row">
+                <i class="material-icons" style="color:#00008b">playlist_add</i>
+                <mat-form-field>
+                  <mat-label>First Time Buyer</mat-label>
+                  <mat-select matNativeControl formControlName="custFirstBuyer" (selectionChange)="customerSwitch('firstBuyer')" required #custFirstBuyer>
+                    <mat-option value="yes">Yes</mat-option>
+                    <mat-option value="no">No</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="firstFormGroup.controls['custFirstBuyer'].errors?.required">
+                    First time buyer is required!
+                  </mat-error>
+                </mat-form-field>
+              </p>
+            </div>
+            </div> -->
           <div class="continue" style="margin:auto;">
             <!-- <button class="btn btn-primary mx-2" type="submit">Admin Login <mat-icon class="forward">
                 supervised_user_circle</mat-icon></button> -->
@@ -218,7 +252,7 @@
           <mat-vertical-stepper [linear]="isLinear" #vstepper>
             <mat-step [stepControl]="customerFormStep2">
               <form [formGroup]="customerFormStep2">
-                <ng-template matStepLabel>Do You Smoke or Chew Tobacco?</ng-template>
+                <ng-template matStepLabel>Do You Smoke or Chew Tobacco? <span style="color: red;">*</span></ng-template>
                 <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="customerSmoker"
                   fxFlex="50">
                   <mat-button-toggle value="Y" (click)="submitSmokerStatus(vstepper)" fxFlex="50">
@@ -233,7 +267,7 @@
 
             <mat-step [stepControl]="customerFormStep3">
               <form [formGroup]="customerFormStep3" (ngSubmit)="checkStep3Form(vstepper)">
-                <ng-template matStepLabel>Please Select Your Annual Income</ng-template>
+                <ng-template matStepLabel>Please Select Your Annual Income <span style="color: red;">*</span></ng-template>
                 <mat-form-field>
                   <input matInput type="number" placeholder="Annual Income" formControlName="customerIncome"
                     autocomplete="none" #customerIncome min="0">
@@ -256,7 +290,7 @@
 
             <mat-step>
               <form [formGroup]="customerFormStep4">
-                <ng-template matStepLabel>Please Choose your occupation</ng-template>
+                <ng-template matStepLabel>Please Choose your occupation <span style="color: red;">*</span></ng-template>
                 <mat-button-toggle-group name="fontStyle" formControlName="customerEmpStatus" aria-label="Font Style"
                   style="margin-top: 15px;" fxFlex="90" fxLayout.xs="column">
                   <mat-button-toggle value="salaried" (click)="submitEmpStatus(vstepper)" fxFlex="30">Salaried

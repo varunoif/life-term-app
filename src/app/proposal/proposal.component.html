@@ -1,0 +1,551 @@
+<div class="proposal-page">
+    <div class="container page-container">
+        <div class="row">
+            <div class="col-4 d-flex flex-column">
+                <div class="card-container">
+                    <h5 class="details-header p-2">Policy Details</h5>
+                    <div class="details-container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="details-label">
+                                Plan Name
+                            </div>
+                            <div class="details-value">
+                                {{premiumJson.plan_name || ""}}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center my-3" >
+                            <div class="details-label">
+                                Plan Variant
+                            </div>
+                            <div class="details-value" style="max-width: 50%;text-align: justify;"
+                                >
+                                {{premiumJson.plan_variant || "" | titlecase}}
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between my-3">
+                            <div class="details-label">
+                                Sum Assured
+                            </div>
+                            <div class="details-value">
+                                Rs {{formatIndianNumber(premiumJson.sum_assured)}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="card-container my-4">
+                    <h5 class="details-header p-2">Insurer Details</h5>
+                    <div class="details-container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="details-label">
+                                Name
+                            </div>
+                            <div class="details-value">
+                                {{userData.custName}}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between my-3">
+                            <div class="details-label">
+                                Gender
+                            </div>
+                            <div class="details-value">
+                                {{ getGenderLabel(userData.customerGender) }}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between my-3">
+                            <div class="details-label">
+                                Age
+                            </div>
+                            <div class="details-value">
+                                {{userData.custAge}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="card-container p-2">
+                    <div class="d-flex justify-content-center">
+                        <img src="assets/listing/company_logo/{{premiumJson.company_logo}}" alt="" class="company-logo">
+                    </div>
+
+                    <div class="d-flex justify-content-between my-3">
+                        <div class="details-label">
+                            Insurer
+                        </div>
+                        <div class="details-value">
+                            {{premiumJson.company_name || ""}}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-outline-info change-btn" (click)="backToListing()">Change</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="card-container py-3">
+                    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex fxLayout="column">
+                            <p class="quote-label text-center">
+                                Premium Details
+                            </p>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <p class="quote-label text-center">
+                                Net Premium
+                            </p>
+                            <p class="quote-value text-center">
+                                Rs {{formatIndianNumber(premiumJson.net_premium)}}
+                            </p>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <p class="quote-label text-center">
+                                + (GST)
+                            </p>
+                            <p class="quote-value text-center">
+                                Rs {{formatIndianNumber(premiumJson.gst) }}
+                            </p>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <p class="quote-label text-center">
+                                Total Premium
+                            </p>
+                            <p class="quote-value text-center">
+                                Rs {{formatIndianNumber(premiumJson.net_premium + premiumJson.gst)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <mat-tab-group class="mt-3" [(selectedIndex)]="selectedTabIndex">
+                    <mat-tab label="Covers" *ngIf="providerId != 2">
+                        <div class="p-4 mt-3" fxLayout="column" fxLayoutAlign="space-around start">
+                            <h6 class="tab-content-title">
+                                Built in Covers
+                            </h6>
+                            <label class="form-check-label" for="checkDefault">
+                                Accidental Death Benefit
+                            </label>
+                            <h6 class="tab-content-title mt-3">
+                                Select Addditional Covers for your plan
+                            </h6>
+                            <form [formGroup]="coversFormGroup" style="width: 100%;" class="d-flex flex-column">
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-12 d-flex">
+                                                <input class="form-check-input" type="checkbox" value="criticalIllness"
+                                                    formControlName="criticalIllness" id="checkChecked">
+                                                <label class="form-check-label" for="checkChecked">
+                                                    Critical Illness
+                                                </label>
+                                            </div>
+                                            <div class="col-12">
+                                                <mat-form-field appearance="outline"
+                                                    *ngIf="coversFormGroup.get('criticalIllness') && coversFormGroup.get('criticalIllness').value">
+                                                    <mat-label>Select Option</mat-label>
+                                                    <mat-select formControlName="criticalIllnessOption">
+                                                        <mat-option value="CICL">CICL</mat-option>
+                                                        <mat-option value="CICM">CICM</mat-option>
+                                                    </mat-select>
+
+                                                    <mat-error *ngIf="
+    coversFormGroup.get('criticalIllnessOption') &&
+    coversFormGroup.get('criticalIllnessOption').hasError('required')">
+                                                        This field is required
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-info mx-2"
+                                        (click)="calculateICICIPremium()">Recalculate</button>
+                                    <button type="button" class="btn btn-primary mx-2" *ngIf="recalculateStatus"
+                                        (click)="calculateICICIPremium()">Recalculating</button>
+                                    <button type="button" class="btn btn-primary" *ngIf="!recalculateStatus"
+                                        (click)="goToBasicDetails()">Continue</button>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Basic Details">
+                        <div class="p-2 mt-3  tab-content">
+                            <form [formGroup]="detailsFormGroup">
+                                <div class="row">
+                                    <div class="col-6" *ngIf="providerId == 2">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Existing customer</mat-label>
+                                            <mat-select formControlName="custExisting" required #custExisting
+                                                (selectionChange)="customerSwitch('exsistingCustomer')">
+                                                <mat-option value="">Select Option</mat-option>
+                                                <mat-option value="yes">Yes</mat-option>
+                                                <mat-option value="no">No</mat-option>
+                                            </mat-select>
+                                            <mat-error style="font-size: 12px;color:red"
+                                                *ngIf="detailsFormGroup.controls['custExisting'].errors?.required">
+                                                Existing customer is required!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-6" *ngIf="providerId == 2">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>First Time Buyer</mat-label>
+                                            <mat-select formControlName="custFirstBuyer"
+                                                (selectionChange)="customerSwitch('firstBuyer')" required
+                                                #custFirstBuyer>
+                                                <mat-option value="">Select Option</mat-option>
+                                                <mat-option value="yes">Yes</mat-option>
+                                                <mat-option value="no">No</mat-option>
+                                            </mat-select>
+                                            <mat-error style="font-size: 12px;color:red"
+                                                *ngIf="detailsFormGroup.controls['custFirstBuyer'].errors?.required">
+                                                First time buyer is required!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Full Name</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="custName">
+                                            <mat-error *ngIf="detailsFormGroup.controls['custName'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Date Of Birth</mat-label>
+                                            <input matInput type="text" [textMask]="{mask: dobMask,guide:false}"
+                                                placeholder="DD/MM/YYYY" autocomplete="new-dob"
+                                                formControlName="customerDOB" #customerDOB>
+                                            <mat-error
+                                                *ngIf="detailsFormGroup.controls['customerDOB'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                    </div>
+                                    <div class="col-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Martial Status</mat-label>
+                                            <mat-select required #installmentYears formControlName="userMartialStatus">
+                                                <mat-option value="20">Married</mat-option>
+                                                <mat-option value="60">Unmarried</mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                                *ngIf="detailsFormGroup.controls['userMartialStatus'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Occupation</mat-label>
+                                            <mat-select required formControlName="customerEmpStatus">
+                                                <mat-option value="salaried"
+                                                    *ngIf="providerId != 7">Salaried</mat-option>
+                                                <mat-option value="self-employed"
+                                                    *ngIf="providerId != 7">Self-Employed</mat-option>
+                                                <mat-option value="SPVT" *ngIf="providerId == 7">Salaried</mat-option>
+                                                <mat-option value="BSEM" *ngIf="providerId == 7">Self
+                                                    Employed</mat-option>
+                                                <mat-option value="SECA" *ngIf="providerId == 7">Self Employed -
+                                                    CA</mat-option>
+                                                <mat-option value="SEDO" *ngIf="providerId == 7">Self Employed -
+                                                    Doctor</mat-option>
+                                                <mat-option value="SEAR" *ngIf="providerId == 7">Self Employed -
+                                                    Architect</mat-option>
+                                                <mat-option value="SEBU" *ngIf="providerId == 7">Self Employed -
+                                                    Businessman</mat-option>
+                                                <mat-option value="SECO" *ngIf="providerId == 7">Self Employed -
+                                                    Consultant</mat-option>
+                                                <mat-option value="SELA" *ngIf="providerId == 7">Self Employed -
+                                                    Lawyer</mat-option>
+                                                <mat-option value="HSWF" *ngIf="providerId == 7">Housewife</mat-option>
+                                                <mat-option value="AGRI"
+                                                    *ngIf="providerId == 7">Agriculturist</mat-option>
+                                                <mat-option value="STDN" *ngIf="providerId == 7">Student</mat-option>
+                                                <mat-option value="IPRU" *ngIf="providerId == 7">ICICI Group
+                                                    Employee</mat-option>
+                                                <mat-option value="RETD" *ngIf="providerId == 7">Retired</mat-option>
+                                                <mat-option value="PROF"
+                                                    *ngIf="providerId == 7">Professional</mat-option>
+
+                                            </mat-select>
+                                            <mat-error
+                                                *ngIf="detailsFormGroup.controls['customerEmpStatus'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-12 d-flex  justify-content-end align-items-center"
+                                        *ngIf="providerId != 2">
+                                        <button type="button" class="btn btn-danger m-2" (click)="goPreviousTab()">Back
+                                            to Covers</button>
+                                        <button type="submit" class="btn btn-primary"
+                                            (click)="goToNomineeDetails()">Continue</button>
+
+                                    </div>
+                                    <div class="col-12 d-flex  justify-content-end align-items-center"
+                                        *ngIf="providerId == 2">
+                                        <button type="submit" class="btn btn-info" (click)="navigateToConfirmation()"
+                                            *ngIf="!recalculateStatus">Submit</button>
+                                        <button type="button" disabled class="btn btn-info"
+                                            *ngIf="recalculateStatus">Recalculating Premium</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Nominee Details" *ngIf="providerId != 2">
+                        <div class=" p-2 mt-3 tab-content">
+                            <form [formGroup]="nomineeFormGroup">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select Title</mat-label>
+                                            <mat-select formControlName="nomineeTitle">
+                                                <mat-option value="Mr">Mr</mat-option>
+                                                <mat-option value="Mrs">Mrs</mat-option>
+                                            </mat-select>
+
+                                            <mat-error
+                                                *ngIf="nomineeFormGroup.controls['nomineeTitle'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-8">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Full Name</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="nomineeFullName">
+                                            <mat-error
+                                                *ngIf="nomineeFormGroup.controls['nomineeFullName'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-8">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select Relation</mat-label>
+                                            <mat-select formControlName="nomineeRelation">
+                                                <mat-option value="Father">Father</mat-option>
+                                                <mat-option value="Mother">Mother</mat-option>
+                                                <mat-option value="Brother">Brother</mat-option>
+                                                <mat-option value="Sister">Sister</mat-option>
+                                                <mat-option value="Daughter">Daughter</mat-option>
+                                                <mat-option value="Son">Son</mat-option>
+                                                <mat-option value="Spouse">Spouse</mat-option>
+                                            </mat-select>
+
+                                            <mat-error
+                                                *ngIf="nomineeFormGroup.controls['nomineeRelation'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Date Of Birth</mat-label>
+                                            <input matInput type="text" [textMask]="{mask: dobMask,guide:false}"
+                                                placeholder="DD/MM/YYYY" autocomplete="new-dob"
+                                                formControlName="nomineeDob">
+                                            <mat-error *ngIf="nomineeFormGroup.controls['nomineeDob'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <div class="col-12 d-flex  justify-content-end align-items-center">
+                                        <button type="button" class="btn btn-danger m-2" (click)="goPreviousTab()">Back
+                                            to Basic Details</button>
+                                        <button type="submit" class="btn btn-primary"
+                                            (click)="goToContactDetails()">Continue</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </mat-tab>
+                    <mat-tab label="Contact Details" *ngIf="providerId != 2">
+                        <div class=" p-2 mt-3 tab-content">
+                            <form [formGroup]="contactFormGroup">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Select Document Type</mat-label>
+                                            <mat-select formControlName="customerDocumentType"
+                                                (selectionChange)="changeSelectedDocument($event)" required>
+                                                <mat-option value="panCard">Pan Card</mat-option>
+                                                <mat-option value="voterId">Voter Id</mat-option>
+                                                <mat-option value="driversLicense">Driver License</mat-option>
+                                                <mat-option value="passportNumber">Passport</mat-option>
+                                                <mat-option value="aadhaarNumber">Aadhaar</mat-option>
+                                            </mat-select>
+
+                                            <mat-error
+                                                *ngIf="contactFormGroup.controls['customerDocumentType'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>{{selectedDocument + " Number"}}</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="customerDocumentValue" required>
+                                            <mat-error
+                                                *ngIf="contactFormGroup.controls['customerDocumentValue'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-12">
+                                        <h5>
+                                            Permeanent Address
+                                        </h5>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Address Line 1</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="addressline1" required>
+                                            <mat-error
+                                                *ngIf="contactFormGroup.controls['addressline1'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Address Line 2</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="addressline2" required>
+                                            <mat-error
+                                                *ngIf="contactFormGroup.controls['addressline2'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Address Line 3</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="addressline3">
+                                            <!-- <mat-error
+                                                *ngIf="contactFormGroup.controls['addressline3'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Pincode</mat-label>
+                                            <input matInput type="number" maxlength="6"
+                                                formControlName="customerPincode" (focus)="focusState = true"
+                                                (focusout)="focusState = false" autocomplete="nope"
+                                                (input)="checkLength($event.target.value, 6, 'customerPincode')"
+                                                required>
+                                            <!-- <span matPrefix class="suffix-field-txt" *ngIf="firstFormGroup.controls['custCuntryCode'].value!=''">{{
+                      '+'+firstFormGroup.controls['custCuntryCode'].value }}</span> -->
+                                            <mat-error
+                                                *ngIf="contactFormGroup.controls['customerPincode'].errors?.required">
+                                                Pincode is required!
+                                            </mat-error>
+                                            <mat-error
+                                                *ngIf="contactFormGroup.controls['customerPincode'].errors?.pattern">
+                                                Please enter valid Pincode
+                                            </mat-error>
+                                            <mat-hint align="end">Ex: 560057</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Landmark</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="customerLandmark">
+                                            <!-- <mat-error
+                                                *ngIf="contactFormGroup.controls['customerLandmark'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>City</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="customerCity" required>
+                                            <mat-error
+                                                *ngIf="contactFormGroup.controls['customerCity'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>State</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="customerState" required>
+                                            <mat-error
+                                                *ngIf="contactFormGroup.controls['customerState'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Country</mat-label>
+                                            <input matInput type="text" class="text-uppercase" autocomplete="none"
+                                                formControlName="customerCountry" required>
+                                            <mat-error
+                                                *ngIf="contactFormGroup.controls['customerCountry'].errors?.required "
+                                                style="font-size: 12px;color:red">
+                                                This Field is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-12 d-flex  justify-content-end align-items-center">
+                                        <button type="button" class="btn btn-danger m-2" (click)="goPreviousTab()">Back
+                                            to Nominee Details</button>
+                                        <button type="submit" class="btn btn-primary"
+                                            (click)="navigateToConfirmation()">Continue</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </mat-tab>
+
+                </mat-tab-group>
+            </div>
+        </div>
+
+    </div>
+</div>
