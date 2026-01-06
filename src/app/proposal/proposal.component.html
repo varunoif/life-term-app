@@ -13,16 +13,15 @@
                                 {{premiumJson.plan_name || ""}}
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center my-3" >
+                        <div class="d-flex justify-content-between align-items-center my-3">
                             <div class="details-label">
                                 Plan Variant
                             </div>
-                            <div class="details-value" style="max-width: 50%;text-align: justify;"
-                                >
+                            <div class="details-value" style="max-width: 50%;text-align: justify;">
                                 {{premiumJson.plan_variant || "" | titlecase}}
                             </div>
                         </div>
-                        
+
                         <div class="d-flex justify-content-between my-3">
                             <div class="details-label">
                                 Sum Assured
@@ -124,9 +123,7 @@
                             <h6 class="tab-content-title">
                                 Built in Covers
                             </h6>
-                            <label class="form-check-label" for="checkDefault">
-                                Accidental Death Benefit
-                            </label>
+
                             <h6 class="tab-content-title mt-3">
                                 Select Addditional Covers for your plan
                             </h6>
@@ -151,15 +148,64 @@
                                                         <mat-option value="CICM">CICM</mat-option>
                                                     </mat-select>
 
-                                                    <mat-error *ngIf="
+                                                    <mat-error style="color:red" *ngIf="
     coversFormGroup.get('criticalIllnessOption') &&
     coversFormGroup.get('criticalIllnessOption').hasError('required')">
                                                         This field is required
                                                     </mat-error>
                                                 </mat-form-field>
                                             </div>
+                                            <div class="col-12"
+                                                *ngIf="coversFormGroup.get('criticalIllness') && coversFormGroup.get('criticalIllness').value">
+                                                <mat-form-field appearance="outline" class="w-100">
+                                                    <mat-label>Sum Insured</mat-label>
+                                                    <input matInput type="number" formControlName="sumInsuredOption">
+                                                    <mat-error style="color:red" *ngIf="
+    coversFormGroup.get('sumInsuredOption') &&
+    coversFormGroup.get('sumInsuredOption').hasError('required')">
+                                                        Sum Insured is required
+                                                    </mat-error>
+
+                                                    <mat-error style="color:red" *ngIf="
+    coversFormGroup.get('sumInsuredOption') &&
+    coversFormGroup.get('sumInsuredOption').hasError('min')">
+                                                        Sum Insured must be greater than 0
+                                                    </mat-error>
+                                                </mat-form-field>
+
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-4">
+                                        <div class="row">
+                                            <div class="col-12 d-flex">
+                                                <input class="form-check-input" type="checkbox"
+                                                    value="accidentalDeathBenefit"
+                                                    formControlName="accidentalDeathBenefit" id="checkChecked">
+                                                <label class="form-check-label">
+                                                    Accidental Death Benefit
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <mat-form-field appearance="outline" class="w-100"
+                                            *ngIf="coversFormGroup.get('accidentalDeathBenefit') && coversFormGroup.get('accidentalDeathBenefit').value">
+                                            <mat-label>Sum Insured</mat-label>
+                                            <input matInput type="number"
+                                                formControlName="accidentalDeathBenefitOption">
+                                            <mat-error style="color:red" *ngIf="
+    coversFormGroup.get('accidentalDeathBenefitOption') &&
+    coversFormGroup.get('accidentalDeathBenefitOption').hasError('required')">
+                                                Accidental Death Benefit is required
+                                            </mat-error>
+
+                                            <mat-error style="color:red" *ngIf="
+    coversFormGroup.get('accidentalDeathBenefitOption') &&
+    coversFormGroup.get('accidentalDeathBenefitOption').hasError('min')">
+                                                Accidental Death Benefit must be greater than 0
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
 
                                 </div>
 
@@ -168,7 +214,7 @@
                                         (click)="calculateICICIPremium()">Recalculate</button>
                                     <button type="button" class="btn btn-primary mx-2" *ngIf="recalculateStatus"
                                         (click)="calculateICICIPremium()">Recalculating</button>
-                                    <button type="button" class="btn btn-primary" *ngIf="!recalculateStatus"
+                                    <button type="submit" class="btn btn-primary" *ngIf="!recalculateStatus"
                                         (click)="goToBasicDetails()">Continue</button>
                                 </div>
                             </form>

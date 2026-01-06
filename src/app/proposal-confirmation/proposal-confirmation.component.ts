@@ -13,26 +13,45 @@ export class ProposalConfirmationComponent implements OnInit {
   premiumJson: any;
   quoteJson: any;
   proposalJson: any;
-  quoteId:any;
-  userData:any;
+  quoteId: any;
+  userData: any;
   source_user = "100001";
   user_code = "100001";
-  nomineeDetails:any;
-  quoteUrl:any;
-   @ViewChild('shareDialogTemplate', { static: false }) shareDialogTemplate!: TemplateRef<any>;
+  nomineeDetails: any;
+  quoteUrl: any;
+  role_data: any;
+  role_type: any;
+  toast: any;
+  @ViewChild('shareDialogTemplate', { static: false }) shareDialogTemplate!: TemplateRef<any>;
   refEmailAddress: string = "";
-toastMessage = '';
-toastClass = 'bg-success';
+  toastMessage = '';
+  toastClass = 'bg-success';
   @ViewChild('confirmDialogTemplate', { static: false }) confirmDialogTemplate!: TemplateRef<any>;
-   @ViewChild('toastEl', { static: false }) toastEl: any;
-   copied = false;
-  constructor(private router: Router, public dialog: MatDialog,private _formBuilder: FormBuilder, private apiService: ApiService, private route: ActivatedRoute,) { }
+  @ViewChild('toastEl', { static: false }) toastEl: any;
+  copied = false;
+  constructor(private router: Router, public dialog: MatDialog, private _formBuilder: FormBuilder, private apiService: ApiService, private route: ActivatedRoute,) { }
 
   ngOnInit() {
     this.quoteId = this.route.snapshot.paramMap.get('quoteId');
     this.getProposalApi();
 
-      this.quoteUrl = window.location.href;
+    this.quoteUrl = window.location.href;
+    this.apiService.checkLoginType().subscribe({
+      next: (data: any) => {
+        if (data && data.status && data.user_json && data.user_json.role_type) {
+          this.role_data = data;
+          this.role_type = data.user_json.role_type;
+          console.log("Login type is:", this.role_type);
+        } else {
+          console.warn("Unexpected response:", data);
+          this.role_type = null;
+        }
+      },
+      error: (err) => {
+        console.error("Error checking login type:", err);
+        this.role_type = null;
+      }
+    });
 
   }
   getProposalApi() {
@@ -40,18 +59,18 @@ toastClass = 'bg-success';
       this.premiumJson = data.premiumJson;
       this.quoteJson = data.quoteJson;
       this.proposalJson = data.proposalJson;
-    
+
       // if(this.proposalJson != ""){
       //   this.userData = this.proposalJson.basicDetails;
       // }
       // else{
-        this.userData = this.quoteJson;
-        this.nomineeDetails = data.proposalJson.nomineeDetails;
-        this.refEmailAddress=this.userData.custEmail;
+      this.userData = this.quoteJson;
+      this.nomineeDetails = data.proposalJson.nomineeDetails;
+      this.refEmailAddress = this.userData.custEmail;
       // }
     });
   }
-   getGenderLabel(gender: string): string {
+  getGenderLabel(gender: string): string {
     if (!gender) return '';
     return gender.toLowerCase() == 'm' ? 'Male' :
       gender.toLowerCase() == 'f' ? 'Female' : gender;
@@ -60,7 +79,7 @@ toastClass = 'bg-success';
     if (value === null || value === undefined) return '';
     return Number(value).toLocaleString('en-IN');
   }
-  copyUrl(){
+  copyUrl() {
     //navigator.clipboard.writeText(window.location.href);
     navigator.clipboard.writeText(this.quoteUrl).then(() => {
       this.copied = true;
@@ -69,77 +88,93 @@ toastClass = 'bg-success';
       setTimeout(() => (this.copied = false), 2000);
     });
   }
-   openConfirmationDialog():void{
-     this.dialog.open(this.confirmDialogTemplate);
+  openConfirmationDialog(): void {
+    this.dialog.open(this.confirmDialogTemplate);
   }
-  redirectToPayment(){
-    if(this.premiumJson.provider_id !=2){
-      this.apiService.getIciciProposal( 
-      this.quoteJson,
-      this.proposalJson,
-      this.source_user,
-      this.user_code,
-      this.quoteId,
-    ).subscribe((url: string) => {
-      if (url) {
-        this.apiService.trackButton(this.quoteId,this.quoteId,4,3,window.location.href,'https://uatweb.finarray.in/php-services/life-services/service.php?action=TRACK_BUTTON').subscribe();
-        this.apiService.submitQuoteCrm(this.quoteJson,this.quoteJson,null,this.premiumJson).subscribe(data=>console.log(data));
-        const newTab = window.open('', '_blank');
-      // Redirect to the URL
-      newTab.location.href = url;
-      }
-    });
+    ngAfterViewInit(): void {
+    // optional: initialize the toast once after view is ready
+    const toastEl = document.getElementById('liveToast');
+    if (toastEl) {
+      this.toast = new bootstrap.Toast(toastEl);
     }
-     if(this.premiumJson.provider_id == 2){
-      this.apiService.submitQuoteCrm(this.quoteJson,this.quoteJson,this.quoteId,this.premiumJson).subscribe(data=>console.log(data));
-      this.apiService.trackButton(this.quoteId,this.quoteId,4,3,window.location.href,'https://uatweb.finarray.in/php-services/life-services/service.php?action=TRACK_BUTTON').subscribe();
-      window.open('https://blsht.in/BJAZLI/dCaWde', '_blank');
-     }
-    
   }
-  backToListing()
-  {
+  redirectToPayment() {
+
+    if (this.premiumJson.provider_id != 2 && this.role_data && this.role_data.status == true && this.role_type != '18') {
+      this.apiService.getIciciProposal(
+        this.quoteJson,
+        this.proposalJson,
+        this.source_user,
+        this.user_code,
+        this.quoteId,
+      ).subscribe((url: string) => {
+        if (url) {
+          this.apiService.trackButton(this.quoteId, this.quoteId, 4, 3, window.location.href, 'https://uatweb.finarray.in/php-services/life-services/service.php?action=TRACK_BUTTON').subscribe();
+          this.apiService.submitQuoteCrm(this.quoteJson, this.quoteJson, null, this.premiumJson).subscribe(data => console.log(data));
+          const newTab = window.open('', '_blank');
+          // Redirect to the URL
+          newTab.location.href = url;
+        }
+      });
+    }
+    if (this.premiumJson.provider_id == 2 && this.role_data && this.role_data.status == true && this.role_type != '18') {
+      this.apiService.submitQuoteCrm(this.quoteJson, this.quoteJson, this.quoteId, this.premiumJson).subscribe(data => console.log(data));
+      this.apiService.trackButton(this.quoteId, this.quoteId, 4, 3, window.location.href, 'https://uatweb.finarray.in/php-services/life-services/service.php?action=TRACK_BUTTON').subscribe();
+      window.open('https://blsht.in/BJAZLI/dCaWde', '_blank');
+    }
+    else {
+      if (!this.toast) {
+        const toastEl = document.getElementById('liveToast');
+        this.toast = new bootstrap.Toast(toastEl);
+      }
+      this.toast.show();
+
+    }
+
+  }
+  backToListing() {
     this.router.navigate(['/listing/qid', this.quoteId]);
   }
- backToProposal() {
-  this.router.navigate(
-    ['/proposal/qid', this.quoteId],
-    { queryParams: { tab: 1 } }  
-  );
-}
- backToProposalNominee() {
-  this.router.navigate(
-    ['/proposal/qid', this.quoteId],
-    { queryParams: { tab: 2 } }  
-  );
+  backToProposal() {
+    this.router.navigate(
+      ['/proposal/qid', this.quoteId],
+      { queryParams: { tab: 1 } }
+    );
+  }
+  backToProposalNominee() {
+    this.router.navigate(
+      ['/proposal/qid', this.quoteId],
+      { queryParams: { tab: 2 } }
+    );
   }
   openShareDialog(): void {
 
     this.dialog.open(this.shareDialogTemplate);
   }
+
   sendQuoteViaEmail() {
-  this.apiService.shareQuoteMail(this.quoteUrl, this.refEmailAddress)
-    .subscribe(
-      (res: any) => {
-        this.showEmailToast(res.message, res.status);
-      },
-      () => {
-        this.showEmailToast('Something went wrong. Please try again.', 'error');
-      }
-    );
+    this.apiService.shareQuoteMail(this.quoteUrl, this.refEmailAddress)
+      .subscribe(
+        (res: any) => {
+          this.showEmailToast(res.message, res.status);
+        },
+        () => {
+          this.showEmailToast('Something went wrong. Please try again.', 'error');
+        }
+      );
   }
   showEmailToast(message: string, status: string) {
-  this.toastMessage = message;
+    this.toastMessage = message;
 
-  // Change color based on status
-  this.toastClass = status === 'success' ? 'bg-success' : 'bg-danger';
+    // Change color based on status
+    this.toastClass = status === 'success' ? 'bg-success' : 'bg-danger';
 
-  const toast = new bootstrap.Toast(this.toastEl.nativeElement, {
-    delay: 3000
-  });
+    const toast = new bootstrap.Toast(this.toastEl.nativeElement, {
+      delay: 3000
+    });
 
-  toast.show();
-}
+    toast.show();
+  }
   //  calculateBajajPremium(){
   //   this.recalculateStatus = true;
   //   this.apiService.getQuotesList(

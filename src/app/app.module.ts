@@ -92,6 +92,7 @@ export function initConfig(cfg: ConfigServicesService) {
    		MatTableModule,
 		MatTabsModule,
    		TextMaskModule,
+		MatSliderModule,     
 		DeviceDetectorModule.forRoot(),
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 	],

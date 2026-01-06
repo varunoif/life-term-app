@@ -485,9 +485,10 @@ p.inc_days {
         width: 133.33333%;
     }
 
-    ::ng-deep .mat-input-element {
-        font-size: 14px;
-    }
+    // ::ng-deep .mat-input-element {
+    //     font-size: 14px;
+    //     font-weight: 700;
+    // }
 }
 
     ::ng-deep .mat-dialog-container{
@@ -515,4 +516,4 @@ p.inc_days {
     mat-label{
     color: #00008b;
     font-weight: bold;
-}
+    }

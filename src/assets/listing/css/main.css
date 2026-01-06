@@ -190,8 +190,8 @@ ul.selectbtn{margin: 0; padding: 0; float: left;}
   font-weight: bold;} */
 
 .add {padding-top: 5px;}
-/deep/.mat-dialog-container label{font-size: 13px;
-  padding-bottom: 12px;padding-top: 12px;}
+/* /deep/.mat-dialog-container label{font-size: 13px;
+  padding-bottom: 12px;padding-top: 12px;} */
   /* /deep/  .mat-dialog-title {font-size: 13px;
     padding-bottom: 12px;} */
    

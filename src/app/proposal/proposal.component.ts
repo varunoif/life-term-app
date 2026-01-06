@@ -32,6 +32,7 @@ export class ProposalComponent implements OnInit {
   selectedDocument: any = "Pan Card";
   recalculateStatus = false;
   planVariantExsist = false;
+  sumAssured: any;
   constructor(private http: HttpClient, private _formBuilder: FormBuilder, private apiService: ApiService, private route: ActivatedRoute, private router: Router,) { }
 
   ngOnInit() {
@@ -43,7 +44,11 @@ export class ProposalComponent implements OnInit {
     });
     this.coversFormGroup = this._formBuilder.group({
       criticalIllness: [false],
-      criticalIllnessOption: ['']
+      criticalIllnessOption: [''],
+      // sumAssured: [false],
+      sumInsuredOption: [null],
+      accidentalDeathBenefit:[false],
+      accidentalDeathBenefitOption:[null]
     })
     this.detailsFormGroup = this._formBuilder.group({
       custName: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^(\w.+\s).+$/), this.noWhitespaceValidator]],
@@ -74,43 +79,73 @@ export class ProposalComponent implements OnInit {
     });
 
     this.getUserDetails();
-    this.coversFormGroup = this._formBuilder.group({
-      criticalIllness: [false],
-      criticalIllnessOption: ['']
-    });
+    // this.coversFormGroup = this._formBuilder.group({
+    //   criticalIllness: [false],
+    //   criticalIllnessOption: [''],
+    //   sumAssured:[false],
+    //   sumAssuredOption:[10],
+    // });
     this.getProposalApi();
-    const criticalIllnessCtrl = this.coversFormGroup.get('criticalIllness');
-    const optionCtrl = this.coversFormGroup.get('criticalIllnessOption');
+  const criticalIllnessCtrl = this.coversFormGroup.get('criticalIllness');
+const criticalOptionCtrl = this.coversFormGroup.get('criticalIllnessOption');
+const sumInsuredCtrl = this.coversFormGroup.get('sumInsuredOption');
 
-    if (criticalIllnessCtrl && optionCtrl) {
-      criticalIllnessCtrl.valueChanges.subscribe((checked: boolean) => {
+if (criticalIllnessCtrl && criticalOptionCtrl && sumInsuredCtrl) {
+  criticalIllnessCtrl.valueChanges.subscribe((checked: boolean) => {
 
-        if (checked) {
-          optionCtrl.setValidators([Validators.required]);
-        } else {
-          optionCtrl.clearValidators();
-          optionCtrl.reset();
-        }
+    if (checked) {
+      criticalOptionCtrl.setValidators([Validators.required]);
+      sumInsuredCtrl.setValidators([Validators.required, Validators.min(1)]);
+    } else {
+      criticalOptionCtrl.clearValidators();
+      criticalOptionCtrl.reset();
 
-        optionCtrl.updateValueAndValidity();
-      });
+      sumInsuredCtrl.clearValidators();
+      sumInsuredCtrl.reset();
     }
-    this.coversFormGroup.get('criticalIllness').valueChanges.subscribe((isChecked: boolean) => {
 
-      const optionCtrl = this.coversFormGroup.get('criticalIllnessOption');
+    criticalOptionCtrl.updateValueAndValidity();
+    sumInsuredCtrl.updateValueAndValidity();
+  });
+}
 
-      if (isChecked === true) {
-        optionCtrl.setValidators([Validators.required]);
-      } else {
-        optionCtrl.clearValidators();
-        optionCtrl.setValue('');
-      }
 
-      optionCtrl.updateValueAndValidity();
-      // if(this.providerId == 2){
-      //   this.calculateBajajPremium();
-      // }
-    });
+/* =======================
+   ACCIDENTAL DEATH BENEFIT
+======================= */
+const accidentCtrl = this.coversFormGroup.get('accidentalDeathBenefit');
+const accidentOptionCtrl = this.coversFormGroup.get('accidentalDeathBenefitOption');
+
+if (accidentCtrl && accidentOptionCtrl) {
+  accidentCtrl.valueChanges.subscribe((checked: boolean) => {
+
+    if (checked) {
+      accidentOptionCtrl.setValidators([Validators.required, Validators.min(1)]);
+    } else {
+      accidentOptionCtrl.clearValidators();
+      accidentOptionCtrl.reset();
+    }
+
+    accidentOptionCtrl.updateValueAndValidity();
+  });
+}
+    // const sumAssuredCtrl = this.coversFormGroup.get('sumAssured');
+    // const sumAssuredOptionCtrl = this.coversFormGroup.get('sumAssuredOption');
+
+    // if (sumAssuredCtrl && sumAssuredOptionCtrl) {
+    //   sumAssuredCtrl.valueChanges.subscribe((checked: boolean) => {
+    //     if (checked) {
+    //       sumAssuredOptionCtrl.setValidators([
+    //         Validators.required,
+    //         Validators.min(1)   // optional but recommended
+    //       ]);
+    //     } else {
+    //       sumAssuredOptionCtrl.clearValidators();
+    //       sumAssuredOptionCtrl.reset();
+    //     }
+    //     sumAssuredOptionCtrl.updateValueAndValidity();
+    //   });
+    // }
   }
   changeSelectedDocument(event) {
     console.log(event.value);
@@ -182,6 +217,9 @@ export class ProposalComponent implements OnInit {
         this.coversFormGroup.patchValue({
           criticalIllness: this.proposalJson.covers.criticalIllness,
           criticalIllnessOption: this.proposalJson.covers.criticalIllnessOption,
+          sumInsuredOption: this.proposalJson.covers.sumInsuredOption,
+          accidentalDeathBenefit: this.proposalJson.covers.accidentalDeathBenefit,
+          accidentalDeathBenefitOption: this.proposalJson.covers.accidentalDeathBenefitOption,
 
         });
 
@@ -205,12 +243,29 @@ export class ProposalComponent implements OnInit {
   }
   goToBasicDetails() {
     if (this.coversFormGroup.valid) {
+      
       this.selectedTabIndex = this.selectedTabIndex + 1; // 0 = Covers, 1 = Basic Details
       this.storeProposal();
     }
   }
   goToNomineeDetails() {
+    
+  if (this.providerId !== 2) {
+    const custExistingCtrl = this.detailsFormGroup.get('custExisting');
+    const custFirstBuyerCtrl = this.detailsFormGroup.get('custFirstBuyer');
+
+    if (custExistingCtrl) {
+      custExistingCtrl.clearValidators();
+      custExistingCtrl.updateValueAndValidity();
+    }
+
+    if (custFirstBuyerCtrl) {
+      custFirstBuyerCtrl.clearValidators();
+      custFirstBuyerCtrl.updateValueAndValidity();
+    }
+  }
     if (this.detailsFormGroup.valid) {
+      console.log('clicked');
       this.selectedTabIndex = this.selectedTabIndex + 1; // 0 = Covers, 1 = Basic Details
       this.storeProposal();
     }
@@ -275,6 +330,18 @@ export class ProposalComponent implements OnInit {
     }
 
   }
+  // formatLabel(value: number): string {
+  //   if (value >= 10000000) {
+  //     return Math.round(value / 10000000) + ' Cr';
+  //   }
+  //   if (value >= 100000) {
+  //     return Math.round(value / 100000) + ' L';
+  //   }
+  //   if (value >= 1000) {
+  //     return Math.round(value / 1000) + ' K';
+  //   }
+  //   return value.toString();
+  // }
   // navigateToConfirmation() {
   //   if (this.providerId != 2 && this.contactFormGroup.valid) {
   //     this.storeProposal();

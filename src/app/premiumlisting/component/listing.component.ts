@@ -695,11 +695,11 @@ toastClass = 'bg-success';
     }
 
     //if(provider_id == 7  && this.role_data && this.role_data.status == true && this.role_type != '18'){
-  //  if (provider_id == 7) {
-  //     this.apiService.storeSubProposal('', this.quoteJson, this.filterFormGroup.getRawValue(), '', premiumItem, 'https://uatweb.finarray.in/php-services/life-services/service.php?action=STORE_SUB_PROPOSAL').subscribe(data => console.log(data));
-  //     this.apiService.trackButton(this.quoteID,this.quoteID,2,1,window.location.href,'https://uatweb.finarray.in/php-services/life-services/service.php?action=TRACK_BUTTON').subscribe();
-  //     this.router.navigate(['/proposal/qid', this.quoteID]);
-  //   }
+   if (provider_id == 7) {
+      this.apiService.storeSubProposal('', this.quoteJson, this.filterFormGroup.getRawValue(), '', premiumItem, 'https://uatweb.finarray.in/php-services/life-services/service.php?action=STORE_SUB_PROPOSAL').subscribe(data => console.log(data));
+      this.apiService.trackButton(this.quoteID,this.quoteID,2,1,window.location.href,'https://uatweb.finarray.in/php-services/life-services/service.php?action=TRACK_BUTTON').subscribe();
+      this.router.navigate(['/proposal/qid', this.quoteID]);
+    }
     else {
       if (!this.toast) {
         const toastEl = document.getElementById('liveToast');
